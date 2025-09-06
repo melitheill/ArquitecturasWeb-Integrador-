@@ -21,4 +21,15 @@ public class ClienteDAO {
             System.out.println( idCliente + " " + nombre + " " + email);
         }
     }
+
+    public void insertCliente(int idCliente, String nombre, String email) throws SQLException {
+        String insert = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
+        PreparedStatement ps = this.conn.prepareStatement(insert);
+        ps.setInt(1, idCliente);
+        ps.setString(2, nombre);
+        ps.setString(3, email);
+        ps.executeUpdate();
+        ps.close();
+        conn.commit();
+    }
 }

@@ -7,13 +7,14 @@ import utils.HelperMySQL;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
-        HelperMySQL db = new HelperMySQL();
-        db.createTable();
-
+    public static void main(String[] args) throws Exception {
         AbstractFactory chosenFactory = AbstractFactory.getDAOFactory(1);
         ClienteDAO cliente = chosenFactory.getClienteDAO();
-        cliente.selectAll();
-
+        HelperMySQL db = new HelperMySQL(cliente);
+//        db.dropTable();
+        db.createTable();
+        db.populateDB();
+//        cliente.selectAll();
+//        cliente.insertCliente(2, "Meli", "meli@meli.meli");
     }
 }
