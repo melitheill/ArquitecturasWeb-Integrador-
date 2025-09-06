@@ -60,15 +60,15 @@ public class MySQLFactory extends AbstractFactory {
     }
 
     public ClienteDAO getClienteDAO(){
-        return new ClienteDAO();
+        return new ClienteDAO(createConnection());
     };
     public FacturaDAO getFacturaDAO(){
-        return new FacturaDAO();
+        return new FacturaDAO(createConnection());
     };
     public ProductoDAO getProductoDAO(){
-        return new ProductoDAO();
+        return new ProductoDAO(createConnection());
     };
     public Producto_FacturaDAO getProducto_FacturaDAO(){
-        return new Producto_FacturaDAO();
+        return new Producto_FacturaDAO(createConnection());
     };
 }
