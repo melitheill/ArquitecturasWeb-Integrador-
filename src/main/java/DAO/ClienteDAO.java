@@ -12,17 +12,6 @@ public class ClienteDAO {
     public ClienteDAO(Connection conn) {
         this.conn = conn;
     }
-    public void selectAll() throws SQLException {
-        String select = "SELECT * FROM Cliente";
-        PreparedStatement ps = this.conn.prepareStatement(select);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            int idCliente = rs.getInt("idCliente");
-            String nombre = rs.getString("nombre");
-            String email = rs.getString("email");
-            System.out.println( idCliente + " " + nombre + " " + email);
-        }
-    }
 
     public void insertCliente(int idCliente, String nombre, String email) throws SQLException {
         String insert = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";

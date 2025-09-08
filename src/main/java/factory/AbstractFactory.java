@@ -19,6 +19,7 @@ public abstract class AbstractFactory {
     public static AbstractFactory getDAOFactory(int whichFactory) {
         switch (whichFactory) {
             case MYSQL_JDBC : return MySQLFactory.getInstance();
+            case DERBY_JDBC : return null;
             default: return null;
         }
     }
