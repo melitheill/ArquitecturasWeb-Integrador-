@@ -1,9 +1,9 @@
 package factory;
 
-import DAO.ClienteDAO;
-import DAO.FacturaDAO;
-import DAO.ProductoDAO;
-import DAO.Producto_FacturaDAO;
+import DAO.MySQL.ClienteMySQL;
+import DAO.MySQL.FacturaMySQL;
+import DAO.MySQL.ProductoMySQL;
+import DAO.MySQL.Producto_FacturaMySQL;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -59,16 +59,16 @@ public class MySQLFactory extends AbstractFactory {
         }
     }
 
-    public ClienteDAO getClienteDAO(){
-        return new ClienteDAO(createConnection());
+    public ClienteMySQL getClienteDAO(){
+        return new ClienteMySQL(createConnection());
     };
-    public FacturaDAO getFacturaDAO(){
-        return new FacturaDAO(createConnection());
+    public FacturaMySQL getFacturaDAO(){
+        return new FacturaMySQL(createConnection());
     };
-    public ProductoDAO getProductoDAO(){
-        return new ProductoDAO(createConnection());
+    public ProductoMySQL getProductoDAO(){
+        return new ProductoMySQL(createConnection());
     };
-    public Producto_FacturaDAO getProducto_FacturaDAO(){
-        return new Producto_FacturaDAO(createConnection());
+    public Producto_FacturaMySQL getProducto_FacturaDAO(){
+        return new Producto_FacturaMySQL(createConnection());
     };
 }

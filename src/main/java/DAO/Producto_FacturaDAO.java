@@ -1,11 +1,8 @@
 package DAO;
 
-import java.sql.Connection;
+import entities.Producto_Factura;
 
-public class Producto_FacturaDAO {
-    private Connection conn;
+import java.sql.SQLException;
 
-    public Producto_FacturaDAO(Connection conn) {
-        this.conn = conn;
-    }
+public interface Producto_FacturaDAO extends CRUD<Producto_Factura> {
 }

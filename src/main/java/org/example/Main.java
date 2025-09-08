@@ -1,15 +1,13 @@
 package org.example;
 
-import DAO.ClienteDAO;
+import DAO.MySQL.ClienteMySQL;
 import factory.AbstractFactory;
 import utils.HelperMySQL;
-
-import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         AbstractFactory chosenFactory = AbstractFactory.getDAOFactory(1);
-        ClienteDAO cliente = chosenFactory.getClienteDAO();
+        ClienteMySQL cliente = chosenFactory.getClienteDAO();
         HelperMySQL db = new HelperMySQL();
         db.dropTables();
         db.createTables();

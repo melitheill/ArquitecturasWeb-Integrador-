@@ -1,6 +1,7 @@
 package utils;
 
-import DAO.ClienteDAO;
+import DAO.MySQL.ClienteMySQL;
+import entities.Cliente;
 import factory.MySQLFactory;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -9,12 +10,11 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 public class HelperMySQL {
     private Connection conn = null;
-    private ClienteDAO clienteDAO;
+    private ClienteMySQL clienteDAO;
 
     public HelperMySQL() {
         this.conn = MySQLFactory.createConnection();
@@ -70,13 +70,14 @@ public class HelperMySQL {
         return csvParser.getRecords();
     }
 
-    public void importData(ClienteDAO clienteDAO) throws Exception {
+    public void importData(ClienteMySQL clienteDAO) throws Exception {
         for(CSVRecord record : getData("clientes.csv")){
             int idCliente = Integer.parseInt(record.get(0));
             String nombre = record.get(1);
             String email = record.get(2);
             if(record.size() >= 3){
-                clienteDAO.insertCliente(idCliente, nombre, email);
+
+                clienteDAO.insertCliente(new Cliente(idCliente, nombre, email));
             }
         }
     }

@@ -1,18 +1,18 @@
 package factory;
 
-import DAO.ClienteDAO;
-import DAO.FacturaDAO;
-import DAO.ProductoDAO;
-import DAO.Producto_FacturaDAO;
+import DAO.MySQL.ClienteMySQL;
+import DAO.MySQL.FacturaMySQL;
+import DAO.MySQL.ProductoMySQL;
+import DAO.MySQL.Producto_FacturaMySQL;
 
 public abstract class AbstractFactory {
     public static final int MYSQL_JDBC = 1;
     public static final int DERBY_JDBC = 2;
 
-    public abstract ClienteDAO getClienteDAO();
-    public abstract FacturaDAO getFacturaDAO();
-    public abstract ProductoDAO getProductoDAO();
-    public abstract Producto_FacturaDAO getProducto_FacturaDAO();
+    public abstract ClienteMySQL getClienteDAO();
+    public abstract FacturaMySQL getFacturaDAO();
+    public abstract ProductoMySQL getProductoDAO();
+    public abstract Producto_FacturaMySQL getProducto_FacturaDAO();
 
 
 
