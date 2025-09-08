@@ -1,6 +1,7 @@
 package utils;
 
 import DAO.ClienteDAO;
+import factory.MySQLFactory;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -15,10 +16,8 @@ public class HelperMySQL {
     private Connection conn = null;
     private ClienteDAO clienteDAO;
 
-    public HelperMySQL(ClienteDAO clienteDAO) {//Constructor
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String uri = "jdbc:mysql://localhost:3306/arquiDB";
-        this.clienteDAO = clienteDAO;
+    public HelperMySQL() {
+        this.conn = MySQLFactory.createConnection();
 
 //        try {
 //            Class.forName(driver).getDeclaredConstructor().newInstance();
@@ -28,12 +27,12 @@ public class HelperMySQL {
 //            System.exit(1);
 //        }
 
-        try {
-            conn = DriverManager.getConnection(uri, "root", "");
-            conn.setAutoCommit(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            conn = DriverManager.getConnection(uri, "root", "");
+//            conn.setAutoCommit(false);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void closeConnection() {
@@ -41,16 +40,20 @@ public class HelperMySQL {
             try {
                 conn.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    public void dropTable() throws SQLException {
-        String sql = "DROP TABLE Cliente";
-        this.conn.prepareStatement(sql).execute();
+    public void dropTables() throws SQLException {
+        try{
+            String sql = "DROP TABLE Cliente";
+            this.conn.prepareStatement(sql).execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
-    public void createTable() throws SQLException {
+    public void createTables() throws SQLException {
         String tablaPersona  = "CREATE TABLE IF NOT EXISTS Cliente (" +
                 "idCliente INT PRIMARY KEY," +
                 "nombre VARCHAR(500)," +
@@ -64,11 +67,10 @@ public class HelperMySQL {
         String[] header = {};  // Puedes configurar tu encabezado personalizado aquí si es necesario
         CSVParser csvParser = CSVFormat.EXCEL.withHeader(header).parse(in);
 
-        Iterable<CSVRecord> records = csvParser.getRecords();
-        return records;
+        return csvParser.getRecords();
     }
 
-    public void populateDB() throws Exception {
+    public void importData(ClienteDAO clienteDAO) throws Exception {
         for(CSVRecord record : getData("clientes.csv")){
             int idCliente = Integer.parseInt(record.get(0));
             String nombre = record.get(1);
