@@ -1,7 +1,13 @@
 package utils;
 
 import DAO.MySQL.ClienteMySQL;
+import DAO.MySQL.FacturaMySQL;
+import DAO.MySQL.ProductoMySQL;
+import DAO.MySQL.Producto_FacturaMySQL;
 import entities.Cliente;
+import entities.Factura;
+import entities.Producto;
+import entities.Producto_Factura;
 import factory.MySQLFactory;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -18,21 +24,6 @@ public class HelperMySQL {
 
     public HelperMySQL() {
         this.conn = MySQLFactory.createConnection();
-
-//        try {
-//            Class.forName(driver).getDeclaredConstructor().newInstance();
-//        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-//                 | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-
-//        try {
-//            conn = DriverManager.getConnection(uri, "root", "");
-//            conn.setAutoCommit(false);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     public void closeConnection() {
@@ -47,18 +38,45 @@ public class HelperMySQL {
 
     public void dropTables() throws SQLException {
         try{
-            String sql = "DROP TABLE Cliente";
-            this.conn.prepareStatement(sql).execute();
+            String dropFacturaProducto = "DROP TABLE Factura_Producto;";
+            String dropCliente = "DROP TABLE Cliente";
+            String dropProducto = "DROP TABLE Producto";
+            String dropFactura = "DROP TABLE Factura";
+
+            this.conn.prepareStatement(dropFacturaProducto).execute();
+            this.conn.prepareStatement(dropFactura).execute();
+            this.conn.prepareStatement(dropCliente).execute();
+            this.conn.prepareStatement(dropProducto).execute();
+            this.conn.commit();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
     public void createTables() throws SQLException {
-        String tablaPersona  = "CREATE TABLE IF NOT EXISTS Cliente (" +
+        String tablaCliente  = "CREATE TABLE IF NOT EXISTS Cliente (" +
                 "idCliente INT PRIMARY KEY," +
                 "nombre VARCHAR(500)," +
                 "email VARCHAR(150));";
-        this.conn.prepareStatement(tablaPersona).execute();
+        this.conn.prepareStatement(tablaCliente).execute();
+        String tablaFactura = "CREATE TABLE IF NOT EXISTS Factura (" +
+                "idFactura INT PRIMARY KEY," +
+                "idCliente INT," +
+                "FOREIGN KEY(idCliente) REFERENCES Cliente(idCliente));";
+        this.conn.prepareStatement(tablaFactura).execute();
+        String tablaProducto = "CREATE TABLE IF NOT EXISTS Producto (" +
+                "idProducto INT PRIMARY KEY," +
+                "nombre VARCHAR(45)," +
+                "valor FLOAT);";
+        this.conn.prepareStatement(tablaProducto).execute();
+        String tablaFacturaProducto = "CREATE TABLE IF NOT EXISTS Factura_Producto (" +
+                "idFactura INT," +
+                "idProducto INT," +
+                "cantidad INT," +
+                "PRIMARY KEY(idFactura,idProducto)," +
+                "FOREIGN KEY(idProducto) REFERENCES Producto(idProducto)," +
+                "FOREIGN KEY(idFactura) REFERENCES Factura(idFactura));";
+        this.conn.prepareStatement(tablaFacturaProducto).execute();
+        this.conn.commit();
     }
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
@@ -70,14 +88,37 @@ public class HelperMySQL {
         return csvParser.getRecords();
     }
 
-    public void importData(ClienteMySQL clienteDAO) throws Exception {
+    public void importData(ClienteMySQL cliente, FacturaMySQL factura, ProductoMySQL producto, Producto_FacturaMySQL productoFactura) throws Exception {
         for(CSVRecord record : getData("clientes.csv")){
             int idCliente = Integer.parseInt(record.get(0));
             String nombre = record.get(1);
             String email = record.get(2);
             if(record.size() >= 3){
 
-                clienteDAO.insertCliente(new Cliente(idCliente, nombre, email));
+                cliente.insert(new Cliente(idCliente, nombre, email));
+            }
+        }
+        for(CSVRecord record : getData("productos.csv")){
+            int idProducto = Integer.parseInt(record.get(0));
+            String nombre = record.get(1);
+            float valor = Float.parseFloat(record.get(2));
+            if(record.size() >= 2){
+                producto.insert(new Producto(idProducto, nombre, valor));
+            }
+        }
+        for(CSVRecord record : getData("facturas.csv")){
+            int idFactura = Integer.parseInt(record.get(0));
+            int idCliente = Integer.parseInt(record.get(1));
+            if(record.size() >= 2){
+                factura.insert(new Factura(idFactura, idCliente));
+            }
+        }
+        for(CSVRecord record : getData("facturas-productos.csv")){
+            int idFactura = Integer.parseInt(record.get(0));
+            int idProducto = Integer.parseInt(record.get(1));
+            int cantidad = Integer.parseInt(record.get(2));
+            if(record.size() >= 3){
+                productoFactura.insert(new Producto_Factura(idFactura, idProducto, cantidad));
             }
         }
     }

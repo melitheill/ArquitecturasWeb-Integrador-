@@ -11,7 +11,7 @@ public class Main {
         HelperMySQL db = new HelperMySQL();
         db.dropTables();
         db.createTables();
-        db.importData(cliente);
+//        db.importData(cliente);
 //        cliente.selectAll();
 //        cliente.insertCliente(2, "Meli", "meli@meli.meli");z
     }
