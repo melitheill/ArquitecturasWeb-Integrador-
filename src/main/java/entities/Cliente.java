@@ -5,7 +5,7 @@ public class Cliente {
     private String nombre;
     private String email;
 
-    public Cliente(Integer idCliente, String nombre, String email) {
+    public Cliente(int idCliente, String nombre, String email) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.email = email;

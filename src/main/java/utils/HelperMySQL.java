@@ -1,9 +1,8 @@
 package utils;
 
-import DAO.MySQL.ClienteMySQL;
-import DAO.MySQL.FacturaMySQL;
-import DAO.MySQL.ProductoMySQL;
-import DAO.MySQL.Producto_FacturaMySQL;
+import DAO.ClienteDAO;
+import DAO.FacturaDAO;
+import DAO.ProductoDAO;
 import entities.Cliente;
 import entities.Factura;
 import entities.Producto;
@@ -20,7 +19,6 @@ import java.sql.*;
 
 public class HelperMySQL {
     private Connection conn = null;
-    private ClienteMySQL clienteDAO;
 
     public HelperMySQL() {
         this.conn = MySQLFactory.createConnection();
@@ -88,13 +86,12 @@ public class HelperMySQL {
         return csvParser.getRecords();
     }
 
-    public void importData(ClienteMySQL cliente, FacturaMySQL factura, ProductoMySQL producto, Producto_FacturaMySQL productoFactura) throws Exception {
+    public void importData(ClienteDAO cliente, ProductoDAO producto, FacturaDAO factura) throws Exception {
         for(CSVRecord record : getData("clientes.csv")){
             int idCliente = Integer.parseInt(record.get(0));
             String nombre = record.get(1);
             String email = record.get(2);
             if(record.size() >= 3){
-
                 cliente.insert(new Cliente(idCliente, nombre, email));
             }
         }
@@ -113,13 +110,13 @@ public class HelperMySQL {
                 factura.insert(new Factura(idFactura, idCliente));
             }
         }
-        for(CSVRecord record : getData("facturas-productos.csv")){
-            int idFactura = Integer.parseInt(record.get(0));
-            int idProducto = Integer.parseInt(record.get(1));
-            int cantidad = Integer.parseInt(record.get(2));
-            if(record.size() >= 3){
-                productoFactura.insert(new Producto_Factura(idFactura, idProducto, cantidad));
-            }
-        }
+//        for(CSVRecord record : getData("facturas-productos.csv")){
+//            int idFactura = Integer.parseInt(record.get(0));
+//            int idProducto = Integer.parseInt(record.get(1));
+//            int cantidad = Integer.parseInt(record.get(2));
+//            if(record.size() >= 3){
+//                productoFactura.insert(new Producto_Factura(idFactura, idProducto, cantidad));
+//            }
+//        }
     }
 }

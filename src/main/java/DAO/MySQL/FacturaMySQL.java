@@ -15,26 +15,35 @@ public class FacturaMySQL implements FacturaDAO {
     }
 
     public void insert(Factura factura) throws SQLException {
-        String insert = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
-        PreparedStatement ps = this.conn.prepareStatement(insert);
-        ps.setInt(1, factura.getIdFactura());
-        ps.setInt(2, factura.getIdCliente());
-        ps.executeUpdate();
-        ps.close();
-        conn.commit();
+        try{
+            String insert = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
+            PreparedStatement ps = this.conn.prepareStatement(insert);
+            ps.setInt(1, factura.getIdFactura());
+            ps.setInt(2, factura.getIdCliente());
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+        } catch (SQLException e) {
+            System.out.println("Error al insertar la factura");
+        }
     }
 
     public boolean delete(int idFactura) throws SQLException {
         if (find(idFactura) == null){
             return false;
         }
-        String delete = "DELETE FROM Factura WHERE idFactura = ?";
-        PreparedStatement ps = this.conn.prepareStatement(delete);
-        ps.setInt(1, idFactura);
-        ps.executeUpdate();
-        ps.close();
-        conn.commit();
-        return true;
+        try{
+            String delete = "DELETE FROM Factura WHERE idFactura = ?";
+            PreparedStatement ps = this.conn.prepareStatement(delete);
+            ps.setInt(1, idFactura);
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar la factura");
+            return false;
+        }
     }
 
     public Factura find(int idFactura) throws SQLException {
@@ -55,13 +64,18 @@ public class FacturaMySQL implements FacturaDAO {
         if (find(factura.getIdFactura()) == null){
             return false;
         }
-        String update = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
-        PreparedStatement ps = this.conn.prepareStatement(update);
-        ps.setInt(1, factura.getIdFactura());
-        ps.setInt(2, factura.getIdCliente());
-        ps.executeUpdate();
-        ps.close();
-        conn.commit();
-        return true;
+        try{
+            String update = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
+            PreparedStatement ps = this.conn.prepareStatement(update);
+            ps.setInt(1, factura.getIdCliente());
+            ps.setInt(2, factura.getIdFactura());
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar la factura");
+            return false;
+        }
     }
 }

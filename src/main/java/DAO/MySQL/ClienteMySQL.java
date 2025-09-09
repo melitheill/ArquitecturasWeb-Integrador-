@@ -15,28 +15,37 @@ public class ClienteMySQL implements ClienteDAO {
         this.conn = conn;
     }
 
-    public void insert(Cliente cliente) throws SQLException {
-        String insert = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
-        PreparedStatement ps = this.conn.prepareStatement(insert);
-        ps.setInt(1, cliente.getIdCliente());
-        ps.setString(2, cliente.getNombre());
-        ps.setString(3, cliente.getEmail());
-        ps.executeUpdate();
-        ps.close();
-        conn.commit();
+    public void insert(Cliente cliente) {
+        try{
+            String insert = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
+            PreparedStatement ps = this.conn.prepareStatement(insert);
+            ps.setInt(1, cliente.getIdCliente());
+            ps.setString(2, cliente.getNombre());
+            ps.setString(3, cliente.getEmail());
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+        } catch (SQLException e) {
+            System.out.println("Error al insertar el cliente");
+        }
     }
 
     public boolean delete(int idCliente) throws SQLException {
         if (find(idCliente) == null){
             return false;
         }
-        String delete = "DELETE FROM Cliente WHERE idCliente = ?";
-        PreparedStatement ps = this.conn.prepareStatement(delete);
-        ps.setInt(1, idCliente);
-        ps.executeUpdate();
-        ps.close();
-        conn.commit();
-        return true;
+        try{
+            String delete = "DELETE FROM Cliente WHERE idCliente = ?";
+            PreparedStatement ps = this.conn.prepareStatement(delete);
+            ps.setInt(1, idCliente);
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+            return true;
+        } catch (SQLException e){
+            System.out.println("Error al eliminar el cliente");
+            return false;
+        }
     }
 
     public Cliente find(int idCliente) throws SQLException {
@@ -48,10 +57,8 @@ public class ClienteMySQL implements ClienteDAO {
         if (rs.next()) {
             String nombre = rs.getString(2);
             String email = rs.getString(3);
-
             cliente = new Cliente(idCliente, nombre, email);
         }
-
         return cliente;
     }
 
@@ -59,15 +66,20 @@ public class ClienteMySQL implements ClienteDAO {
         if (find(cliente.getIdCliente()) == null){
             return false;
         }
-        String update = "UPDATE Cliente SET nombre = ?, email = ? WHERE idCliente = ?";
-        PreparedStatement ps = this.conn.prepareStatement(update);
-        ps.setString(1, cliente.getNombre());
-        ps.setString(2, cliente.getEmail());
-        ps.setInt(3, cliente.getIdCliente());
-        ps.executeUpdate();
-        ps.close();
-        conn.commit();
-        return true;
+        try{
+            String update = "UPDATE Cliente SET nombre = ?, email = ? WHERE idCliente = ?";
+            PreparedStatement ps = this.conn.prepareStatement(update);
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getEmail());
+            ps.setInt(3, cliente.getIdCliente());
+            ps.executeUpdate();
+            ps.close();
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el cliente");
+            return false;
+        }
     }
 
     public List<Cliente> getClientesByFacturacion() throws SQLException {
