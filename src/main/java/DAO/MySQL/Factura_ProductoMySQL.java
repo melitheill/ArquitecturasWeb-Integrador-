@@ -38,7 +38,7 @@ public class Factura_ProductoMySQL implements Factura_ProductoDAO {
             return false;
         }
         try {
-            String delete = "DELETE FROM Factura_Producto WHERE idFactura = ?, idProducto = ?";
+            String delete = "DELETE FROM Factura_Producto WHERE idFactura = ? AND idProducto = ?";
             PreparedStatement ps = this.conn.prepareStatement(delete);
             ps.setInt(1, factura_producto.getIdFactura());
             ps.setInt(2, factura_producto.getIdProducto());
@@ -58,7 +58,7 @@ public class Factura_ProductoMySQL implements Factura_ProductoDAO {
             return false;
         }
         try{
-            String update = "UPDATE Factura_Producto SET cantidad = ? WHERE idFactura = ?, idProducto = ?";
+            String update = "UPDATE Factura_Producto SET cantidad = ? WHERE idFactura = ? AND idProducto = ?";
             PreparedStatement ps = this.conn.prepareStatement(update);
             ps.setInt(1, facturaProducto.getCantidad());
             ps.setInt(2, facturaProducto.getIdFactura());
@@ -76,7 +76,7 @@ public class Factura_ProductoMySQL implements Factura_ProductoDAO {
     @Override
     public Factura_Producto find(Factura_Producto factura_producto) throws SQLException {
         Factura_Producto fp  = null;
-        String select = "SELECT * FROM Factura_Producto WHERE idFactura = ?, idProducto = ?";
+        String select = "SELECT * FROM Factura_Producto WHERE idFactura = ? AND idProducto = ?";
         PreparedStatement ps = this.conn.prepareStatement(select);
         ps.setInt(1, factura_producto.getIdFactura());
         ps.setInt(2, factura_producto.getIdProducto());

@@ -2,9 +2,11 @@ package utils;
 
 import DAO.ClienteDAO;
 import DAO.FacturaDAO;
+import DAO.Factura_ProductoDAO;
 import DAO.ProductoDAO;
 import entities.Cliente;
 import entities.Factura;
+import entities.Factura_Producto;
 import entities.Producto;
 import factory.MySQLFactory;
 import org.apache.commons.csv.CSVFormat;
@@ -33,7 +35,8 @@ public class HelperMySQL {
         }
     }
 
-    public void dropTables() throws SQLException {
+    public void dropTables() {
+        System.out.println("Eliminando tablas...");
         try{
             String dropFacturaProducto = "DROP TABLE Factura_Producto;";
             String dropCliente = "DROP TABLE Cliente";
@@ -50,6 +53,7 @@ public class HelperMySQL {
         }
     }
     public void createTables() throws SQLException {
+        System.out.println("Creando tablas...");
         String tablaCliente  = "CREATE TABLE IF NOT EXISTS Cliente (" +
                 "idCliente INT PRIMARY KEY," +
                 "nombre VARCHAR(500)," +
@@ -85,7 +89,8 @@ public class HelperMySQL {
         return csvParser.getRecords();
     }
 
-    public void importData(ClienteDAO cliente, ProductoDAO producto, FacturaDAO factura) throws Exception {
+    public void importData(ClienteDAO cliente, ProductoDAO producto, FacturaDAO factura, Factura_ProductoDAO factura_producto) throws Exception {
+        System.out.println("Cargando datos. La opeacion puede demorar.");
         for(CSVRecord record : getData("clientes.csv")){
             int idCliente = Integer.parseInt(record.get(0));
             String nombre = record.get(1);
@@ -109,13 +114,14 @@ public class HelperMySQL {
                 factura.insert(new Factura(idFactura, idCliente));
             }
         }
-//        for(CSVRecord record : getData("facturas-productos.csv")){
-//            int idFactura = Integer.parseInt(record.get(0));
-//            int idProducto = Integer.parseInt(record.get(1));
-//            int cantidad = Integer.parseInt(record.get(2));
-//            if(record.size() >= 3){
-//                productoFactura.insert(new Producto_Factura(idFactura, idProducto, cantidad));
-//            }
-//        }
+        for(CSVRecord record : getData("facturas-productos.csv")){
+            int idFactura = Integer.parseInt(record.get(0));
+            int idProducto = Integer.parseInt(record.get(1));
+            int cantidad = Integer.parseInt(record.get(2));
+            if(record.size() >= 3){
+                factura_producto.insert(new Factura_Producto(idFactura, idProducto, cantidad));
+            }
+        }
+        System.out.println("Datos cargados correctamente.");
     }
 }

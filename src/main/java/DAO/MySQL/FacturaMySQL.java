@@ -54,10 +54,10 @@ public class FacturaMySQL implements FacturaDAO {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             int idCliente = rs.getInt(2);
-            factura = new Factura(factura.getIdFactura(), idCliente);
+            fc = new Factura(factura.getIdFactura(), idCliente);
         }
 
-        return factura;
+        return fc;
     }
 
     public boolean update(Factura factura) throws SQLException {
