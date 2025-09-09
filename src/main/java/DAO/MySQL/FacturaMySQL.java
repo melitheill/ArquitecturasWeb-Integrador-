@@ -28,14 +28,14 @@ public class FacturaMySQL implements FacturaDAO {
         }
     }
 
-    public boolean delete(int idFactura) throws SQLException {
-        if (find(idFactura) == null){
+    public boolean delete(Factura factura) throws SQLException {
+        if (find(factura) == null){
             return false;
         }
         try{
             String delete = "DELETE FROM Factura WHERE idFactura = ?";
             PreparedStatement ps = this.conn.prepareStatement(delete);
-            ps.setInt(1, idFactura);
+            ps.setInt(1, factura.getIdFactura());
             ps.executeUpdate();
             ps.close();
             conn.commit();
@@ -46,22 +46,22 @@ public class FacturaMySQL implements FacturaDAO {
         }
     }
 
-    public Factura find(int idFactura) throws SQLException {
-        Factura factura = null;
+    public Factura find(Factura factura) throws SQLException {
+        Factura fc = null;
         String select = "SELECT * FROM Factura WHERE idFactura = ?";
         PreparedStatement ps = this.conn.prepareStatement(select);
-        ps.setInt(1, idFactura);
+        ps.setInt(1, factura.getIdFactura());
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             int idCliente = rs.getInt(2);
-            factura = new Factura(idFactura, idCliente);
+            factura = new Factura(factura.getIdFactura(), idCliente);
         }
 
         return factura;
     }
 
     public boolean update(Factura factura) throws SQLException {
-        if (find(factura.getIdFactura()) == null){
+        if (find(factura) == null){
             return false;
         }
         try{

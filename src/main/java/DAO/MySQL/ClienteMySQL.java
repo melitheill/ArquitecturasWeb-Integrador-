@@ -30,14 +30,14 @@ public class ClienteMySQL implements ClienteDAO {
         }
     }
 
-    public boolean delete(int idCliente) throws SQLException {
-        if (find(idCliente) == null){
+    public boolean delete(Cliente cliente) throws SQLException {
+        if (find(cliente) == null){
             return false;
         }
         try{
             String delete = "DELETE FROM Cliente WHERE idCliente = ?";
             PreparedStatement ps = this.conn.prepareStatement(delete);
-            ps.setInt(1, idCliente);
+            ps.setInt(1, cliente.getIdCliente());
             ps.executeUpdate();
             ps.close();
             conn.commit();
@@ -48,22 +48,22 @@ public class ClienteMySQL implements ClienteDAO {
         }
     }
 
-    public Cliente find(int idCliente) throws SQLException {
-        Cliente cliente = null;
+    public Cliente find(Cliente cliente) throws SQLException {
+        Cliente cl = null;
         String select = "SELECT * FROM Cliente WHERE idCliente = ?";
         PreparedStatement ps = this.conn.prepareStatement(select);
-        ps.setInt(1, idCliente);
+        ps.setInt(1, cliente.getIdCliente());
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             String nombre = rs.getString(2);
             String email = rs.getString(3);
-            cliente = new Cliente(idCliente, nombre, email);
+            cl = new Cliente(cliente.getIdCliente(), nombre, email);
         }
-        return cliente;
+        return cl;
     }
 
     public boolean update(Cliente cliente) throws SQLException {
-        if (find(cliente.getIdCliente()) == null){
+        if (find(cliente) == null){
             return false;
         }
         try{

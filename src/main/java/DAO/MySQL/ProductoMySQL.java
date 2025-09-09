@@ -38,14 +38,14 @@ public class ProductoMySQL implements ProductoDAO {
     }
 
     @Override
-    public boolean delete(int id_producto) throws SQLException {
-        if(find(id_producto)==null){
+    public boolean delete(Producto producto) throws SQLException {
+        if(find(producto)==null){
             return false;
         }
         try{
             String delete = "DELETE FROM Producto WHERE idProducto = ?";
             PreparedStatement ps = this.conn.prepareStatement(delete);
-            ps.setInt(1, id_producto);
+            ps.setInt(1, producto.getIdProducto());
             ps.executeUpdate();
             ps.close();
             conn.commit();
@@ -58,7 +58,7 @@ public class ProductoMySQL implements ProductoDAO {
 
     @Override
     public boolean update(Producto producto) throws SQLException {
-        if (find(producto.getIdProducto()) == null){
+        if (find(producto) == null){
             return false;
         }
         try{
@@ -78,16 +78,16 @@ public class ProductoMySQL implements ProductoDAO {
     }
 
     @Override
-    public Producto find(int id_producto) throws SQLException {
+    public Producto find(Producto producto) throws SQLException {
         Producto pd  = null;
         String select = "SELECT * FROM Producto WHERE idProducto = ?";
         PreparedStatement ps = this.conn.prepareStatement(select);
-        ps.setInt(1, id_producto);
+        ps.setInt(1, producto.getIdProducto());
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             String nombre = rs.getString(2);
             float valor = rs.getFloat(3);
-            pd = new Producto (id_producto, nombre, valor);
+            pd = new Producto (producto.getIdProducto(), nombre, valor);
         }
 
         return pd;
