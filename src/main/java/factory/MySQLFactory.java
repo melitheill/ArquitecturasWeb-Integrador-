@@ -3,7 +3,7 @@ package factory;
 import DAO.MySQL.ClienteMySQL;
 import DAO.MySQL.FacturaMySQL;
 import DAO.MySQL.ProductoMySQL;
-import DAO.MySQL.Producto_FacturaMySQL;
+import DAO.MySQL.Factura_ProductoMySQL;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -68,7 +68,7 @@ public class MySQLFactory extends AbstractFactory {
     public ProductoMySQL getProductoDAO(){
         return new ProductoMySQL(createConnection());
     };
-    public Producto_FacturaMySQL getProducto_FacturaDAO(){
-        return new Producto_FacturaMySQL(createConnection());
+    public Factura_ProductoMySQL getProducto_FacturaDAO(){
+        return new Factura_ProductoMySQL(createConnection());
     };
 }

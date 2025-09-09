@@ -6,7 +6,6 @@ import DAO.ProductoDAO;
 import entities.Cliente;
 import entities.Factura;
 import entities.Producto;
-import entities.Producto_Factura;
 import factory.MySQLFactory;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
