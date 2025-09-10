@@ -18,7 +18,24 @@ public class ProductoMySQL implements ProductoDAO {
 
     @Override
     public Producto getProductoMayorFacturacion() {
-        return null;
+        String select = "SELECT p.idProducto, (sum(cantidad) * p.valor) " +
+                "FROM Producto p " +
+                "JOIN Factura_Producto fp ON p.idProducto = fp.idProducto " +
+                "GROUP BY p.idProducto " +
+                "ORDER BY 2 desc " +
+                "LIMIT 1 ";
+        Producto p = null;
+        try{
+            PreparedStatement ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                p = find(new Producto(rs.getInt(1), "a", 1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return p;
+
     }
 
     @Override

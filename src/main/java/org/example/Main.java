@@ -24,5 +24,6 @@ public class Main {
         db.dropTables();
         db.createTables();
         db.importData(cliente, producto, factura, facturaProducto);
+        System.out.println(producto.getProductoMayorFacturacion());
     }
 }
