@@ -1,4 +1,4 @@
-package org.example;
+package Main;
 
 import DAO.ClienteDAO;
 import DAO.FacturaDAO;
