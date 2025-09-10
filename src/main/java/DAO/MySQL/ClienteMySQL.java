@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteMySQL implements ClienteDAO {
@@ -83,6 +84,32 @@ public class ClienteMySQL implements ClienteDAO {
     }
 
     public List<Cliente> getClientesByFacturacion() throws SQLException {
-        return null;
+        String sql = "SELECT c.idCliente, c.nombre, c.email, " +
+                "COALESCE(SUM(p.valor * fp.cantidad), 0) AS totalFacturado " +
+                "FROM Cliente c " +
+                "LEFT JOIN Factura f ON c.idCliente = f.idCliente " +
+                "LEFT JOIN Factura_Producto fp ON f.idFactura = fp.idFactura " +
+                "LEFT JOIN Producto p ON fp.idProducto = p.idProducto " +
+                "GROUP BY c.idCliente, c.nombre, c.email " +//Agrupa los resultados por cliente para sumar el monto total facturado a cada uno.
+                "ORDER BY totalFacturado DESC;";
+
+        List<Cliente> list = new ArrayList<>();
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int facturado = rs.getInt("totalFacturado");
+                int idCliente = rs.getInt("idCliente");
+                String nombre = rs.getString("nombre");
+                String email = rs.getString("email");
+                Cliente cliente = new Cliente(idCliente,nombre,email);
+                list.add(cliente);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
+
 }

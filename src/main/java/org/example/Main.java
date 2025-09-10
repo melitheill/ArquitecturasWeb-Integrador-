@@ -21,9 +21,10 @@ public class Main {
         Factura_ProductoDAO facturaProducto = chosenFactory.getProducto_FacturaDAO();
 
         HelperMySQL db = new HelperMySQL();
-        db.dropTables();
-        db.createTables();
-        db.importData(cliente, producto, factura, facturaProducto);
-        System.out.println(producto.getProductoMayorFacturacion());
+        //db.dropTables();
+        //db.createTables();
+        //db.importData(cliente, producto, factura, facturaProducto);
+        //System.out.println(producto.getProductoMayorFacturacion());
+        System.out.println(cliente.getClientesByFacturacion());
     }
 }
