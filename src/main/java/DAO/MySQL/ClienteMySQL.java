@@ -1,6 +1,7 @@
 package DAO.MySQL;
 
 import DAO.ClienteDAO;
+import DTO.ClienteDTO;
 import entities.Cliente;
 
 import java.sql.Connection;
@@ -83,26 +84,24 @@ public class ClienteMySQL implements ClienteDAO {
         }
     }
 
-    public List<Cliente> getClientesByFacturacion() throws SQLException {
+    public List<ClienteDTO> getClientesByFacturacion() throws SQLException {
         String sql = "SELECT c.idCliente, c.nombre, c.email, " +
                 "COALESCE(SUM(p.valor * fp.cantidad), 0) AS totalFacturado " +
                 "FROM Cliente c " +
                 "LEFT JOIN Factura f ON c.idCliente = f.idCliente " +
                 "LEFT JOIN Factura_Producto fp ON f.idFactura = fp.idFactura " +
                 "LEFT JOIN Producto p ON fp.idProducto = p.idProducto " +
-                "GROUP BY c.idCliente, c.nombre, c.email " +//Agrupa los resultados por cliente para sumar el monto total facturado a cada uno.
+                "GROUP BY c.idCliente, c.nombre, c.email " +
                 "ORDER BY totalFacturado DESC;";
 
-        List<Cliente> list = new ArrayList<>();
+        List<ClienteDTO> list = new ArrayList<>();
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int facturado = rs.getInt("totalFacturado");
-                int idCliente = rs.getInt("idCliente");
                 String nombre = rs.getString("nombre");
-                String email = rs.getString("email");
-                Cliente cliente = new Cliente(idCliente,nombre,email);
+                ClienteDTO cliente = new ClienteDTO(nombre,facturado);
                 list.add(cliente);
             }
         }

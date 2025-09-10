@@ -1,6 +1,7 @@
 package DAO.MySQL;
 
 import DAO.ProductoDAO;
+import DTO.ProductoDTO;
 import entities.Producto;
 
 import java.sql.Connection;
@@ -17,24 +18,26 @@ public class ProductoMySQL implements ProductoDAO {
     }
 
     @Override
-    public Producto getProductoMayorFacturacion() {
+    public ProductoDTO getProductoMayorRecaudacion() {
         String select = "SELECT p.idProducto, (sum(cantidad) * p.valor) " +
                 "FROM Producto p " +
                 "JOIN Factura_Producto fp ON p.idProducto = fp.idProducto " +
                 "GROUP BY p.idProducto " +
                 "ORDER BY 2 desc " +
                 "LIMIT 1 ";
-        Producto p = null;
+        ProductoDTO pdto = null;
         try{
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                p = find(new Producto(rs.getInt(1), "a", 1));
+                Producto p = find(new Producto(rs.getInt(1), "a", 1));
+
+                pdto = new ProductoDTO(p.getNombre(), rs.getInt(2));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return p;
+        return pdto;
 
     }
 
