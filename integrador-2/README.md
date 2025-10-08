@@ -8,6 +8,6 @@
 
 ### Integrador 2
 #### Diagrama entidad-relacion
-![Diagrama entidad-relacion](/diagrams/Ejercicio_Integrador_DER.png)
+![Diagrama entidad-relacion](./diagrams/Ejercicio_Integrador_DER.png)
 #### Diagrama de clases
-![Diagrama entidad-relacion](/diagrams/diagramaObjetosTP2.png)
+![Diagrama entidad-relacion](./diagrams/diagramaObjetosTP2.png)
