@@ -1,13 +1,15 @@
 package org.grupo14.integrador3.controller;
 
+import org.grupo14.integrador3.model.Carrera;
+import org.grupo14.integrador3.model.Estudiante;
 import org.grupo14.integrador3.model.EstudianteCarrera;
+import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 import org.grupo14.integrador3.services.EstudianteCarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/matriculas")
@@ -20,5 +22,30 @@ public class EstudianteCarreraController {
         return estudianteCarreraService.findAll();
     }
 
+    @GetMapping("/{idEstudiante}/{idCarrera}")
+    public Optional<EstudianteCarrera> findById(@PathVariable int idEstudiante, @PathVariable int idCarrera){
+        Carrera c = new Carrera(idCarrera, "", 0);
+        Estudiante e = new Estudiante(idEstudiante, ""...)
+        return estudianteCarreraService.findById(new EstudianteCarreraID(e,c));
+    }
+
+    @PostMapping("")
+    public EstudianteCarrera save(@RequestBody EstudianteCarrera carrera){
+        return estudianteCarreraService.save(carrera);
+    }
+
+    @PutMapping("/{idEstudiante}/{idCarrera}")
+    public EstudianteCarrera update(@PathVariable int idEstudiante, @PathVariable int idCarrera, @RequestBody EstudianteCarrera carrera){
+        Carrera c = new Carrera(idCarrera, "", 0);
+        Estudiante e = new Estudiante(idEstudiante, ""...)
+        return estudianteCarreraService.update(new EstudianteCarreraID(e,c), carrera);
+    }
+
+    @DeleteMapping("/{idEstudiante}/{idCarrera}")
+    public void delete(@PathVariable int idEstudiante, @PathVariable int idCarrera){
+        Carrera c = new Carrera(idCarrera, "", 0);
+        Estudiante e = new Estudiante(idEstudiante, ""...)
+        estudianteCarreraService.delete(new EstudianteCarreraID(e,c));
+    }
 
 }

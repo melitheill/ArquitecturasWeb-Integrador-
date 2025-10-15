@@ -16,8 +16,10 @@ public class EstudianteCarreraService {
     private EstudianteCarreraRepository estudianteCarreraRepository;
 
     @Transactional
-    public void delete(EstudianteCarrera ec){
-        estudianteCarreraRepository.delete(ec);
+    public void delete(EstudianteCarreraID ecID ){
+        Optional<EstudianteCarrera> ec = estudianteCarreraRepository.findById(ecID);
+        EstudianteCarrera ecFinal = ec.get();
+        estudianteCarreraRepository.delete(ecFinal);
     }
 
     @Transactional
@@ -36,7 +38,16 @@ public class EstudianteCarreraService {
     }
 
     @Transactional
-    public EstudianteCarrera update(EstudianteCarrera ec){
-        return estudianteCarreraRepository.save(ec);
+    public EstudianteCarrera update(EstudianteCarreraID id, EstudianteCarrera ec){
+        Optional<EstudianteCarrera> entity = estudianteCarreraRepository.findById(id);
+        if(entity.isPresent()){
+            EstudianteCarrera estc = entity.get();
+            estc = estudianteCarreraRepository.save(estc);
+            return estc;
+        } else {
+            //retornar que no se pudo
+            return estudianteCarreraRepository.save(ec);
+
+        }
     }
 }
