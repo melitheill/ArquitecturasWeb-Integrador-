@@ -3,6 +3,7 @@ package org.grupo14.integrador3.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 
@@ -10,7 +11,11 @@ import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 @Data
 public class EstudianteCarrera {
     @EmbeddedId
-    private EstudianteCarreraID id;
+    private int id;
+    @ManyToOne
+    private Estudiante estudiante;
+    @ManyToOne
+    private Carrera carrera;
     @Column
     private int inscripcion;
     @Column
@@ -21,8 +26,8 @@ public class EstudianteCarrera {
     public EstudianteCarrera() {
     }
 
-    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
-        this.id = new EstudianteCarreraID(estudiante, carrera);
+    public EstudianteCarrera(int id,Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
+        this.id = id;
         this.inscripcion = inscripcion;
         this.graduacion = graduacion;
         this.antiguedad = antiguedad;
