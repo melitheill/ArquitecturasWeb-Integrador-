@@ -33,26 +33,30 @@ public class CarreraService {
 
     @Transactional
     public Carrera save(Carrera carrera) throws Exception {
+        Optional<Carrera> c = findById(carrera.getId());
+        if (c.isPresent()) {
+            throw new Exception("La carrera ya existe");
+        }
         return carreraRepository.save(carrera);
     }
 
     @Transactional
     public Carrera update(int idCarrera,Carrera carrera) throws Exception {
-        Optional<Carrera> entity = carreraRepository.findById(idCarrera);
+        Optional<Carrera> entity = findById(idCarrera);
         if(entity.isPresent()){
-            Carrera c = entity.get();
-            carreraRepository.save(c);
-            return c;
+            return carreraRepository.save(carrera);
         }else {
-            return carrera;
+            throw new Exception("La carrera no existe");
         }
     }
 
     @Transactional
     public void delete(int idCarrera) throws Exception {
-        Optional<Carrera> entity = carreraRepository.findById(idCarrera);
+        Optional<Carrera> entity = findById(idCarrera);
         if(entity.isPresent()){
             carreraRepository.delete(entity.get());
+        } else {
+            throw new Exception("La carrera no existe");
         }
     }
 

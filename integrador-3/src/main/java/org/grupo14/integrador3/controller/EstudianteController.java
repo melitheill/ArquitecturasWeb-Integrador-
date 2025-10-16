@@ -4,6 +4,7 @@ package org.grupo14.integrador3.controller;
 import org.grupo14.integrador3.model.Estudiante;
 import org.grupo14.integrador3.services.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,25 +23,35 @@ public class EstudianteController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Estudiante> findById(@PathVariable int id){
+    public Optional<Estudiante> findById(@PathVariable int id) {
         return estudianteService.findById(id);
     }
 
     @PostMapping("")
-    public Estudiante save(@RequestBody Estudiante estudiante) throws Exception {
-        return estudianteService.save(estudiante);
+    public ResponseEntity<?> save(@RequestBody Estudiante estudiante) {
+        try {
+            return ResponseEntity.ok(estudianteService.save(estudiante));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
     @PutMapping({"/{id}"})
-    public Estudiante update(@PathVariable int id, @RequestBody Estudiante estudiante) throws Exception {
-        return estudianteService.update(id, estudiante);
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody Estudiante estudiante) {
+        try {
+            return ResponseEntity.ok(estudianteService.update(id, estudiante));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) throws Exception {
-        estudianteService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        try {
+            estudianteService.delete(id);
+            return ResponseEntity.ok("\"Carrera eliminada\"");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
-
-
-
 }

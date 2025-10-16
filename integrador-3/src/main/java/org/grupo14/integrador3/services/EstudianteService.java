@@ -15,10 +15,12 @@ public class EstudianteService {
     private EstudianteRepository estudianteRepository;
 
     @Transactional
-    public void delete(int idEstudiante){
-        Optional<Estudiante> entity = estudianteRepository.findById(idEstudiante);
+    public void delete(int idEstudiante) throws Exception {
+        Optional<Estudiante> entity = findById(idEstudiante);
         if(entity.isPresent()){
             estudianteRepository.delete(entity.get());
+        } else {
+            throw new Exception("El estudiante no existe");
         }
     }
 
@@ -28,16 +30,22 @@ public class EstudianteService {
     }
 
     @Transactional
-    public Estudiante save(Estudiante estudiante){
+    public Estudiante save(Estudiante estudiante) throws Exception {
+        Optional<Estudiante> e = findById(estudiante.getId());
+        if(e.isPresent()){
+            throw new Exception("El estudiante ya existe");
+        }
         return estudianteRepository.save(estudiante);
     }
+
     @Transactional
-    public Estudiante update(int id, Estudiante estudiante){
-        Optional<Estudiante> est = estudianteRepository.findById(id);
+    public Estudiante update(int id, Estudiante estudiante) throws Exception {
+        Optional<Estudiante> est = findById(id);
         if(est.isPresent()){
             return estudianteRepository.save(estudiante);
+        } else {
+            throw new Exception("El estudiante no existe");
         }
-        return null;
     }
 
     @Transactional

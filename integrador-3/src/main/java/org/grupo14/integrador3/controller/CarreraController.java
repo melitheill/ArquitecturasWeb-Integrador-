@@ -4,6 +4,8 @@ package org.grupo14.integrador3.controller;
 import org.grupo14.integrador3.model.Carrera;
 import org.grupo14.integrador3.services.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class CarreraController {
     }
 
     @GetMapping("/{idCarrera}")
-    public Optional<Carrera> findById(@PathVariable int idCarrera){
+    public Optional<Carrera> findById(@PathVariable int idCarrera) {
          return carreraService.findById(idCarrera);
     }
 
@@ -32,20 +34,33 @@ public class CarreraController {
         return carreraService.obtenerCarrerasConEstudiantesInscriptos();
     }
 
-
     @PostMapping("")
-    public Carrera save(@RequestBody Carrera carrera) throws Exception {
-        return carreraService.save(carrera);
+    public ResponseEntity<?> save(@RequestBody Carrera carrera) {
+        try {
+            return ResponseEntity.ok(carreraService.save(carrera));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
     @PutMapping({"/{idCarrera}"})
-    public Carrera update(@PathVariable int idCarrera, @RequestBody Carrera carrera) throws Exception {
-        return carreraService.update(idCarrera, carrera);
+    public ResponseEntity<?> update(@PathVariable int idCarrera, @RequestBody Carrera carrera) {
+        try {
+            return ResponseEntity.ok(carreraService.update(idCarrera, carrera));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
     @DeleteMapping("/{idCarrera}")
-    public void delete(@PathVariable int idCarrera) throws Exception {
-        carreraService.delete(idCarrera);
+    public ResponseEntity<?> delete(@PathVariable int idCarrera) {
+        try {
+            carreraService.delete(idCarrera);
+            return ResponseEntity.ok("\"Carrera eliminada\"");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
+
     }
 
 
