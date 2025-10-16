@@ -49,7 +49,7 @@ public class EstudianteController {
     public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             estudianteService.delete(id);
-            return ResponseEntity.ok("\"Carrera eliminada\"");
+            return ResponseEntity.ok("\"Estudiante eliminado\"");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
         }

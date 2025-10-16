@@ -4,7 +4,6 @@ package org.grupo14.integrador3.controller;
 import org.grupo14.integrador3.model.Carrera;
 import org.grupo14.integrador3.services.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/carreras")
+@RequestMapping("/carrera")
 public class CarreraController {
 
     @Autowired

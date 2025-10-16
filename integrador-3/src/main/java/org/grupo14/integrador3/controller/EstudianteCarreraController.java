@@ -6,13 +6,14 @@ import org.grupo14.integrador3.model.EstudianteCarrera;
 import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 import org.grupo14.integrador3.services.EstudianteCarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/matriculas")
+@RequestMapping("/matricula")
 public class EstudianteCarreraController {
     @Autowired
     private EstudianteCarreraService estudianteCarreraService;
@@ -28,18 +29,31 @@ public class EstudianteCarreraController {
     }
 
     @PostMapping("")
-    public EstudianteCarrera save(@RequestBody EstudianteCarrera carrera){
-        return estudianteCarreraService.save(carrera);
+    public ResponseEntity<?> save(@RequestBody EstudianteCarrera matricula){
+        try {
+            return ResponseEntity.ok(estudianteCarreraService.save(matricula));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
     @PutMapping("/{idEstudiante}/{idCarrera}")
-    public EstudianteCarrera update(@PathVariable int idEstudiante, @PathVariable int idCarrera, @RequestBody EstudianteCarrera carrera){
-        return estudianteCarreraService.update(idEstudiante, idCarrera, carrera);
+    public ResponseEntity<?> update(@PathVariable int idEstudiante, @PathVariable int idCarrera, @RequestBody EstudianteCarrera matricula){
+        try {
+            return ResponseEntity.ok(estudianteCarreraService.update(idEstudiante, idCarrera, matricula));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
     @DeleteMapping("/{idEstudiante}/{idCarrera}")
-    public void delete(@PathVariable int idEstudiante, @PathVariable int idCarrera){
-        estudianteCarreraService.delete(idEstudiante, idCarrera);
+    public ResponseEntity<?> delete(@PathVariable int idEstudiante, @PathVariable int idCarrera){
+        try {
+            estudianteCarreraService.delete(idEstudiante, idCarrera);
+            return ResponseEntity.ok("Se elimino la matricula del estudiante");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 
 }

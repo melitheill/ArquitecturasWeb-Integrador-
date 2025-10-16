@@ -22,15 +22,15 @@ public class EstudianteCarreraService {
     private EstudianteService estudianteService;
 
     @Transactional
-    public void delete(EstudianteCarreraID ecID ){
-        Optional<EstudianteCarrera> ec = estudianteCarreraRepository.findById(ecID);
-        EstudianteCarrera ecFinal = ec.get();
-        estudianteCarreraRepository.delete(ecFinal);
-    }
-
-    public void delete(int idEstudiante, int idCarrera){
+    public void delete(int idEstudiante, int idCarrera) throws Exception{
         EstudianteCarreraID ecID = convertirId(idEstudiante, idCarrera);
-        delete(ecID);
+        System.out.println(ecID);
+        if(ecID != null && findById(ecID).isPresent()){
+            EstudianteCarrera ec = estudianteCarreraRepository.findById(ecID).get();
+            estudianteCarreraRepository.delete(ec);
+        } else {
+            throw new Exception("El estudiante no esta matriculado en esa carrera");
+        }
     }
 
     @Transactional
@@ -38,43 +38,37 @@ public class EstudianteCarreraService {
         return estudianteCarreraRepository.findAll();
     }
 
-    @Transactional
     public Optional<EstudianteCarrera> findById(EstudianteCarreraID id){
         return estudianteCarreraRepository.findById(id);
     }
 
+    @Transactional
     public Optional<EstudianteCarrera> findById(int idEstudiante, int idCarrera){
         EstudianteCarreraID ecID = convertirId(idEstudiante,idCarrera);
-        return estudianteCarreraRepository.findById(ecID);
+        if(ecID != null){
+            return findById(ecID);
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Transactional
-    public EstudianteCarrera save(EstudianteCarrera ec){
+    public EstudianteCarrera save(EstudianteCarrera ec) throws Exception {
+        Optional<EstudianteCarrera> entity = findById(ec.getId());
+        if(entity.isPresent()){
+            throw new Exception("El estudiante ya esta matriculado en esa carrera");
+        }
         return estudianteCarreraRepository.save(ec);
     }
 
-//    @Transactional
-//    public EstudianteCarrera update(EstudianteCarreraID id, EstudianteCarrera ec){
-//        Optional<EstudianteCarrera> entity = estudianteCarreraRepository.findById(id);
-//        if(entity.isPresent()){
-//            EstudianteCarrera estc = entity.get();
-//            estc = estudianteCarreraRepository.save(estc);
-//            return estc;
-//        } else {
-//            return estudianteCarreraRepository.save(ec);
-//
-//        }
-//    }
     @Transactional
-    public EstudianteCarrera update(int idEstudiante, int idCarrera, EstudianteCarrera ec){
+    public EstudianteCarrera update(int idEstudiante, int idCarrera, EstudianteCarrera ec) throws Exception{
         EstudianteCarreraID id = convertirId(idEstudiante, idCarrera);
-        if(id != null){
-            Optional<EstudianteCarrera> entity = estudianteCarreraRepository.findById(id);
-            if(entity.isPresent()){
-                return estudianteCarreraRepository.save(ec);
-            }
+        if(id != null && findById(id).isPresent()){
+            return estudianteCarreraRepository.save(ec);
+        } else {
+            throw new Exception("El estudiante no esta matriculado en esa carrera");
         }
-        return null;
     }
 
     public EstudianteCarreraID convertirId(int idEstudiante, int idCarrera){
