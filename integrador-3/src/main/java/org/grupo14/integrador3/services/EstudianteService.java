@@ -32,10 +32,10 @@ public class EstudianteService {
         return estudianteRepository.save(estudiante);
     }
     @Transactional
-    public Estudiante update(Estudiante estudiante){
-        Optional<Estudiante> est = estudianteRepository.findById(estudiante.getId());
+    public Estudiante update(int id, Estudiante estudiante){
+        Optional<Estudiante> est = estudianteRepository.findById(id);
         if(est.isPresent()){
-            return estudianteRepository.save(est.get());
+            return estudianteRepository.save(estudiante);
         }
         return null;
     }

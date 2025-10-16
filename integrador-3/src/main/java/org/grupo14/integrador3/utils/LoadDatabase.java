@@ -8,24 +8,25 @@ import org.grupo14.integrador3.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class LoadDatabase {
 
     private final EstudianteCarreraRepository estudianteCarreraRepository;
     private final CarreraRepository carreraRepository;
     private final EstudianteRepository estudianteRepository;
+    private final CSVReader csvReader;
 
     @Autowired
-    public LoadDatabase(EstudianteCarreraRepository estudianteCarreraRepository, CarreraRepository carreraRepository, EstudianteRepository estudianteRepository){
+    public LoadDatabase(EstudianteCarreraRepository estudianteCarreraRepository, CarreraRepository carreraRepository, EstudianteRepository estudianteRepository, CSVReader csvReader){
         this.estudianteCarreraRepository = estudianteCarreraRepository;
         this.estudianteRepository = estudianteRepository;
         this.carreraRepository = carreraRepository;
+        this.csvReader = csvReader;
     }
 
-    public void cargarDatos(){
-        Estudiante e = new Estudiante(1, "a", "a", 1, "a", "a", 1);
-        estudianteRepository.save(e);
-        Carrera c = new Carrera(1, "@", 2);
-        carreraRepository.save(c);
+    public void cargarDatos() throws IOException {
+        csvReader.cargarDatos();
     }
 }

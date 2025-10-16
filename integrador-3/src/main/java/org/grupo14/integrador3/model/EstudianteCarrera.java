@@ -26,7 +26,7 @@ public class EstudianteCarrera {
     public EstudianteCarrera() {
     }
 
-    public EstudianteCarrera(int id,Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
         this.id = new EstudianteCarreraID(estudiante,carrera);
         this.inscripcion = inscripcion;
         this.graduacion = graduacion;
