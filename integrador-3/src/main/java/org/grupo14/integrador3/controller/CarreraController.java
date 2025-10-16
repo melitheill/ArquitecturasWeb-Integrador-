@@ -6,6 +6,8 @@ import org.grupo14.integrador3.services.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.grupo14.integrador3.dto.CarreraDTO;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,7 @@ public class CarreraController {
     }
 
     @GetMapping("/inscriptos")
-    public List<Carrera> obtenerCarrerasConEstudiantesInscriptos(){
+    public List<CarreraDTO> obtenerCarrerasConEstudiantesInscriptos(){
         return carreraService.obtenerCarrerasConEstudiantesInscriptos();
     }
 

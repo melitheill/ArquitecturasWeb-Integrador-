@@ -1,11 +1,13 @@
 package org.grupo14.integrador3.services;
 
 import jakarta.transaction.Transactional;
+import org.grupo14.integrador3.dto.CarreraDTO;
 import org.grupo14.integrador3.model.Carrera;
 import org.grupo14.integrador3.repository.CarreraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +29,16 @@ public class CarreraService {
     }
 
     @Transactional
-    public List<Carrera> obtenerCarrerasConEstudiantesInscriptos(){
-        return carreraRepository.obtenerCarrerasConEstudiantesInscriptos();
+    public List<CarreraDTO> obtenerCarrerasConEstudiantesInscriptos(){
+        List<Object[]> carreras = carreraRepository.obtenerCarrerasConEstudiantesInscriptos();
+        List<CarreraDTO> carreraDTOS = new ArrayList<>();
+        for (Object[] elemento : carreras) {
+            String carrera = (String) elemento[0];
+            int cantidad = Math.toIntExact((Long) elemento[1]);
+            CarreraDTO carreraDTO = new CarreraDTO(carrera, cantidad);
+            carreraDTOS.add(carreraDTO);
+        }
+        return carreraDTOS;
     }
 
     @Transactional
