@@ -24,9 +24,7 @@ public class EstudianteCarreraController {
 
     @GetMapping("/{idEstudiante}/{idCarrera}")
     public Optional<EstudianteCarrera> findById(@PathVariable int idEstudiante, @PathVariable int idCarrera){
-        Carrera c = new Carrera(idCarrera, "", 0);
-        Estudiante e = new Estudiante(idEstudiante, ""...)
-        return estudianteCarreraService.findById(new EstudianteCarreraID(e,c));
+        return estudianteCarreraService.findById(idEstudiante, idCarrera);
     }
 
     @PostMapping("")
@@ -36,16 +34,12 @@ public class EstudianteCarreraController {
 
     @PutMapping("/{idEstudiante}/{idCarrera}")
     public EstudianteCarrera update(@PathVariable int idEstudiante, @PathVariable int idCarrera, @RequestBody EstudianteCarrera carrera){
-        Carrera c = new Carrera(idCarrera, "", 0);
-        Estudiante e = new Estudiante(idEstudiante, ""...)
-        return estudianteCarreraService.update(new EstudianteCarreraID(e,c), carrera);
+        return estudianteCarreraService.update(idEstudiante, idCarrera, carrera);
     }
 
     @DeleteMapping("/{idEstudiante}/{idCarrera}")
     public void delete(@PathVariable int idEstudiante, @PathVariable int idCarrera){
-        Carrera c = new Carrera(idCarrera, "", 0);
-        Estudiante e = new Estudiante(idEstudiante, ""...)
-        estudianteCarreraService.delete(new EstudianteCarreraID(e,c));
+        estudianteCarreraService.delete(idEstudiante, idCarrera);
     }
 
 }

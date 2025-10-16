@@ -17,12 +17,12 @@ public class CarreraService {
 
 
     @Transactional
-    public Iterable<Carrera> findAll() throws Exception {
+    public Iterable<Carrera> findAll(){
         return carreraRepository.findAll();
     }
 
     @Transactional
-    public Optional<Carrera> findByIdCarrera(int idCarrera){
+    public Optional<Carrera> findById(Integer idCarrera){
         return carreraRepository.findById(idCarrera);
     }
 

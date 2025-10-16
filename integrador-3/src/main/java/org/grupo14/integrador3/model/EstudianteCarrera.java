@@ -11,11 +11,11 @@ import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 @Data
 public class EstudianteCarrera {
     @EmbeddedId
-    private int id;
-    @ManyToOne
-    private Estudiante estudiante;
-    @ManyToOne
-    private Carrera carrera;
+    private EstudianteCarreraID id;
+//    @ManyToOne
+//    private Estudiante estudiante;
+//    @ManyToOne
+//    private Carrera carrera;
     @Column
     private int inscripcion;
     @Column
@@ -27,7 +27,7 @@ public class EstudianteCarrera {
     }
 
     public EstudianteCarrera(int id,Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
-        this.id = id;
+        this.id = new EstudianteCarreraID(estudiante,carrera);
         this.inscripcion = inscripcion;
         this.graduacion = graduacion;
         this.antiguedad = antiguedad;

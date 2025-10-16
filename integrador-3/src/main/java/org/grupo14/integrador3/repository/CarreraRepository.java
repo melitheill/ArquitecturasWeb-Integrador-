@@ -11,7 +11,7 @@ public interface CarreraRepository extends JpaRepository<Carrera, Integer> {
 
   //recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
   @Query("SELECT c.carrera, COUNT(c.carrera) FROM Carrera c JOIN EstudianteCarrera ec " +
-          "ON ec.id = c.id GROUP BY c.carrera ORDER BY COUNT(c.carrera) DESC ")
+          "ON ec.id.carrera.id = c.id GROUP BY c.carrera ORDER BY COUNT(c.carrera) DESC ")
    public List<Carrera> obtenerCarrerasConEstudiantesInscriptos();
 
 

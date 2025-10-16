@@ -17,14 +17,14 @@ public class CarreraController {
     private CarreraService carreraService;
 
 
-    @GetMapping(" ")
-    public Iterable<Carrera> findAll() throws Exception {
+    @GetMapping("")
+    public Iterable<Carrera> findAll() {
         return carreraService.findAll();
     }
 
-    @GetMapping("/{idCarerra}")
-    public Optional<Carrera> findByIdCarrera(@PathVariable int idCarrera) throws Exception {
-         return carreraService.findByIdCarrera(idCarrera);
+    @GetMapping("/{idCarrera}")
+    public Optional<Carrera> findById(@PathVariable int idCarrera){
+         return carreraService.findById(idCarrera);
     }
 
     @GetMapping("/inscriptos")

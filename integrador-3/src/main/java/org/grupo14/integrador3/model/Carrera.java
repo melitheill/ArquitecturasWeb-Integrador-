@@ -1,9 +1,6 @@
 package org.grupo14.integrador3.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
@@ -11,14 +8,14 @@ import java.util.List;
 @Entity
 @Data
 public class Carrera {
-    @EmbeddedId
-    private Integer id;
+    @Id
+    private int id;
     @Column
     private String carrera;
     @Column
     private int duracion;
-    @OneToMany(mappedBy = "carrera")
-    private List<EstudianteCarrera> estudianteCarrera;
+//    @OneToMany(mappedBy = "carrera")
+//    private List<EstudianteCarrera> estudianteCarrera;
 
     public Carrera() {
     }
