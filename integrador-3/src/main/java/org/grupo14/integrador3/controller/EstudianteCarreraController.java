@@ -1,7 +1,5 @@
 package org.grupo14.integrador3.controller;
 
-import org.grupo14.integrador3.model.Carrera;
-import org.grupo14.integrador3.model.Estudiante;
 import org.grupo14.integrador3.model.EstudianteCarrera;
 import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 import org.grupo14.integrador3.services.EstudianteCarreraService;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -59,8 +56,7 @@ public class EstudianteCarreraController {
     @PostMapping("/matricular")
     public ResponseEntity<?> matricular(@RequestBody EstudianteCarreraID matricula){
         try{
-            estudianteCarreraService.matricular(matricula);
-            return ResponseEntity.ok("Estudiante matriculado correctamente");
+            return ResponseEntity.ok(estudianteCarreraService.matricular(matricula));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
         }

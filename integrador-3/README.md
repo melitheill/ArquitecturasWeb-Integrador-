@@ -15,54 +15,75 @@
 ```
 a) dar de alta un estudiante 
 POST /estudiantes
+Body:
 {
-  "dni": 87654321,
-  "nombre": "María",
-  "apellido": "González",
-  "edad": 22,
-  "genero": "Femenino",
-  "nroLU": 56789,
-  "ciudadResidencia": "Rosario"
+  "id": 99999998,
+  "nombre": "Javier",
+  "apellido": "Mascherano",
+  "edad": 49,
+  "genero": "Male",
+  "ciudad": "Catamarca",
+  "lu": 729767
 }
+
+Response:
+{
+  "id": 99999998,
+  "nombre": "Javier",
+  "apellido": "Mascherano",
+  "edad": 49,
+  "genero": "Male",
+  "ciudad": "Catamarca",
+  "lu": 729767
+}
+
 ```
 ```
 b) matricular un estudiante en una carrera 
-POST /matriculas
+POST /matriculas/matricular
+Body:
 {
-    "id": 150,
-    "id_estudiante":10719241,
-    "id_carrera":1,
-    "anio_inicio":2020,
-    "anio_fin":0,
-    "antiguedad": 5
+  "estudiante": {
+    "id": 71779527
+  },
+  "carrera": {
+    "id": 14
+  }
 }
+
+Response:
+  Estudiante matriculado correctamente
 ```
 ```
 c) recuperar todos los estudiantesy especificar algún criterio de ordenamiento simple
-GET /estudiantes/list
-respuesta:
+GET /estudiantes/orden?criterio=
+
+los criterios pueden ser: "id","nombre", "apellido", "edad", "genero", "ciudad", "LU".
+en caso de no aclarar ningun criterio se ordenan por apellido.
+
+Response:
 [
-    {
-        "dni": 44782708,
-        "nombre": "Ham",
-        "apellido": "Airy",
-        "edad": 27,
-        "genero": "Male",
-        "ciudadResidencia": "Dashtobod",
-        "nroLU": 90958
-    },
-    {
-        "dni": 89370812,
-        "nombre": "Stormy",
-        "apellido": "Audrey",
-        "edad": 26,
-        "genero": "Female",
-        "ciudadResidencia": "N",
-        "nroLU": 93298
-    },
-    .
-    .
-    . 
+  {
+    "dni": 44782708,
+    "nombre": "Ham",
+    "apellido": "Airy",
+    "edad": 27,
+    "genero": "Male",
+    "ciudadResidencia": "Dashtobod",
+    "nroLU": 90958
+  },
+  {
+    "dni": 89370812,
+    "nombre": "Stormy",
+    "apellido": "Audrey",
+    "edad": 26,
+    "genero": "Female",
+    "ciudadResidencia": "N",
+    "nroLU": 93298
+  },
+  .
+  .
+  . 
 ]
 ```
 ``` 
@@ -111,20 +132,28 @@ respuesta:
 ```
 ```
 f) recuperar las carreras con estudiantes inscriptos y ordenar por cantidad de inscriptos. 
-GET /carreras/incriptos
-respuesta:
+GET /carrera/incriptos
+Response:
 [
-    {
-        "nombre": "TUDAI",
-        "cantidad": 18
-    },
-    {
-        "nombre": "Educacion Fisica",
-        "cantidad": 12
-    },
-    .
-    .
-    .
+  {
+    "cantidad": 17,
+    "nombre": "TUDAI"
+  },
+  {
+    "cantidad": 12,
+    "nombre": "Educacion Fisica"
+  },
+  {
+    "cantidad": 10,
+    "nombre": "Ingenieria de Sistemas"
+  },
+  {
+    "cantidad": 10,
+    "nombre": "Psicologia"
+  }
+  .
+  .
+  .
 ]
 ```
 ``` 

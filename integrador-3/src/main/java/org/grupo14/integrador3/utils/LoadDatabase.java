@@ -1,7 +1,5 @@
 package org.grupo14.integrador3.utils;
 
-import org.grupo14.integrador3.model.Carrera;
-import org.grupo14.integrador3.model.Estudiante;
 import org.grupo14.integrador3.repository.CarreraRepository;
 import org.grupo14.integrador3.repository.EstudianteCarreraRepository;
 import org.grupo14.integrador3.repository.EstudianteRepository;

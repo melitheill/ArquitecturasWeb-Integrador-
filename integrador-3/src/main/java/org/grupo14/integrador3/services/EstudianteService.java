@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.grupo14.integrador3.model.Estudiante;
 import org.grupo14.integrador3.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -51,5 +52,16 @@ public class EstudianteService {
     @Transactional
     public Optional<Estudiante> findById(int idEstudiante){
         return  estudianteRepository.findById(idEstudiante);
+    }
+
+    public Iterable<Estudiante> getEstudiantesOrdenados(String orden) {
+        String ordenFinal = "apellido";
+        String[] criterios = {"id","nombre", "apellido", "edad", "genero", "ciudad", "LU"};
+        for(String criterio : criterios) {
+            if (criterio.equals(orden)) {
+                ordenFinal = orden;
+            }
+        }
+        return estudianteRepository.findAll(Sort.by(Sort.Direction.ASC, ordenFinal));
     }
 }

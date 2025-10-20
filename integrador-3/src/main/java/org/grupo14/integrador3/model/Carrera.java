@@ -3,8 +3,6 @@ package org.grupo14.integrador3.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Data
 public class Carrera {
@@ -14,8 +12,6 @@ public class Carrera {
     private String carrera;
     @Column
     private int duracion;
-//    @OneToMany(mappedBy = "carrera")
-//    private List<EstudianteCarrera> estudianteCarrera;
 
     public Carrera() {
     }

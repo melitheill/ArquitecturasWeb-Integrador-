@@ -3,7 +3,6 @@ package org.grupo14.integrador3.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 
@@ -12,10 +11,6 @@ import org.grupo14.integrador3.model.ids.EstudianteCarreraID;
 public class EstudianteCarrera {
     @EmbeddedId
     private EstudianteCarreraID id;
-//    @ManyToOne
-//    private Estudiante estudiante;
-//    @ManyToOne
-//    private Carrera carrera;
     @Column
     private int inscripcion;
     @Column
