@@ -52,11 +52,31 @@ Body:
 }
 
 Response:
-  Estudiante matriculado correctamente
+{
+  "id": {
+    "estudiante": {
+      "id": 71779527,
+      "nombre": null,
+      "apellido": null,
+      "edad": 0,
+      "genero": null,
+      "ciudad": null,
+      "lu": 0
+    },
+    "carrera": {
+      "id": 14,
+      "carrera": null,
+      "duracion": 0
+    }
+  },
+  "inscripcion": 2025,
+  "graduacion": 0,
+  "antiguedad": 0
+}
 ```
 ```
-c) recuperar todos los estudiantesy especificar algún criterio de ordenamiento simple
-GET /estudiante/orden?criterio=
+c) recuperar todos los estudiantes y especificar algún criterio de ordenamiento simple
+GET /estudiante/orden/{orden}
 
 los criterios pueden ser: "id","nombre", "apellido", "edad", "genero", "ciudad", "LU".
 en caso de no aclarar ningun criterio se ordenan por apellido.
@@ -104,7 +124,7 @@ Response:
 ```
 ``` 
 e) recuperar todos los estudiantes, en base a su género.
-GET /estudiantes/genero/{genero}
+GET /estudiante/genero/{genero}
 genero = Female
 
 Response:
@@ -160,25 +180,27 @@ Response:
 ```
 ``` 
 g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. 
-GET /estudiantes/carrerayciudad/{carrera}/{ciudad}
-carrera = 15, ciudad = Jiaoyuan
-respuesta:
+GET /estudiante/carrerayciudad/{carrera}/{ciudad}
+carrera = Arte, ciudad = Jiaoyuan
+
+Response:
 [
-    {
-        "dni": 71779527,
-        "nombre": "Isidro",
-        "apellido": "Blackmuir",
-        "edad": 66,
-        "genero": "Male",
-        "ciudadResidencia": "Jiaoyuan",
-        "nroLU": 34978
-    }
+  {
+    "dni": 71779527,
+    "nombre": "Isidro",
+    "apellido": "Blackmuir",
+    "edad": 66,
+    "genero": "Male",
+    "ciudadResidencia": "Jiaoyuan",
+    "nroLU": 34978
+  }
 ]
 ```
 ``` 
 h) generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica. 
-GET carreras/informe
-respuesta:
+GET carrera/informe
+
+Response:
 [
     {
         "nombreCarrera": "Abogacia",

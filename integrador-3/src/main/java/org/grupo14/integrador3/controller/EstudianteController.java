@@ -55,8 +55,8 @@ public class EstudianteController {
         }
     }
 
-    @GetMapping("/orden")
-    public ResponseEntity<?> getEstudiantesOrdenados(@RequestParam(required = false, name = "criterio") String orden) {
+    @GetMapping("/orden/{orden}")
+    public ResponseEntity<?> getEstudiantesOrdenados(@PathVariable String orden) {
         try{
             return ResponseEntity.ok(estudianteService.getEstudiantesOrdenados(orden));
         } catch (Exception e) {
@@ -69,12 +69,17 @@ public class EstudianteController {
         return ResponseEntity.ok(estudianteService.getEstudianteByLU(lu));
     }
 
-    @GetMapping("/genero")
-    public ResponseEntity<?> getByGenero(@RequestParam(name = "genero") String genero) {
+    @GetMapping("/genero/{genero}")
+    public ResponseEntity<?> getByGenero(@PathVariable String genero) {
         try{
             return ResponseEntity.ok(estudianteService.getEstudiantesByGenero(genero));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
         }
+    }
+
+    @GetMapping("/carrerayciudad/{carrera}/{ciudad}")
+    public ResponseEntity<?> getByCarreraCiudad(@PathVariable String carrera, @PathVariable String ciudad) {
+        return ResponseEntity.ok(estudianteService.getEstudiantesByCarreraCiudad(carrera, ciudad));
     }
 }

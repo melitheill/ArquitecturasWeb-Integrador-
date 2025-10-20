@@ -59,8 +59,8 @@ public class EstudianteService {
         String ordenFinal = "apellido";
         String[] criterios = {"id","nombre", "apellido", "edad", "genero", "ciudad", "LU"};
         for(String criterio : criterios) {
-            if (criterio.equals(orden)) {
-                ordenFinal = orden;
+            if (criterio.equals(orden.toLowerCase())) {
+                ordenFinal = orden.toLowerCase();
             }
         }
         return estudianteRepository.findAll(Sort.by(Sort.Direction.ASC, ordenFinal));
@@ -72,5 +72,9 @@ public class EstudianteService {
 
     public Iterable<Estudiante> getEstudiantesByGenero(String genero) {
         return estudianteRepository.findByGenero(genero);
+    }
+
+    public Iterable<Estudiante> getEstudiantesByCarreraCiudad(String carrera, String ciudad) {
+        return estudianteRepository.findByCarreraCiudad(carrera, ciudad);
     }
 }

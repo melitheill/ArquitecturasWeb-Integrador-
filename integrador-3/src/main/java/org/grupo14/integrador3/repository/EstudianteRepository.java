@@ -11,6 +11,9 @@ public interface EstudianteRepository extends JpaRepository<Estudiante,Integer> 
     @Query("SELECT e FROM Estudiante e WHERE e.LU = :lu")
     Optional<Estudiante> findByLU(int lu);
 
-    @Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")
+    @Query("SELECT e FROM Estudiante e WHERE LOWER(e.genero) = LOWER(:genero)")
     Iterable<Estudiante> findByGenero(String genero);
+
+    @Query("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON ec.id.estudiante = e WHERE LOWER(ec.id.carrera.carrera) = LOWER(:carrera) AND e.ciudad = :ciudad")
+    Iterable<Estudiante> findByCarreraCiudad(String carrera, String ciudad);
 }
