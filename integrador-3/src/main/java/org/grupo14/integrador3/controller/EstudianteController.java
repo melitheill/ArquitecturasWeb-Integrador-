@@ -71,6 +71,10 @@ public class EstudianteController {
 
     @GetMapping("/genero")
     public ResponseEntity<?> getByGenero(@RequestParam(name = "genero") String genero) {
-        return ResponseEntity.ok("esto esta funcionando " + genero );
+        try{
+            return ResponseEntity.ok(estudianteService.getEstudiantesByGenero(genero));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
     }
 }

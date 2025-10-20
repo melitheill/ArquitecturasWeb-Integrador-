@@ -69,4 +69,8 @@ public class EstudianteService {
     public Optional<Estudiante> getEstudianteByLU(int lu) {
         return estudianteRepository.findByLU(lu);
     }
+
+    public Iterable<Estudiante> getEstudiantesByGenero(String genero) {
+        return estudianteRepository.findByGenero(genero);
+    }
 }

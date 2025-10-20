@@ -14,7 +14,7 @@
 
 ```
 a) dar de alta un estudiante 
-POST /estudiantes
+POST /estudiante
 Body:
 {
   "id": 99999998,
@@ -40,7 +40,7 @@ Response:
 ```
 ```
 b) matricular un estudiante en una carrera 
-POST /matriculas/matricular
+POST /matricula/matricular
 Body:
 {
   "estudiante": {
@@ -56,7 +56,7 @@ Response:
 ```
 ```
 c) recuperar todos los estudiantesy especificar algún criterio de ordenamiento simple
-GET /estudiantes/orden?criterio=
+GET /estudiante/orden?criterio=
 
 los criterios pueden ser: "id","nombre", "apellido", "edad", "genero", "ciudad", "LU".
 en caso de no aclarar ningun criterio se ordenan por apellido.
@@ -88,7 +88,7 @@ Response:
 ```
 ``` 
 d) recuperar un estudiante, en base a su número de libreta universitaria.
-GET /estudiantes/lu/{lu}
+GET /estudiante/lu/{lu}
 lu = 90958
 
 Response:
@@ -106,29 +106,30 @@ Response:
 e) recuperar todos los estudiantes, en base a su género.
 GET /estudiantes/genero/{genero}
 genero = Female
-respuesta:
+
+Response:
 [
-    {
-        "dni": 10719241,
-        "nombre": "Hanni",
-        "apellido": "Harrisson",
-        "edad": 49,
-        "genero": "Female",
-        "ciudadResidencia": "Samal",
-        "nroLU": 72976
-    },
-    {
-        "dni": 12950356,
-        "nombre": "Domini",
-        "apellido": "Larderot",
-        "edad": 70,
-        "genero": "Female",
-        "ciudadResidencia": "Mengyin",
-        "nroLU": 84506
-    },
-    .
-    .
-    .
+  {
+    "dni": 10719241,
+    "nombre": "Hanni",
+    "apellido": "Harrisson",
+    "edad": 49,
+    "genero": "Female",
+    "ciudadResidencia": "Samal",
+    "nroLU": 72976
+  },
+  {
+    "dni": 12950356,
+    "nombre": "Domini",
+    "apellido": "Larderot",
+    "edad": 70,
+    "genero": "Female",
+    "ciudadResidencia": "Mengyin",
+    "nroLU": 84506
+  },
+  .
+  .
+  .
 ]
 ```
 ```
