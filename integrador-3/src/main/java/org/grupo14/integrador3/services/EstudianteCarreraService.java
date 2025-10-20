@@ -82,4 +82,12 @@ public class EstudianteCarreraService {
             return null;
         }
     }
+
+    public EstudianteCarrera matricular(EstudianteCarreraID estudianteCarreraID) throws Exception{
+        if(estudianteCarreraRepository.findById(estudianteCarreraID).isPresent()){
+            throw new Exception("El estudiante ya esta matriculado en esa carrera");
+        }
+        EstudianteCarrera matricula = new EstudianteCarrera(estudianteCarreraID.getEstudiante(), estudianteCarreraID.getCarrera(), 2025, 0, 0);
+        return estudianteCarreraRepository.save(matricula);
+    }
 }

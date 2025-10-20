@@ -56,4 +56,14 @@ public class EstudianteCarreraController {
         }
     }
 
+    @PostMapping("/matricular")
+    public ResponseEntity<?> matricular(@RequestBody EstudianteCarreraID matricula){
+        try{
+            estudianteCarreraService.matricular(matricula);
+            return ResponseEntity.ok("Estudiante matriculado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
+        }
+    }
+
 }
