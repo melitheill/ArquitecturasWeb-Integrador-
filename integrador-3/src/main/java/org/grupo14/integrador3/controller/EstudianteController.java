@@ -59,10 +59,14 @@ public class EstudianteController {
     public ResponseEntity<?> getEstudiantesOrdenados(@RequestParam(required = false, name = "criterio") String orden) {
         try{
             return ResponseEntity.ok(estudianteService.getEstudiantesOrdenados(orden));
-//            return ResponseEntity.ok("esto esta funcionando " + orden );
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() +"\"}");
         }
+    }
+
+    @GetMapping("/lu/{lu}")
+    public ResponseEntity<?> getEstudianteLu(@PathVariable int lu) {
+        return ResponseEntity.ok(estudianteService.getEstudianteByLU(lu));
     }
 
     @GetMapping("/genero")

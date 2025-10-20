@@ -90,15 +90,16 @@ Response:
 d) recuperar un estudiante, en base a su número de libreta universitaria.
 GET /estudiantes/lu/{lu}
 lu = 90958
-respuesta:
+
+Response:
 {
-    "dni": 44782708,
-    "nombre": "Ham",
-    "apellido": "Airy",
-    "edad": 27,
-    "genero": "Male",
-    "ciudadResidencia": "Dashtobod",
-    "nroLU": 90958
+  "dni": 44782708,
+  "nombre": "Ham",
+  "apellido": "Airy",
+  "edad": 27,
+  "genero": "Male",
+  "ciudadResidencia": "Dashtobod",
+  "nroLU": 90958
 }
 ```
 ``` 
