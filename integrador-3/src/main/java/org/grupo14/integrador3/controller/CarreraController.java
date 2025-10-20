@@ -64,6 +64,8 @@ public class CarreraController {
 
     }
 
-
-
+    @GetMapping("/reporte")
+    public ResponseEntity<?> reporte() {
+        return ResponseEntity.ok(carreraService.getReporte());
+    }
 }

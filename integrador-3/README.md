@@ -198,41 +198,41 @@ Response:
 ```
 ``` 
 h) generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica. 
-GET carrera/informe
+GET carrera/reporte
 
 Response:
 [
-    {
-        "nombreCarrera": "Abogacia",
-        "infoPorAnio": {
-            "2017": {
-                "inscriptos": 3,
-                "egresados": 0
-            },
-            "2018": {
-                "inscriptos": 1,
-                "egresados": 0
-            },
-            "2021": {
-                "inscriptos": 1,
-                "egresados": 0
-            },
-            "2022": {
-                "inscriptos": 0,
-                "egresados": 1
-            },
-            "2023": {
-                "inscriptos": 0,
-                "egresados": 3
-            },
-            "2024": {
-                "inscriptos": 0,
-                "egresados": 1
-            }
-        }
-    },
-    .
-    .
-    .
+  {
+    "carrera": "Abogacia",
+    "infoAnual": {
+      "2017": {
+        "inscriptos": 3,
+        "egresados": 0
+      },
+      "2018": {
+        "inscriptos": 1,
+        "egresados": 0
+      },
+      "2021": {
+        "inscriptos": 1,
+        "egresados": 0
+      },
+      "2022": {
+        "inscriptos": 0,
+        "egresados": 1
+      },
+      "2023": {
+        "inscriptos": 0,
+        "egresados": 3
+      },
+      "2024": {
+        "inscriptos": 0,
+        "egresados": 1
+      }
+    }
+  },
+  .
+  .
+  .
 ]
 ```
