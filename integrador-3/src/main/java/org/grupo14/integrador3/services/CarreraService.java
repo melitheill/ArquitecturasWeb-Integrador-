@@ -37,15 +37,7 @@ public class CarreraService {
 
     @Transactional
     public List<CarreraDTO> obtenerCarrerasConEstudiantesInscriptos(){
-        List<Object[]> carreras = carreraRepository.obtenerCarrerasConEstudiantesInscriptos();
-        List<CarreraDTO> carreraDTOS = new ArrayList<>();
-        for (Object[] elemento : carreras) {
-            String carrera = (String) elemento[0];
-            int cantidad = Math.toIntExact((Long) elemento[1]);
-            CarreraDTO carreraDTO = new CarreraDTO(carrera, cantidad);
-            carreraDTOS.add(carreraDTO);
-        }
-        return carreraDTOS;
+        return carreraRepository.obtenerCarrerasConEstudiantesInscriptos();
     }
 
     @Transactional

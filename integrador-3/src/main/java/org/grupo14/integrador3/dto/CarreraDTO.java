@@ -8,8 +8,8 @@ public class CarreraDTO {
     private String nombre;
     private int cantidad;
 
-    public CarreraDTO(String carrera, int cantidad) {
+    public CarreraDTO(String carrera, Long cantidad) {
           this.nombre = carrera;
-          this.cantidad = cantidad;
+          this.cantidad = Math.toIntExact(cantidad);
     }
 }
