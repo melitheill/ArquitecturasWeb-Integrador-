@@ -8,10 +8,14 @@
         <option value="$PROJECT_DIR$/integrador-1/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-2/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-3/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/mcsv-viaje/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/saljdhsakj/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/integrador-4/saljdhsakj/pom.xml" />
         <option value="$PROJECT_DIR$/../integrador-3/pom.xml" />
       </set>
     </option>

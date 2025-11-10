@@ -1,10 +1,10 @@
-package org.grupo14.integrador4;
+package org.grupo14.mcsvviaje;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Integrador4ApplicationTests {
+class McsvViajeApplicationTests {
 
     @Test
     void contextLoads() {
