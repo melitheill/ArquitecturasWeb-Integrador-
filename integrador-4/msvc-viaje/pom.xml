@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.grupo14</groupId>
-    <artifactId>mcsv-viaje</artifactId>
+    <artifactId>msvc-viaje</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mcsv-viaje</name>
     <description>mcsv-viaje</description>

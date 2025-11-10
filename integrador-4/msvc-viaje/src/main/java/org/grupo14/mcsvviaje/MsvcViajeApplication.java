@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class McsvViajeApplication {
+public class MsvcViajeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(McsvViajeApplication.class, args);
+        SpringApplication.run(MsvcViajeApplication.class, args);
     }
 
 }
