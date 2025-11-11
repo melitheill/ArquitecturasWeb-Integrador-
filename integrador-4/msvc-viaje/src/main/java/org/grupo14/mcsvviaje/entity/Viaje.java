@@ -29,4 +29,5 @@ public class Viaje {
     private String usuario;
     @OneToOne
     private Tiempo tiempo;
+    private int pausa;
 }

@@ -37,9 +37,8 @@ public class ViajeService {
     public Viaje save(Viaje viaje){
         int time = calcularTiempo(viaje);
         Tiempo tiempo = new Tiempo();
-//        tiempo.setId_tiempo(viaje.getId());
         tiempo.setTiempoSinPausa(time);
-        tiempo.setTiempoConPausa(time);
+        tiempo.setTiempoConPausa(time + viaje.getPausa());
         viaje.setTiempo(tiempo);
         tiempoService.save(tiempo);
         return viajeRepository.save(viaje);
@@ -62,7 +61,7 @@ public class ViajeService {
         Viaje viaje = findById(id);
         if(viaje != null){
             LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
-            int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
+            int valor = viaje.getTiempo().getTiempoSinPausa() * viaje.getTarifa() + viaje.getPausa() * viaje.getTarifa();
             Factura factura = new Factura(date, valor, viaje.getId(), calcularTiempo(viaje));
             restTemplate.postForObject("http://localhost:8002/factura", factura, String.class);
             calcularTiempo(viaje);
