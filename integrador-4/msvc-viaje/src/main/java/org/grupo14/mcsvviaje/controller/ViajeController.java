@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/viaje")
+@RequestMapping("/api/viaje")
 public class ViajeController {
 
     @Autowired
@@ -35,7 +35,9 @@ public class ViajeController {
 
     @PostMapping("")
     public ResponseEntity<Viaje> create(@RequestBody Viaje viaje){
-        return ResponseEntity.ok(viajeService.save(viaje));
+        viajeService.save(viaje);
+        viajeService.facturar(viaje.getId());
+        return ResponseEntity.ok(viaje);
     }
 
     @PutMapping("/{id}")
@@ -55,5 +57,10 @@ public class ViajeController {
         } else {
             return ResponseEntity.ok(viajeService.delete(viaje));
         }
+    }
+
+    @PostMapping("/facturar/{id}")
+    public ResponseEntity<String> helloWorld(@PathVariable Long id){
+        return ResponseEntity.ok(viajeService.facturar(id));
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/factura")
+@RequestMapping("/api/factura")
 public class FacturaController {
 
     @Autowired
@@ -54,5 +54,10 @@ public class FacturaController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(facturaService.delete(factura));
+    }
+
+    @GetMapping("/helloWorld")
+    public String helloWorld(){
+        return "Hello World!";
     }
 }

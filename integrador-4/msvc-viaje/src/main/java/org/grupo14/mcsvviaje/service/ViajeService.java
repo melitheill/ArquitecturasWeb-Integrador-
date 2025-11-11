@@ -5,6 +5,7 @@ import org.grupo14.mcsvviaje.model.Factura;
 import org.grupo14.mcsvviaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +15,9 @@ public class ViajeService {
 
     @Autowired
     ViajeRepository viajeRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     public List<Viaje> getAll(){
         return viajeRepository.findAll();
@@ -36,13 +40,16 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-    public void facturar(Long id){
+    public String facturar(Long id){
         Viaje viaje = findById(id);
         if(viaje != null){
             LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
             int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
             Factura factura = new Factura(date, valor, viaje.getId());
-            //facturar
+//            String response = restTemplate.getForObject("http://localhost:8002/api/factura/helloWorld", String.class);
+            restTemplate.postForObject("http://localhost:8002/api/factura", factura, String.class);
+            return "Deberia haber funcionado";
         }
+        return "Nada";
     }
 }
