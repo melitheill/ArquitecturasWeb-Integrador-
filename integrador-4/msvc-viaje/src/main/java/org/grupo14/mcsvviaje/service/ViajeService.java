@@ -3,11 +3,12 @@ package org.grupo14.mcsvviaje.service;
 import org.grupo14.mcsvviaje.entity.Viaje;
 import org.grupo14.mcsvviaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 import java.util.List;
 
-@Service
+@SpringBootApplication
 public class ViajeService {
 
     @Autowired
