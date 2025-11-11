@@ -1,0 +1,61 @@
+package org.example.msvccuenta.controller;
+
+
+import org.example.msvccuenta.entity.Cuenta;
+import org.example.msvccuenta.service.CuentaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/cuenta")
+public class CuentaController {
+
+    @Autowired
+    CuentaService cuentaService;
+
+    @GetMapping("")
+    public ResponseEntity<List<Cuenta>> getAll(){
+        List<Cuenta> cuentas = cuentaService.getAll();
+        if (cuentas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(cuentas);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cuenta> getById(@PathVariable Long id){
+        Cuenta cuenta = cuentaService.findById(id);
+        if (cuenta == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cuenta);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Cuenta> create(@RequestBody Cuenta cuenta){
+        return ResponseEntity.ok(cuentaService.save(cuenta));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cuenta> update(@PathVariable Long id, @RequestBody Cuenta cuenta){
+        Cuenta c = cuentaService.findById(id);
+        if (c == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cuentaService.update(cuenta));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cuenta> delete(@PathVariable Long id){
+        Cuenta cuenta = cuentaService.findById(id);
+        if (cuenta == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(cuentaService.delete(cuenta));
+        }
+    }
+}
