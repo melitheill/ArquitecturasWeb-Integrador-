@@ -1,4 +1,4 @@
-package entity;
+package org.grupo14.msvcfactura.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
