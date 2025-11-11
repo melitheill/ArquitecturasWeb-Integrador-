@@ -1,0 +1,30 @@
+server:
+  port: 8090
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            # USER SERVICE
+            - id: msvc-viaje
+              uri: http://localhost:8001
+              predicates:
+                - Path=/viaje/**
+
+            # Viajes  SERVICE
+            - id: msvc-factura
+              uri: http://localhost:8002
+              predicates:
+                - Path=/factura/**
+
+
+            # Monopatin SERVICE
+            - id: msvc-tarifa
+              uri: http://localhost:8003
+              predicates:
+                - Path=/tarifa/**
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

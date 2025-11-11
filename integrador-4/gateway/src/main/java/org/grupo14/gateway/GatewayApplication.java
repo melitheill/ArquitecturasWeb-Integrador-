@@ -1,13 +1,13 @@
-package org.grupo14.mcsvviaje;
+package org.grupo14.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsvcViajeApplication {
+public class GatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MsvcViajeApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 
 }

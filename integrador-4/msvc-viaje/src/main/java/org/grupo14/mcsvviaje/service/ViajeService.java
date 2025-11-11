@@ -40,13 +40,15 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-    public void facturar(Long id){
+    public String facturar(Long id){
         Viaje viaje = findById(id);
         if(viaje != null){
             LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
             int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
             Factura factura = new Factura(date, valor, viaje.getId());
             restTemplate.postForObject("http://localhost:8002/factura", factura, String.class);
+            return "Facturado correctamente";
         }
+        return "Factura no encontrada";
     }
 }
