@@ -40,16 +40,13 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-    public String facturar(Long id){
+    public void facturar(Long id){
         Viaje viaje = findById(id);
         if(viaje != null){
             LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
             int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
             Factura factura = new Factura(date, valor, viaje.getId());
-//            String response = restTemplate.getForObject("http://localhost:8002/api/factura/helloWorld", String.class);
-            restTemplate.postForObject("http://localhost:8002/api/factura", factura, String.class);
-            return "Deberia haber funcionado";
+            restTemplate.postForObject("http://localhost:8002/factura", factura, String.class);
         }
-        return "Nada";
     }
 }

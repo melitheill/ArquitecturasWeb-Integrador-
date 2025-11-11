@@ -3,11 +3,11 @@ package org.example.msvctarifa.service;
 import org.example.msvctarifa.entity.Tarifa;
 import org.example.msvctarifa.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@SpringBootApplication
+@Service
 public class TarifaService {
 
     @Autowired
