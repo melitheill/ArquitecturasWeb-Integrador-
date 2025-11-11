@@ -16,10 +16,14 @@
         <option value="$PROJECT_DIR$/integrador-4/msvc-factura/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/msvc-parada/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/msvc-usuario/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/msvc/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/msvc-monopatin/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/integrador-4/msvc/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/saljdhsakj/pom.xml" />
         <option value="$PROJECT_DIR$/../integrador-3/pom.xml" />
       </set>
