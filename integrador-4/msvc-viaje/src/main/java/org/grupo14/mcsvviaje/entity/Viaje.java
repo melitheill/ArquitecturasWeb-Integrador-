@@ -1,5 +1,6 @@
 package org.grupo14.mcsvviaje.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,4 +27,6 @@ public class Viaje {
     private Integer tarifa;
     private String monopatin;
     private String usuario;
+    @OneToOne
+    private Tiempo tiempo;
 }

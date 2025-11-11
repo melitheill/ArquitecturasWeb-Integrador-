@@ -16,4 +16,5 @@ public class Factura {
     private LocalDate fecha;
     private Integer valor;
     private Long id_viaje;
+    private Integer tiempo_viaje;
 }
