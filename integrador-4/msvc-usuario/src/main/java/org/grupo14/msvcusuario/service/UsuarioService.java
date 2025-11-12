@@ -1,6 +1,7 @@
 package org.grupo14.msvcusuario.service;
 
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
+import org.grupo14.msvcusuario.dto.UsuarioUsoDTO;
 import org.grupo14.msvcusuario.entity.Cuenta;
 import org.grupo14.msvcusuario.entity.Usuario;
 import org.grupo14.msvcusuario.feignClients.MonopatinFeignClient;
@@ -50,9 +51,22 @@ public class UsuarioService {
           return usuario;
     }
 
-    public Map<Long, UsoMonopatinesDTO> getUsoMonopatines(Long idUsuario, int year, int mesInicio, int mesFin, boolean otrosUsuarios) {
+    public List<UsuarioUsoDTO> usuariosQueMasUsanMonopatines(int yearInicio,  int mesInicio, int yearFin, int mesFin) {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<UsuarioUsoDTO> usuariosDto = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            Map<Long, UsoMonopatinesDTO> mapUser = getUsoMonopatines(usuario.getId(), yearInicio,  mesInicio, yearFin, mesFin, false);
+            UsoMonopatinesDTO usoDTO = mapUser.get(usuario.getId());
+            UsuarioUsoDTO usuarioDto = new UsuarioUsoDTO(usuario.getId(), usoDTO);
+            usuariosDto.add(usuarioDto);
+        }
+        usuariosDto.sort((a,b) -> b.getUsos().getKmRecorridos() -  a.getUsos().getKmRecorridos());
+        return usuariosDto;
+    }
+
+    public Map<Long, UsoMonopatinesDTO> getUsoMonopatines(Long idUsuario, int yearInicio, int mesInicio, int yearFin, int mesFin, boolean otrosUsuarios) {
         Map<Long, UsoMonopatinesDTO> result = new HashMap<>();
-        UsoMonopatinesDTO usoMonopatinesDTO = getUsoMonopatinesDTO(idUsuario, year, mesInicio, mesFin);
+        UsoMonopatinesDTO usoMonopatinesDTO = getUsoMonopatinesDTO(idUsuario, yearInicio, mesInicio, yearFin, mesFin);
         result.put(idUsuario, usoMonopatinesDTO);
         if (otrosUsuarios) {
             Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
@@ -62,7 +76,7 @@ public class UsuarioService {
                 for (Cuenta cuenta : cuentas) {
                     List<Usuario> usuarios = cuenta.getUsuario();
                     for (Usuario u : usuarios) {
-                        result.put(u.getId(), getUsoMonopatinesDTO(u.getId(), year, mesInicio, mesFin));
+                        result.put(u.getId(), getUsoMonopatinesDTO(u.getId(), yearInicio, mesInicio, yearFin,  mesFin));
                     }
                 }
             }
@@ -70,8 +84,8 @@ public class UsuarioService {
         return result;
     }
 
-    private UsoMonopatinesDTO getUsoMonopatinesDTO(Long idUsuario, int year, int mesInicio, int mesFin) {
-        List<Viaje> viajes = viajeFeignClient.getViajesUsuario(idUsuario, year, mesInicio, mesFin);
+    private UsoMonopatinesDTO getUsoMonopatinesDTO(Long idUsuario, int yearInicio, int mesInicio,int yearFin,  int mesFin) {
+        List<Viaje> viajes = viajeFeignClient.getViajesUsuario(idUsuario, yearInicio, mesInicio, yearFin, mesFin);
         int kmRecorridos = 0;
         int tiempoUsoSinPausa = 0;
         int tiempoUsoConPausa = 0;

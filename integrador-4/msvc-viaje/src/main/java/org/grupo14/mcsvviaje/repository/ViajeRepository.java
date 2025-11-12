@@ -12,12 +12,9 @@ import java.util.List;
 public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     @Query("SELECT v FROM Viaje v WHERE v.monopatin = :idMonopatin")
     List<Viaje>  obtenerViajesPorMonopatin(Long idMonopatin);
-//    @Query("SELECT SUM(f.valor) FROM Factura f " +
-//            "WHERE YEAR(f.fecha) = :anio " +
-//            "AND MONTH(f.fecha) BETWEEN :mesInicio AND :mesFin")
     @Query("SELECT v FROM Viaje v " +
             "where v.usuario = :idUsuario " +
-            "AND YEAR(v.fechaHoraFin) = :year " +
+            "AND YEAR(v.fechaHoraFin) BETWEEN :yearInicio AND :yearFin " +
             "AND MONTH(v.fechaHoraFin) BETWEEN :mesInicio AND :mesFin")
-    List<Viaje> obtenerViajesPorUsuario(Long idUsuario, int year, int mesInicio, int mesFin);
+    List<Viaje> obtenerViajesPorUsuario(Long idUsuario, int yearInicio,  int mesInicio, int yearFin,int mesFin);
 }

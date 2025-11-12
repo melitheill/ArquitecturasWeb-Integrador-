@@ -1,6 +1,7 @@
 package org.grupo14.msvcusuario.controller;
 
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
+import org.grupo14.msvcusuario.dto.UsuarioUsoDTO;
 import org.grupo14.msvcusuario.entity.Usuario;
 import org.grupo14.msvcusuario.model.Monopatin;
 import org.grupo14.msvcusuario.service.UsuarioService;
@@ -60,9 +61,13 @@ public class UsuarioController {
        return ResponseEntity.ok(usuarioService.delete(usuarioDelete));
     }
 
-    @GetMapping("/usoMonopatines/{id}/{year}/{mesInicio}/{mesFin}")
-    public ResponseEntity<Map<Long, UsoMonopatinesDTO>> getUsoMonopatines(@PathVariable Long id, @PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin, @RequestParam(defaultValue = "false", required = false) boolean otrosUsuarios){
-        return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id, year, mesInicio, mesFin, otrosUsuarios));
+    @GetMapping("/usoMonopatines/{id}/{yearInicio}/{mesInicio}/{yearFin}/{mesFin}")
+    public ResponseEntity<Map<Long, UsoMonopatinesDTO>> getUsoMonopatines(@PathVariable Long id, @PathVariable int yearInicio, @PathVariable int mesInicio, @PathVariable int yearFin, @PathVariable int mesFin, @RequestParam(defaultValue = "false", required = false) boolean otrosUsuarios){
+        return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id, yearInicio, mesInicio, yearFin, mesFin, otrosUsuarios));
+    }
+    @GetMapping("/usuariosUsoMonopatines/{yearInicio}/{mesInicio}/{yearFin}/{mesFin}")
+    public ResponseEntity<List<UsuarioUsoDTO>> getUsoMonopatines(@PathVariable int yearInicio, @PathVariable int mesInicio, @PathVariable int yearFin, @PathVariable int mesFin){
+        return  ResponseEntity.ok(usuarioService.usuariosQueMasUsanMonopatines(yearInicio, mesInicio, yearFin, mesFin));
     }
     @GetMapping("/monopatinesCercanos/{id}")
     public ResponseEntity<List<Monopatin>> getByZona(@PathVariable Long id){
