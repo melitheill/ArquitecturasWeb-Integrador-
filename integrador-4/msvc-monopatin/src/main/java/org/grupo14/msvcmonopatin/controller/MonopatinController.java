@@ -25,7 +25,7 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatins);
     }
 
-    @RequestMapping("/id")
+    @RequestMapping("/{id}")
     public ResponseEntity<Monopatin> getById(@PathVariable long id) {
         Monopatin monopatin = monopatinService.findById(id);
         if(monopatin == null){
@@ -39,7 +39,7 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatinService.save(monopatin));
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<Monopatin> update(@PathVariable Long id,@RequestBody Monopatin monopatin) {
         Monopatin updatedMonopatin = monopatinService.findById(id);
         if(monopatin == null){
@@ -48,7 +48,7 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatinService.update(monopatin));
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Monopatin> delete(@PathVariable Long id,@RequestBody Monopatin monopatin) {
         Monopatin deleteMonopatin = monopatinService.findById(id);
         if(monopatin == null){
@@ -68,6 +68,15 @@ public class MonopatinController {
     @PostMapping("/mantenimiento/{id}")
     public ResponseEntity<String> setMantenimiento (@PathVariable long id) {
         return ResponseEntity.ok(monopatinService.setMantenimiento(id));
+    }
+
+    @GetMapping("/zona")
+    public ResponseEntity<List<Monopatin>> getByZona(@RequestParam Double lat,@RequestParam Double lon) {
+         List<Monopatin> monopatinsByZona = monopatinService.findByZona(lat,lon);
+         if(monopatinsByZona.isEmpty()){
+             return ResponseEntity.notFound().build();
+         }
+         return ResponseEntity.ok(monopatinsByZona);
     }
 
 

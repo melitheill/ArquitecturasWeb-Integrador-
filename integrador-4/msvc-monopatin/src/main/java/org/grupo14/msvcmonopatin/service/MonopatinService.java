@@ -81,4 +81,7 @@ public class MonopatinService {
         return "Monopatin en mantenimiento";
     }
 
+   public List<Monopatin> findByZona(double lat,double lon){
+       return monopatinRepository.findByZona(lat,lon);
+  }
 }
