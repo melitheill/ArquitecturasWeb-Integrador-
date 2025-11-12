@@ -1,6 +1,7 @@
 package org.grupo14.mcsvviaje.controller;
 
 import org.grupo14.mcsvviaje.DTO.ViajeDTO;
+import org.grupo14.mcsvviaje.DTO.ViajeUsuarioDTO;
 import org.grupo14.mcsvviaje.entity.Viaje;
 import org.grupo14.mcsvviaje.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,9 @@ public class ViajeController {
     @GetMapping("/test/{idMonopatin}")
     public ResponseEntity<List<ViajeDTO>> test(@PathVariable Long idMonopatin){
         return ResponseEntity.ok(viajeService.obtenerViajesDelMonopatin(idMonopatin));
+    }
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<ViajeUsuarioDTO>> obtenerViajesPorUsuario(@PathVariable Long idUsuario){
+        return ResponseEntity.ok(viajeService.obtenerViajesPorUsuario(idUsuario));
     }
 }

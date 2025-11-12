@@ -1,6 +1,7 @@
 package org.grupo14.mcsvviaje.service;
 
 import org.grupo14.mcsvviaje.DTO.ViajeDTO;
+import org.grupo14.mcsvviaje.DTO.ViajeUsuarioDTO;
 import org.grupo14.mcsvviaje.entity.Tiempo;
 import org.grupo14.mcsvviaje.entity.Viaje;
 import org.grupo14.mcsvviaje.feignClients.FacturaFeignClient;
@@ -82,5 +83,15 @@ public class ViajeService {
             viajeDTOs.add(viajeDTO);
         }
         return viajeDTOs;
+    }
+
+    public List<ViajeUsuarioDTO> obtenerViajesPorUsuario(Long idUsuario) {
+        List<Viaje> viajes =  viajeRepository.obtenerViajesPorUsuario(idUsuario);
+        List<ViajeUsuarioDTO> viajesDTO = new ArrayList<>();
+        for (Viaje viaje : viajes) {
+            ViajeUsuarioDTO viajeDTO = new ViajeUsuarioDTO(viaje.getKmRecorridos());
+            viajesDTO.add(viajeDTO);
+        }
+        return viajesDTO;
     }
 }
