@@ -61,7 +61,11 @@ public class FacturaService {
     public int getTotalFacturadoEntre(int anio, int mesInicio, int mesFin) {
 
         int total=0;
-        total += facturaRepository.getTotalFacturadoEntre(anio ,mesInicio, mesFin);
+        if (mesInicio>mesFin){
+            total += facturaRepository.getTotalFacturadoEntre(anio ,mesFin,mesInicio);
+        }else {
+            total += facturaRepository.getTotalFacturadoEntre(anio, mesInicio, mesFin);
+        }
         return total;
     }
 
