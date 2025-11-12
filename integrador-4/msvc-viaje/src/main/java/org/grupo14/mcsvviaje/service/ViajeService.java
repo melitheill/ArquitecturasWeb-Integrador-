@@ -25,7 +25,7 @@ public class ViajeService {
     TiempoService tiempoService;
 
     @Autowired
-    RestTemplate restTemplate;
+    FacturaFeignClient facturaFeignClient;
 
     public List<Viaje> getAll(){
         return viajeRepository.findAll();
@@ -60,7 +60,7 @@ public class ViajeService {
             LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
             int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
             Factura factura = new Factura(date, valor, viaje.getId());
-//            restTemplate.postForObject("http://localhost:8002/factura", factura, String.class);
+            facturaFeignClient.save(factura);
             return "Facturado correctamente";
         }
         return "Factura no encontrada";
