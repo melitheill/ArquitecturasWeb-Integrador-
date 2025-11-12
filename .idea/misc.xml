@@ -24,6 +24,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/integrador-4/msvc-cuenta/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/msvc/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/saljdhsakj/pom.xml" />
         <option value="$PROJECT_DIR$/../integrador-3/pom.xml" />
