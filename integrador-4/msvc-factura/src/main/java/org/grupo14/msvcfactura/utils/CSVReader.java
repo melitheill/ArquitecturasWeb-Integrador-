@@ -1,10 +1,11 @@
-package org.example.msvccuenta.utils;
+package org.grupo14.msvcfactura.utils;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.example.msvccuenta.entity.Cuenta;
 import org.example.msvccuenta.repository.CuentaRepository;
+import org.grupo14.msvcfactura.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,14 @@ import java.sql.Timestamp;
 public class CSVReader {
 
     @Autowired
-    private CuentaRepository cuentaRepository;
+    private FacturaRepository facturaRepository;
 
-    public CSVReader(CuentaRepository cuentaRepository) {
-        this.cuentaRepository = cuentaRepository;
+    public CSVReader(FacturaRepository facturaRepository) {
+        this.facturaRepository = facturaRepository;
     }
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
-        String path = "integrador-4\\msvc-cuenta\\src\\main\\resources\\" + archivo;
+        String path = "integrador-4\\msvc-factura\\src\\main\\resources\\" + archivo;
         Reader in = new FileReader(path);
         String[] header = {};
         CSVParser csvParser = CSVFormat.EXCEL.withHeader(header).parse(in);
@@ -35,16 +36,15 @@ public class CSVReader {
 
     public void cargarDatos() throws IOException {
         try {
-            insertCuenta();
+            insertFactura();
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void insertCuenta() throws IOException {
-        for(CSVRecord row : getData("cuentas.csv")){
+    private void insertFactura() throws IOException {
+        for(CSVRecord row : getData("facturas.csv")){
             if(row.size() >= 5){
-//                String idString = row.get(0);
                 String nroCuentaString = row.get(0);
                 String usuario = row.get(1);
                 String montoString = row.get(2);
@@ -57,7 +57,7 @@ public class CSVReader {
                         double monto = Double.parseDouble(montoString);
                         Timestamp fechaAlta = Timestamp.valueOf(fechaAltaString);
                         Cuenta cuenta = new Cuenta(nroCuenta, usuario, monto, fechaAlta, tipo_cuenta);
-                        cuentaRepository.save(cuenta);
+                        facturaRepository.save(cuenta);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
                     }
