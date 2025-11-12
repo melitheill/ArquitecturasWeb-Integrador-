@@ -16,8 +16,13 @@ public class Parada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String direccion;
     private String nombre;
-    private int latitud;
-    private int longitud;
+    private double latitud;
+    private double longitud;
+
+    public Parada(String nombre, double latitud, double longitud) {
+        this.nombre = nombre;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
 }

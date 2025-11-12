@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
 import org.grupo14.msvcmonopatin.repository.MonopatinRepository;
+import org.grupo14.msvcmonopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,10 @@ import java.io.Reader;
 public class CSVReader {
 
     @Autowired
-    private MonopatinRepository monopatinRepository;
+    private MonopatinService monopatinService;
 
-    public CSVReader(MonopatinRepository monopatinRepository) {
-        this.monopatinRepository = monopatinRepository;
+    public CSVReader(MonopatinService monopatinService) {
+        this.monopatinService = monopatinService;
     }
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
@@ -53,7 +54,7 @@ public class CSVReader {
                         double latitud = Double.parseDouble(latitudString);
                         double longitud = Double.parseDouble(longitudString);
                         Monopatin monopatin = new Monopatin(estado, latitud, longitud);
-                        monopatinRepository.save(monopatin);
+                        monopatinService.save(monopatin);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
                     }

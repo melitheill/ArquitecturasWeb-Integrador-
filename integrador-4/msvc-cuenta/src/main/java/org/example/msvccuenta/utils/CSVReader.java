@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.example.msvccuenta.entity.Cuenta;
 import org.example.msvccuenta.repository.CuentaRepository;
+import org.example.msvccuenta.service.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,10 @@ import java.sql.Timestamp;
 public class CSVReader {
 
     @Autowired
-    private CuentaRepository cuentaRepository;
+    private CuentaService cuentaService;
 
-    public CSVReader(CuentaRepository cuentaRepository) {
-        this.cuentaRepository = cuentaRepository;
+    public CSVReader(CuentaService cuentaService) {
+        this.cuentaService = cuentaService;
     }
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
@@ -57,7 +58,7 @@ public class CSVReader {
                         double monto = Double.parseDouble(montoString);
                         Timestamp fechaAlta = Timestamp.valueOf(fechaAltaString);
                         Cuenta cuenta = new Cuenta(nroCuenta, usuario, monto, fechaAlta, tipo_cuenta);
-                        cuentaRepository.save(cuenta);
+                        cuentaService.save(cuenta);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
                     }
