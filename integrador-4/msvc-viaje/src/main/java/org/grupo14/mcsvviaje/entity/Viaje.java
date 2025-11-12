@@ -24,9 +24,23 @@ public class Viaje {
     private Tiempo tiempo;
     private Integer pausa;
     //TODO cambiar por clases reales
-    private String paradaInicio;
-    private String paradaFin;
+    private Long paradaInicio;
+    private Long paradaFin;
     private Integer tarifa;
     private Long monopatin;
-    private String usuario;
+    private Long usuario;
+
+    public Viaje(Timestamp fechaHoraInicio, Timestamp fechaHoraFin, Integer kmRecorridos, Integer kmRecorridosPausaExtensa,  Integer pausa, Long paradaInicio, Long paradaFin, Integer tarifa, Long monopatin, Long usuario) {
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = fechaHoraFin;
+        this.kmRecorridos = kmRecorridos;
+        this.kmRecorridosPausaExtensa = kmRecorridosPausaExtensa;
+        this.tiempo = null;
+        this.pausa = pausa;
+        this.paradaInicio = paradaInicio;
+        this.paradaFin = paradaFin;
+        this.tarifa = tarifa;
+        this.monopatin = monopatin;
+        this.usuario = usuario;
+    }
 }

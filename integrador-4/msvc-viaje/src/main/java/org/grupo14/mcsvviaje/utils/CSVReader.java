@@ -1,68 +1,83 @@
-//package org.grupo14.mcsvviaje.utils;
-//
-//import org.apache.commons.csv.CSVFormat;
-//import org.apache.commons.csv.CSVParser;
-//import org.apache.commons.csv.CSVRecord;
-//import org.example.msvccuenta.entity.Cuenta;
-//import org.example.msvccuenta.repository.CuentaRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.io.FileReader;
-//import java.io.IOException;
-//import java.io.Reader;
-//import java.sql.Timestamp;
-//
-//@Service
-//public class CSVReader {
-//
-//    @Autowired
-//    private CuentaRepository cuentaRepository;
-//
-//    public CSVReader(CuentaRepository cuentaRepository) {
-//        this.cuentaRepository = cuentaRepository;
-//    }
-//
-//    private Iterable<CSVRecord> getData(String archivo) throws IOException {
-//        String path = "integrador-4\\msvc-cuenta\\src\\main\\resources\\" + archivo;
-//        Reader in = new FileReader(path);
-//        String[] header = {};
-//        CSVParser csvParser = CSVFormat.EXCEL.withHeader(header).parse(in);
-//
-//        Iterable<CSVRecord> records = csvParser.getRecords();
-//        return records;
-//    }
-//
-//    public void cargarDatos() throws IOException {
-//        try {
-//            insertCuenta();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void insertCuenta() throws IOException {
-//        for(CSVRecord row : getData("cuentas.csv")){
-//            if(row.size() >= 5){
-////                String idString = row.get(0);
-//                String nroCuentaString = row.get(0);
-//                String usuario = row.get(1);
-//                String montoString = row.get(2);
-//                String fechaAltaString = row.get(3);
-//                String tipo_cuenta = row.get(4);
-//
-//                if(!nroCuentaString.isEmpty() && !usuario.isEmpty() && !montoString.isEmpty() && !fechaAltaString.isEmpty() && !tipo_cuenta.isEmpty()){
-//                    try{
-//                        int nroCuenta = Integer.parseInt(nroCuentaString);
-//                        double monto = Double.parseDouble(montoString);
-//                        Timestamp fechaAlta = Timestamp.valueOf(fechaAltaString);
-//                        Cuenta cuenta = new Cuenta(nroCuenta, usuario, monto, fechaAlta, tipo_cuenta);
-//                        cuentaRepository.save(cuenta);
-//                    } catch (NumberFormatException e){
-//                        System.err.println("Error" + e.getMessage());
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
+package org.grupo14.mcsvviaje.utils;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.grupo14.mcsvviaje.entity.Viaje;
+import org.grupo14.mcsvviaje.service.ViajeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.Timestamp;
+
+@Service
+public class CSVReader {
+
+    @Autowired
+    private ViajeService viajeService;
+
+    public CSVReader(ViajeService viajeService) {
+        this.viajeService = viajeService;
+    }
+
+    private Iterable<CSVRecord> getData(String archivo) throws IOException {
+        String path = "integrador-4\\msvc-viaje\\src\\main\\resources\\" + archivo;
+        Reader in = new FileReader(path);
+        String[] header = {};
+        CSVParser csvParser = CSVFormat.EXCEL.withHeader(header).parse(in);
+
+        Iterable<CSVRecord> records = csvParser.getRecords();
+        return records;
+    }
+
+    public void cargarDatos() throws IOException {
+        try {
+            insertViaje();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void insertViaje() throws IOException {
+        for(CSVRecord row : getData("viajes.csv")){
+            if(row.size() >= 10){
+                String fiS = row.get(0);
+                String ffS = row.get(1);
+                String kmrS = row.get(2);
+                String kmpS = row.get(3);
+                String pausaS = row.get(4);
+                String piS = row.get(5);
+                String pfS = row.get(6);
+                String tarifaS = row.get(7);
+                String monopatinS = row.get(8);
+                String usuarioS = row.get(9);
+
+                if(!fiS.isEmpty() && !ffS.isEmpty() && !kmrS.isEmpty()
+                        && !kmpS.isEmpty() && !pausaS.isEmpty() && !piS.isEmpty()
+                        && !pfS.isEmpty() && !tarifaS.isEmpty()
+                        && !monopatinS.isEmpty() && !usuarioS.isEmpty()){
+                    try{
+                        Timestamp fi = Timestamp.valueOf(fiS);
+                        Timestamp ff = Timestamp.valueOf(ffS);
+                        int kmr = Integer.parseInt(kmrS);
+                        int kmp = Integer.parseInt(kmpS);
+                        int pausa = Integer.parseInt(pausaS);
+                        long pi = Long.parseLong(piS);
+                        long pf = Long.parseLong(pfS);
+                        int tarifa = Integer.parseInt(tarifaS);
+                        long monopatin = Long.parseLong(monopatinS);
+                        long usuario = Long.parseLong(usuarioS);
+
+                        Viaje viaje = new Viaje(fi, ff, kmr, kmp, pausa, pi, pf, tarifa, monopatin, usuario);
+                        viajeService.save(viaje);
+                    } catch (NumberFormatException e){
+                        System.err.println("Error" + e.getMessage());
+                    }
+                }
+            }
+        }
+    }
+}

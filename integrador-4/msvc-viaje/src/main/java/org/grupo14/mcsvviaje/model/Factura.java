@@ -15,5 +15,4 @@ import java.time.LocalDate;
 public class Factura {
     private LocalDate fecha;
     private Integer valor;
-    private Long id_viaje;
 }

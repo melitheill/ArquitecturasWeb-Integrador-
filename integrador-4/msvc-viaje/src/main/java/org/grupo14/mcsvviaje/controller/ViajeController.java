@@ -37,7 +37,6 @@ public class ViajeController {
     @PostMapping("")
     public ResponseEntity<Viaje> create(@RequestBody Viaje viaje){
         viajeService.save(viaje);
-        viajeService.facturar(viaje.getId());
         return ResponseEntity.ok(viaje);
     }
 
@@ -58,11 +57,6 @@ public class ViajeController {
         } else {
             return ResponseEntity.ok(viajeService.delete(viaje));
         }
-    }
-
-    @PostMapping("/facturar/{id}")
-    public ResponseEntity<String> helloWorld(@PathVariable Long id){
-        return ResponseEntity.ok(viajeService.facturar(id));
     }
 
     @GetMapping("/test/{idMonopatin}")

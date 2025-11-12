@@ -38,6 +38,7 @@ public class ViajeService {
         tiempo.setTiempoPausado(time + viaje.getPausa());
         viaje.setTiempo(tiempo);
         tiempoService.save(tiempo);
+        facturar(viaje);
         return viajeRepository.save(viaje);
     }
 
@@ -54,16 +55,11 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-    public String facturar(Long id){
-        Viaje viaje = findById(id);
-        if(viaje != null){
-            LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
-            int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
-            Factura factura = new Factura(date, valor, viaje.getId());
-            facturaFeignClient.save(factura);
-            return "Facturado correctamente";
-        }
-        return "Factura no encontrada";
+    public void facturar(Viaje viaje){
+        LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
+        int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
+        Factura factura = new Factura(date, valor);
+        facturaFeignClient.save(factura);
     }
 
     public int calcularTiempo(Viaje viaje){

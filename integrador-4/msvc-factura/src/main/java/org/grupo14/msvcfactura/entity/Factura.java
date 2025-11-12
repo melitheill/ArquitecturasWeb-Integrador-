@@ -21,5 +21,4 @@ public class Factura {
     private Long id;
     private LocalDate fecha;
     private Integer valor;
-    private Long id_viaje;
 }
