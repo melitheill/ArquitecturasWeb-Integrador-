@@ -3,7 +3,7 @@ package org.grupo14.msvcmonopatin.service;
 import feign.Client;
 import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
-import org.grupo14.msvcmonopatin.feignClients.ParadaFeignCliente;
+import org.grupo14.msvcmonopatin.feignClients.ParadaFeignClient;
 import org.grupo14.msvcmonopatin.feignClients.ViajeFeignClient;
 import org.grupo14.msvcmonopatin.model.Parada;
 import org.grupo14.msvcmonopatin.model.Viaje;
@@ -21,10 +21,10 @@ public class MonopatinService {
     private MonopatinRepository monopatinRepository;
 
     private ViajeFeignClient viajeFeignClient;
-    private ParadaFeignCliente paradaFeignClient;
+    private ParadaFeignClient paradaFeignClient;
     private Client feignClient;
 
-    public MonopatinService(ViajeFeignClient viajeFeignClient,ParadaFeignCliente paradaFeignClient) {
+    public MonopatinService(ViajeFeignClient viajeFeignClient, ParadaFeignClient paradaFeignClient) {
         this.viajeFeignClient = viajeFeignClient;
         this.paradaFeignClient = paradaFeignClient;
     }

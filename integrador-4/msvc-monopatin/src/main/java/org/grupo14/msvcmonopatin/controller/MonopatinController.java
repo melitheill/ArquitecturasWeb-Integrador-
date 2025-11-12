@@ -73,10 +73,7 @@ public class MonopatinController {
     @GetMapping("/zona")
     public ResponseEntity<List<Monopatin>> getByZona(@RequestParam Double lat,@RequestParam Double lon) {
          List<Monopatin> monopatinsByZona = monopatinService.findByZona(lat,lon);
-         if(monopatinsByZona.isEmpty()){
-             return ResponseEntity.notFound().build();
-         }
-         return ResponseEntity.ok(monopatinsByZona);
+        return ResponseEntity.ok(monopatinsByZona == null ? List.of() : monopatinsByZona);
     }
 
     @GetMapping("/parada/{id}")
