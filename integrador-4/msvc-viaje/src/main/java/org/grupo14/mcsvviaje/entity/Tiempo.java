@@ -1,4 +1,4 @@
-package org.grupo14.msvcmonopatin.entity;
+package org.grupo14.mcsvviaje.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,24 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Monopatin {
-
+public class Tiempo {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String estado;
-    private double latitud;
-    private double longitud;
-//    private double km_recorridos;
-//    private List<String> viaje_id;
-
-
-
-
+    private int tiempoSinPausas;
+    private int tiempoPausado;
 }

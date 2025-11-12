@@ -20,10 +20,13 @@ public class Viaje {
     private Timestamp fechaHoraFin;
     private Integer kmRecorridos;
     private Integer kmRecorridosPausaExtensa;
+    @OneToOne
+    private Tiempo tiempo;
+    private Integer pausa;
     //TODO cambiar por clases reales
     private String paradaInicio;
     private String paradaFin;
     private Integer tarifa;
-    private String monopatin;
+    private Long monopatin;
     private String usuario;
 }

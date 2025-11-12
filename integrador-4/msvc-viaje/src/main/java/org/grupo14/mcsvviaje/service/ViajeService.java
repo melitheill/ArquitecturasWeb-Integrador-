@@ -1,13 +1,18 @@
 package org.grupo14.mcsvviaje.service;
 
+import org.grupo14.mcsvviaje.DTO.ViajeDTO;
+import org.grupo14.mcsvviaje.entity.Tiempo;
 import org.grupo14.mcsvviaje.entity.Viaje;
+import org.grupo14.mcsvviaje.feignClients.FacturaFeignClient;
 import org.grupo14.mcsvviaje.model.Factura;
 import org.grupo14.mcsvviaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +22,9 @@ public class ViajeService {
     ViajeRepository viajeRepository;
 
     @Autowired
+    TiempoService tiempoService;
+
+    @Autowired
     RestTemplate restTemplate;
 
     public List<Viaje> getAll(){
@@ -24,6 +32,12 @@ public class ViajeService {
     }
 
     public Viaje save(Viaje viaje){
+        int time = calcularTiempo(viaje);
+        Tiempo tiempo = new Tiempo();
+        tiempo.setTiempoSinPausas(time);
+        tiempo.setTiempoPausado(time + viaje.getPausa());
+        viaje.setTiempo(tiempo);
+        tiempoService.save(tiempo);
         return viajeRepository.save(viaje);
     }
 
@@ -46,9 +60,31 @@ public class ViajeService {
             LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
             int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
             Factura factura = new Factura(date, valor, viaje.getId());
-            restTemplate.postForObject("http://localhost:8002/factura", factura, String.class);
+//            restTemplate.postForObject("http://localhost:8002/factura", factura, String.class);
             return "Facturado correctamente";
         }
         return "Factura no encontrada";
+    }
+
+    public int calcularTiempo(Viaje viaje){
+        Timestamp fechaHoraInicio = viaje.getFechaHoraInicio();
+        Timestamp fechaHoraFin = viaje.getFechaHoraFin();
+        int horaInicioInMinutes = fechaHoraInicio.getHours() * 60 +  fechaHoraInicio.getMinutes();
+        int horaFinInMinutes = fechaHoraFin.getHours() * 60 +  fechaHoraFin.getMinutes();
+        return horaFinInMinutes -  horaInicioInMinutes;
+    }
+
+    public List<ViajeDTO> obtenerViajesDelMonopatin(Long idMonopatin){
+        List<Viaje> viajes = viajeRepository.obtenerViajesPorMonopatin(idMonopatin);
+        List<ViajeDTO> viajeDTOs = new ArrayList<>();
+        for (Viaje viaje : viajes) {
+            ViajeDTO viajeDTO = new ViajeDTO();
+            viajeDTO.setId(viaje.getId());
+            viajeDTO.setTiempoSinPausas(viaje.getTiempo().getTiempoSinPausas());
+            viajeDTO.setTiempoConPausas(viaje.getTiempo().getTiempoPausado());
+            viajeDTO.setKmRecorridos(viaje.getKmRecorridos());
+            viajeDTOs.add(viajeDTO);
+        }
+        return viajeDTOs;
     }
 }

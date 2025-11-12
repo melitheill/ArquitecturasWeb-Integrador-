@@ -1,5 +1,6 @@
 package org.grupo14.msvcmonopatin.controller;
 
+import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
 import org.grupo14.msvcmonopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,13 @@ public class MonopatinController {
         }
         return ResponseEntity.ok(monopatinService.delete(deleteMonopatin));
 
+    }
+
+    @GetMapping("/reporte")
+    public ResponseEntity<List<MonopatinDTO>> getMonopatin() {
+        List<MonopatinDTO> monopatines = monopatinService.reporte();
+        System.out.println(monopatines);
+        return ResponseEntity.ok(monopatines);
     }
 
 

@@ -1,5 +1,6 @@
 package org.grupo14.mcsvviaje.controller;
 
+import org.grupo14.mcsvviaje.DTO.ViajeDTO;
 import org.grupo14.mcsvviaje.entity.Viaje;
 import org.grupo14.mcsvviaje.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,10 @@ public class ViajeController {
     @PostMapping("/facturar/{id}")
     public ResponseEntity<String> helloWorld(@PathVariable Long id){
         return ResponseEntity.ok(viajeService.facturar(id));
+    }
+
+    @GetMapping("/test/{idMonopatin}")
+    public ResponseEntity<List<ViajeDTO>> test(@PathVariable Long idMonopatin){
+        return ResponseEntity.ok(viajeService.obtenerViajesDelMonopatin(idMonopatin));
     }
 }
