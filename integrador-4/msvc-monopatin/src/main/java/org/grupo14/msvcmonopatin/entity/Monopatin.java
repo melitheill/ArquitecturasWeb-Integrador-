@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Monopatin {
 
     @Id
@@ -22,10 +24,11 @@ public class Monopatin {
     private String estado;
     private double latitud;
     private double longitud;
-//    private double km_recorridos;
-//    private List<String> viaje_id;
 
-
-
+    public Monopatin(String estado, double latitud, double longitud) {
+        this.estado = estado;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
 
 }

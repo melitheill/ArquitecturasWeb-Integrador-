@@ -25,4 +25,12 @@ public class Cuenta {
     private Timestamp fechaAlta;
     private String tipo_cuenta;
 
+     public Cuenta(int nro_cuenta, String usuario, double monto, Timestamp fechaAlta, String tipo_cuenta) {
+         this.nro_cuenta = nro_cuenta;
+         this.usuario = usuario;
+         this.monto = monto;
+         this.fechaAlta = fechaAlta;
+         this.tipo_cuenta = tipo_cuenta;
+     }
+
 }
