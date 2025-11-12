@@ -1,12 +1,10 @@
 package org.grupo14.msvcusuario.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +18,8 @@ public class Usuario {
     private String nombre;
 //    private String rol;
     private String mail;
-//    private List<String> cuentas;
+    @ManyToMany
+    private List<Cuenta> cuentas;
     private double latitud;
     private double longitud;
 //    private List<String> monopatines;
@@ -31,5 +30,6 @@ public class Usuario {
         this.mail = mail;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.cuentas = new ArrayList<>();
     }
 }
