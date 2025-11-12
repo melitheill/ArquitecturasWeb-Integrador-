@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -60,8 +61,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/usoMonopatines/{id}/{year}/{mesInicio}/{mesFin}")
-    public ResponseEntity<UsoMonopatinesDTO> getUsoMonopatines(@PathVariable Long id, @PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin){
-        return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id, year, mesInicio, mesFin));
+    public ResponseEntity<Map<Long, UsoMonopatinesDTO>> getUsoMonopatines(@PathVariable Long id, @PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin, @RequestParam(defaultValue = "false", required = false) boolean otrosUsuarios){
+        return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id, year, mesInicio, mesFin, otrosUsuarios));
     }
     @GetMapping("/monopatinesCercanos/{id}")
     public ResponseEntity<List<Monopatin>> getByZona(@PathVariable Long id){

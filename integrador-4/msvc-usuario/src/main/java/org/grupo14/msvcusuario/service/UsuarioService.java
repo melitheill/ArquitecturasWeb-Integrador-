@@ -1,6 +1,7 @@
 package org.grupo14.msvcusuario.service;
 
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
+import org.grupo14.msvcusuario.entity.Cuenta;
 import org.grupo14.msvcusuario.entity.Usuario;
 import org.grupo14.msvcusuario.feignClients.MonopatinFeignClient;
 import org.grupo14.msvcusuario.feignClients.ViajeFeignClient;
@@ -12,7 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UsuarioService {
@@ -46,7 +50,27 @@ public class UsuarioService {
           return usuario;
     }
 
-    public UsoMonopatinesDTO getUsoMonopatines(Long idUsuario, int year, int mesInicio, int mesFin) {
+    public Map<Long, UsoMonopatinesDTO> getUsoMonopatines(Long idUsuario, int year, int mesInicio, int mesFin, boolean otrosUsuarios) {
+        Map<Long, UsoMonopatinesDTO> result = new HashMap<>();
+        UsoMonopatinesDTO usoMonopatinesDTO = getUsoMonopatinesDTO(idUsuario, year, mesInicio, mesFin);
+        result.put(idUsuario, usoMonopatinesDTO);
+        if (otrosUsuarios) {
+            Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+            if (usuario != null) {
+                //devuelve el uso de los usuarios de todas las cuentas asociadas
+                List<Cuenta> cuentas = usuario.getCuentas();
+                for (Cuenta cuenta : cuentas) {
+                    List<Usuario> usuarios = cuenta.getUsuario();
+                    for (Usuario u : usuarios) {
+                        result.put(u.getId(), getUsoMonopatinesDTO(u.getId(), year, mesInicio, mesFin));
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private UsoMonopatinesDTO getUsoMonopatinesDTO(Long idUsuario, int year, int mesInicio, int mesFin) {
         List<Viaje> viajes = viajeFeignClient.getViajesUsuario(idUsuario, year, mesInicio, mesFin);
         int kmRecorridos = 0;
         int tiempoUsoSinPausa = 0;
@@ -56,7 +80,8 @@ public class UsuarioService {
             tiempoUsoSinPausa += viaje.getTiempoUsoSinPausa();
             tiempoUsoConPausa = tiempoUsoConPausa + viaje.getTiempoUsoConPausa();
         }
-        return new UsoMonopatinesDTO(kmRecorridos, viajes.size(), tiempoUsoSinPausa, tiempoUsoConPausa);
+        UsoMonopatinesDTO usoMonopatinesDTO = new UsoMonopatinesDTO(kmRecorridos, viajes.size(), tiempoUsoSinPausa, tiempoUsoConPausa);
+        return usoMonopatinesDTO;
     }
 
     public List<Monopatin> getMonopatinMasCercano(Long usuarioId) {
