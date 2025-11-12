@@ -65,5 +65,10 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatines);
     }
 
+    @PostMapping("/mantenimiento/{id}")
+    public ResponseEntity<String> setMantenimiento (@PathVariable long id) {
+        return ResponseEntity.ok(monopatinService.setMantenimiento(id));
+    }
+
 
 }

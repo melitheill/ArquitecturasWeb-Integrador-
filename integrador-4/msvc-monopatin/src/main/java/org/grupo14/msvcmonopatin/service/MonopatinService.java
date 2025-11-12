@@ -8,7 +8,6 @@ import org.grupo14.msvcmonopatin.model.Viaje;
 import org.grupo14.msvcmonopatin.repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +17,6 @@ public class MonopatinService {
 
     @Autowired
     private MonopatinRepository monopatinRepository;
-
-    @Autowired
-    RestTemplate restTemplate;
 
     private ViajeFeignClient viajeFeignClient;
     private Client feignClient;
@@ -72,4 +68,17 @@ public class MonopatinService {
         monopatinesDTO.sort( (m,n) -> m.getKmRecorridos() > n.getKmRecorridos() ? -1 : 1 );
         return monopatinesDTO;
     }
+
+    public String setMantenimiento(long monopatinId) {
+        Monopatin monopatin = findById(monopatinId);
+        if(monopatin == null){
+            return "Monopatin no encontrado";
+        }
+        monopatin.setEstado("mantenimiento");
+        monopatin.setLatitud(0);
+        monopatin.setLongitud(0);
+        monopatinRepository.save(monopatin);
+        return "Monopatin en mantenimiento";
+    }
+
 }
