@@ -57,8 +57,8 @@ public class ViajeService {
 
     public void facturar(Viaje viaje){
         LocalDate date = viaje.getFechaHoraFin().toLocalDateTime().toLocalDate();
-        int valor = viaje.getKmRecorridos() * viaje.getTarifa() + viaje.getKmRecorridosPausaExtensa() * viaje.getTarifa();
-        Factura factura = new Factura(date, valor);
+
+        Factura factura = new Factura(date, viaje.getKmRecorridos(),viaje.getKmRecorridosPausaExtensa());
         facturaFeignClient.save(factura);
     }
 
