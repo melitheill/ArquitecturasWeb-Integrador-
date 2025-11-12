@@ -46,8 +46,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/usuario/monopatinesCercanos/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/usuario/usoMonopatines/**").permitAll()
-                        .anyRequest().hasAuthority(AuthorityConstant._ADMIN)
-//                        .anyRequest().permitAll()
+//                        .anyRequest().hasAuthority(AuthorityConstant._ADMIN)
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(new JwtFilter(this.tokenProvider), UsernamePasswordAuthenticationFilter.class);

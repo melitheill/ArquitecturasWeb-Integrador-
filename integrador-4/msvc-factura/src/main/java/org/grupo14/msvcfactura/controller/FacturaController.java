@@ -76,6 +76,11 @@ public class FacturaController {
             @PathVariable int mesInicio,
             @PathVariable int mesFin
     ) {
+        if (mesInicio > mesFin) {
+            int aux = mesInicio;
+            mesInicio = mesFin;
+            mesFin = aux;
+        }
         int total = facturaService.getTotalFacturadoEntre(anio, mesInicio, mesFin);
 
         Map<String, Object> response = new HashMap<>();
