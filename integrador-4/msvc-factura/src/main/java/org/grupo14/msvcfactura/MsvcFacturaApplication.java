@@ -2,10 +2,12 @@ package org.grupo14.msvcfactura;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.io.IOException;
 
 @SpringBootApplication
+@EnableFeignClients
 public class MsvcFacturaApplication {
 
     public static void main(String[] args) {

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name="msvc-factura", url = "http://localhost:8002/api/factura")
 public interface FacturaFeignClient {
 
-    @PostMapping("")
+    @PostMapping("/facturar")
     Factura save(@RequestBody Factura factura);
 }

@@ -21,4 +21,9 @@ public class Factura {
     private Long id;
     private LocalDate fecha;
     private Integer valor;
+
+    public Factura(Integer valor, LocalDate fecha) {
+        this.valor = valor;
+        this.fecha = fecha;
+    }
 }
