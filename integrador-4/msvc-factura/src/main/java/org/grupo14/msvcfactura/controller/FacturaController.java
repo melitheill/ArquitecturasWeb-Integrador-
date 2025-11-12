@@ -76,10 +76,12 @@ public class FacturaController {
             @PathVariable int mesInicio,
             @PathVariable int mesFin
     ) {
-        if (mesInicio > mesFin) {
-            int aux = mesInicio;
-            mesInicio = mesFin;
-            mesFin = aux;
+        if (mesInicio > 12 || mesFin > 12 || mesInicio < 1 || mesFin < 1) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("Error", "MesInicio y/o MesFin invalido");
+            response.put("mesInicio", mesInicio);
+            response.put("mesFin", mesFin);
+            return ResponseEntity.ok(response);
         }
         int total = facturaService.getTotalFacturadoEntre(anio, mesInicio, mesFin);
 
