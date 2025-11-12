@@ -2,6 +2,7 @@ package org.grupo14.msvcusuario.controller;
 
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
 import org.grupo14.msvcusuario.entity.Usuario;
+import org.grupo14.msvcusuario.model.Monopatin;
 import org.grupo14.msvcusuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,5 +63,12 @@ public class UsuarioController {
     public ResponseEntity<UsoMonopatinesDTO> getUsoMonopatines(@PathVariable Long id){
         return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id));
     }
+    @GetMapping("/monopatinesCercanos/{id}")
+    public ResponseEntity<List<Monopatin>> getByZona(@PathVariable Long id){
+        List<Monopatin> lista = usuarioService.getMonopatinMasCercano(id);
+        return ResponseEntity.ok(lista);
+    }
+    //http://localhost:8003/api/usuario/monopatinesCercanos/7
+    //[{"id":13,"estado":"disponible","latitud":52.52,"longitud":13.405},{"id":32,"estado":"disponible","latitud":52.52,"longitud":13.405}
 
 }
