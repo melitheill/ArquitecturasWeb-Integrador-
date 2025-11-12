@@ -20,24 +20,48 @@ spring:
       server:
         webmvc:
           routes:
-            # USER SERVICE
+            # microservicio viaje
             - id: msvc-viaje
               uri: http://localhost:8001
               predicates:
-                - Path=/viaje/**
+                - Path=api/viaje/**
 
-            # Viajes  SERVICE
+            # microservicio factura
             - id: msvc-factura
               uri: http://localhost:8002
               predicates:
                 - Path=api/factura/**
 
-
-            # Monopatin SERVICE
-            - id: msvc-tarifa
+            # microservicio usuario
+            - id: msvc-usuario
               uri: http://localhost:8003
               predicates:
-                - Path=/tarifa/**
+                - Path=api/usuario/**
+
+            # microservicio monopatin
+            - id: msvc-monopatin
+              uri: http://localhost:8004
+              predicates:
+                - Path=api/monopatin/**
+
+            # microservicio parada
+            - id: msvc-parada
+              uri: http://localhost:8005
+              predicates:
+                - Path=api/parada/**
+
+            # microservicio cuenta
+            - id: msvc-cuenta
+              uri: http://localhost:8007
+              predicates:
+                - Path=api/cuenta/**
+
+            # microservicio tarifa
+            - id: msvc-tarifa
+              uri: http://localhost:8008
+              predicates:
+                - Path=api/tarifa/**
+
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
