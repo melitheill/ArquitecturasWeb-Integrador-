@@ -79,5 +79,17 @@ public class MonopatinController {
          return ResponseEntity.ok(monopatinsByZona);
     }
 
+    @GetMapping("/parada/{id}")
+    public ResponseEntity<List<Monopatin>> getByParada(@PathVariable long id) {
+        List<Monopatin> monopatinsByParada = monopatinService.findbyParada(id);
+        if(monopatinsByParada.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(monopatinsByParada);
+    }
+
+
+
+
 
 }

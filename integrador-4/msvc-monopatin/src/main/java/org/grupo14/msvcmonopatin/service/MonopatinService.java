@@ -3,7 +3,9 @@ package org.grupo14.msvcmonopatin.service;
 import feign.Client;
 import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
+import org.grupo14.msvcmonopatin.feignClients.ParadaFeignCliente;
 import org.grupo14.msvcmonopatin.feignClients.ViajeFeignClient;
+import org.grupo14.msvcmonopatin.model.Parada;
 import org.grupo14.msvcmonopatin.model.Viaje;
 import org.grupo14.msvcmonopatin.repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,12 @@ public class MonopatinService {
     private MonopatinRepository monopatinRepository;
 
     private ViajeFeignClient viajeFeignClient;
+    private ParadaFeignCliente paradaFeignClient;
     private Client feignClient;
 
-    public MonopatinService(ViajeFeignClient viajeFeignClient) {
+    public MonopatinService(ViajeFeignClient viajeFeignClient,ParadaFeignCliente paradaFeignClient) {
         this.viajeFeignClient = viajeFeignClient;
+        this.paradaFeignClient = paradaFeignClient;
     }
 
     public List<Monopatin> findAll() {
@@ -84,4 +88,12 @@ public class MonopatinService {
    public List<Monopatin> findByZona(double lat,double lon){
        return monopatinRepository.findByZona(lat,lon);
   }
+
+   public List<Monopatin> findbyParada(Long id){
+        Parada parada = paradaFeignClient.getParada(id);
+        if(parada == null){
+            throw new RuntimeException("Parada no encontrada con id: " + id);
+        }
+        return monopatinRepository.findByZona(parada.getLatitud(),parada.getLongitud());
+   }
 }
