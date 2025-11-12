@@ -43,8 +43,11 @@ public class SecurityConfig {
                 .securityMatcher("/api/**")
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/factura/**").hasAuthority(AuthorityConstant._ADMIN)
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/usuario/monopatinesCercanos/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/usuario/usoMonopatines/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/api/factura/**").hasAuthority(AuthorityConstant._ADMIN)
+                        .anyRequest().hasAuthority(AuthorityConstant._ADMIN)
                 )
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(new JwtFilter(this.tokenProvider), UsernamePasswordAuthenticationFilter.class);
