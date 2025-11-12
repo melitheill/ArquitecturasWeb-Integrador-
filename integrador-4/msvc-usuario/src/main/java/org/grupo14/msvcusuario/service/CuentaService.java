@@ -33,4 +33,10 @@ public class CuentaService {
         cuentaRepository.delete(cuenta);
         return cuenta;
     }
+
+    public Cuenta anularCuenta(Cuenta cuenta) {
+        cuenta.setAnulada(true);
+        cuentaRepository.save(cuenta);
+        return cuenta;
+    }
 }

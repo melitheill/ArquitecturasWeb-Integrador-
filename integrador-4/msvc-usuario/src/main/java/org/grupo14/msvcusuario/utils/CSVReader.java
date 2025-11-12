@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,14 +76,16 @@ public class CSVReader {
 
     private void insertCuenta() throws IOException {
         for(CSVRecord row : getData("cuentas.csv")){
-            if(row.size() >= 1){
-                String idS = row.get(0);
+            if(row.size() >= 3){
+                String saldoS = row.get(0);
+                String fechaAltaS = row.get(1);
+                String tipo_cuenta = row.get(2);
 
-                if(!idS.isEmpty()){
+                if(!saldoS.isEmpty() && !fechaAltaS.isEmpty() && !tipo_cuenta.isEmpty()){
                     try{
-                        long id = Long.parseLong(idS);
-
-                        Cuenta cuenta = new Cuenta(id);
+                        double saldo = Double.parseDouble(saldoS);
+                        Timestamp fechaAlta = Timestamp.valueOf(fechaAltaS);
+                        Cuenta cuenta = new Cuenta(saldo, fechaAlta, tipo_cuenta);
                         cuentaService.save(cuenta);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
@@ -104,12 +107,13 @@ public class CSVReader {
 
                         long idUsuario = Long.parseLong(idUsuarioS);
                         long idCuenta = Long.parseLong(idCuentaS);
+                        Cuenta cuenta =  cuentaService.findById(idCuenta);
                         if(!map.containsKey(idUsuario)){
                             List<Cuenta> cuentas = new ArrayList<>();
-                            cuentas.add(new Cuenta(idCuenta));
+                            cuentas.add(cuenta);
                             map.put(idUsuario, cuentas);
                         } else {
-                            map.get(idUsuario).add(new Cuenta(idCuenta));
+                            map.get(idUsuario).add(cuenta);
                         }
 
                     } catch (NumberFormatException e){
