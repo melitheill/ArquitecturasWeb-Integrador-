@@ -34,4 +34,9 @@ public class Tarifa {
         return fechaVigencia != null && fechaVigencia.equals(LocalDate.now());
     }
 
+    public Tarifa(int monto_base, int monto_pausa_extensa, LocalDate fechaVigencia) {
+        this.monto_base = monto_base;
+        this.monto_pausa_extensa = monto_pausa_extensa;
+        this.fechaVigencia = fechaVigencia;
+    }
 }
