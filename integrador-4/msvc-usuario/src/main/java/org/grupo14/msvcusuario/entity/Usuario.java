@@ -18,11 +18,18 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private String rol;
+//    private String rol;
     private String mail;
-    private List<String> cuentas;
+//    private List<String> cuentas;
     private double latitud;
     private double longitud;
-    private List<String> monopatines;
+//    private List<String> monopatines;
 
+
+    public Usuario(String nombre, String mail, double latitud, double longitud) {
+        this.nombre = nombre;
+        this.mail = mail;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
 }
