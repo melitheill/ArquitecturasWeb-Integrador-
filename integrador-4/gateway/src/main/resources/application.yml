@@ -52,7 +52,7 @@ spring:
 
             # microservicio cuenta
             - id: msvc-cuenta
-              uri: http://localhost:8007
+              uri: http://localhost:8003
               predicates:
                 - Path=api/cuenta/**
 
