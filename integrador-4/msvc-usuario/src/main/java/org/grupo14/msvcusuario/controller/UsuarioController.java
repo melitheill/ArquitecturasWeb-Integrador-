@@ -59,9 +59,9 @@ public class UsuarioController {
        return ResponseEntity.ok(usuarioService.delete(usuarioDelete));
     }
 
-    @GetMapping("/usoMonopatines/{id}")
-    public ResponseEntity<UsoMonopatinesDTO> getUsoMonopatines(@PathVariable Long id){
-        return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id));
+    @GetMapping("/usoMonopatines/{id}/{year}/{mesInicio}/{mesFin}")
+    public ResponseEntity<UsoMonopatinesDTO> getUsoMonopatines(@PathVariable Long id, @PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin){
+        return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id, year, mesInicio, mesFin));
     }
     @GetMapping("/monopatinesCercanos/{id}")
     public ResponseEntity<List<Monopatin>> getByZona(@PathVariable Long id){

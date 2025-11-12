@@ -85,11 +85,17 @@ public class ViajeService {
         return viajeDTOs;
     }
 
-    public List<ViajeUsuarioDTO> obtenerViajesPorUsuario(Long idUsuario) {
-        List<Viaje> viajes =  viajeRepository.obtenerViajesPorUsuario(idUsuario);
+    public List<ViajeUsuarioDTO> obtenerViajesPorUsuario(Long idUsuario, int year, int mesInicio, int mesFin) {
+        if (mesInicio > mesFin){
+            int aux = mesInicio;
+            mesInicio = mesFin;
+            mesFin = aux;
+        }
+
+        List<Viaje> viajes =  viajeRepository.obtenerViajesPorUsuario(idUsuario, year, mesInicio, mesFin);
         List<ViajeUsuarioDTO> viajesDTO = new ArrayList<>();
         for (Viaje viaje : viajes) {
-            ViajeUsuarioDTO viajeDTO = new ViajeUsuarioDTO(viaje.getKmRecorridos());
+            ViajeUsuarioDTO viajeDTO = new ViajeUsuarioDTO(viaje.getKmRecorridos()+ viaje.getKmRecorridosPausaExtensa(), viaje.getTiempo().getTiempoSinPausas(), viaje.getTiempo().getTiempoPausado());
             viajesDTO.add(viajeDTO);
         }
         return viajesDTO;

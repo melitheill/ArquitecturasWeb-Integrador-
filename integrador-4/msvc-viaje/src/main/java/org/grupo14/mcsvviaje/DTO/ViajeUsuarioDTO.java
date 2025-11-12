@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ViajeUsuarioDTO {
     private int kmRecorridos;
+    private int tiempoUsoSinPausa;
+    private int tiempoUsoConPausa;
 }

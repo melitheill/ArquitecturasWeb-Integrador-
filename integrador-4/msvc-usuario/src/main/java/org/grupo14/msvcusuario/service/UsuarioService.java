@@ -46,13 +46,17 @@ public class UsuarioService {
           return usuario;
     }
 
-    public UsoMonopatinesDTO getUsoMonopatines(Long idUsuario) {
-        List<Viaje> viajes = viajeFeignClient.getViajesUsuario(idUsuario);
+    public UsoMonopatinesDTO getUsoMonopatines(Long idUsuario, int year, int mesInicio, int mesFin) {
+        List<Viaje> viajes = viajeFeignClient.getViajesUsuario(idUsuario, year, mesInicio, mesFin);
         int kmRecorridos = 0;
+        int tiempoUsoSinPausa = 0;
+        int tiempoUsoConPausa = 0;
         for (Viaje viaje : viajes) {
             kmRecorridos = kmRecorridos + viaje.getKmRecorridos();
+            tiempoUsoSinPausa += viaje.getTiempoUsoSinPausa();
+            tiempoUsoConPausa = tiempoUsoConPausa + viaje.getTiempoUsoConPausa();
         }
-        return new UsoMonopatinesDTO(kmRecorridos);
+        return new UsoMonopatinesDTO(kmRecorridos, viajes.size(), tiempoUsoSinPausa, tiempoUsoConPausa);
     }
 
     public List<Monopatin> getMonopatinMasCercano(Long usuarioId) {

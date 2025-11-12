@@ -9,4 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsoMonopatinesDTO {
     private int kmRecorridos;
+    private int cantidadUsos;
+    private int tiempoUsoSinPausa;
+    private int tiempoUsoConPausa;
 }

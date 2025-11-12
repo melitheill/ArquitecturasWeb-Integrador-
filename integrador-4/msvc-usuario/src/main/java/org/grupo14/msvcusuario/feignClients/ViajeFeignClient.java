@@ -10,6 +10,6 @@ import java.util.List;
 @FeignClient(name = "msvc-viaje", url = "localhost:8001/api/viaje")
 public interface ViajeFeignClient {
 
-    @GetMapping("/usuario/{idUsuario}")
-    List<Viaje> getViajesUsuario(@PathVariable Long idUsuario);
+    @GetMapping("/usuario/{idUsuario}/{year}/{mesInicio}/{mesFin}")
+    List<Viaje> getViajesUsuario(@PathVariable Long idUsuario, @PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin);
 }

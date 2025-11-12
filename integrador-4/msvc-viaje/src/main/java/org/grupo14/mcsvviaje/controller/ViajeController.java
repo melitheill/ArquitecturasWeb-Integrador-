@@ -64,8 +64,8 @@ public class ViajeController {
     public ResponseEntity<List<ViajeDTO>> test(@PathVariable Long idMonopatin){
         return ResponseEntity.ok(viajeService.obtenerViajesDelMonopatin(idMonopatin));
     }
-    @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<ViajeUsuarioDTO>> obtenerViajesPorUsuario(@PathVariable Long idUsuario){
-        return ResponseEntity.ok(viajeService.obtenerViajesPorUsuario(idUsuario));
+    @GetMapping("/usuario/{idUsuario}/{year}/{mesInicio}/{mesFin}")
+    public ResponseEntity<List<ViajeUsuarioDTO>> obtenerViajesPorUsuario(@PathVariable Long idUsuario, @PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin){
+        return ResponseEntity.ok(viajeService.obtenerViajesPorUsuario(idUsuario, year, mesInicio, mesFin));
     }
 }
