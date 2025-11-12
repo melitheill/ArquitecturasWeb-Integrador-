@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/factura")
@@ -67,5 +69,21 @@ public class FacturaController {
     public ResponseEntity<FacturaDTO> facturar(@RequestBody FacturaDTO facturaDTO){
         facturaService.facturar(facturaDTO);
         return ResponseEntity.ok(facturaDTO);
+    }
+    @GetMapping("/facturado/{anio}/{mesInicio}/{mesFin}")
+    public ResponseEntity<Map<String, Object>> getTotalFacturadoPorRango(
+            @PathVariable int anio,
+            @PathVariable int mesInicio,
+            @PathVariable int mesFin
+    ) {
+        int total = facturaService.getTotalFacturadoEntre(anio, mesInicio, mesFin);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("anio", anio);
+        response.put("mesInicio", mesInicio);
+        response.put("mesFin", mesFin);
+        response.put("totalFacturado", total);
+
+        return ResponseEntity.ok(response);
     }
 }

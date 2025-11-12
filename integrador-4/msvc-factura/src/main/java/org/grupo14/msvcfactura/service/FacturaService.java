@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.grupo14.msvcfactura.repository.FacturaRepository;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 @Service
@@ -56,6 +58,11 @@ public class FacturaService {
     public Tarifa getTarifa(){
         return tarifaFeignClient.getTarifaActiva();
     }
+    public int getTotalFacturadoEntre(int anio, int mesInicio, int mesFin) {
 
+        int total=0;
+        total += facturaRepository.getTotalFacturadoEntre(anio ,mesInicio, mesFin);
+        return total;
+    }
 
 }
