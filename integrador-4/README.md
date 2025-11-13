@@ -11,6 +11,9 @@
 #### Link al workspace de postman donde se realizaron los test.
 [Postman](https://www.postman.com/tgom/arquitecturas/overview)
 
+#### Link al diagrama.
+[Diagrama](https://excalidraw.com/#room=ee3d3018d1ea5b03d9af,29JZ0sqM_GPW1mZEBCxhcA)
+
 ### Detalles a tener en cuenta
 Por decisiones de implementacion, las facturas se generan a partir de 
 los viajes y los valores se calculan con el precio que existe en tafifa.
