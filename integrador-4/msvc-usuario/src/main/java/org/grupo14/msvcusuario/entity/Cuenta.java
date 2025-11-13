@@ -23,19 +23,12 @@ public class Cuenta {
     private List<Usuario> usuario;
     private double saldo;
     private Timestamp fechaAlta;
-    private String tipo_cuenta;
     private boolean isAnulada;
 
-//    public Cuenta(Long idCuenta) {
-//        this.idCuenta = idCuenta;
-//        this.usuario = new ArrayList<>();
-//    }
-
-    public Cuenta(double saldo, Timestamp fechaAlta, String tipo_cuenta) {
+    public Cuenta(double saldo, Timestamp fechaAlta) {
         this.usuario = new ArrayList<>();
         this.saldo = saldo;
         this.fechaAlta = fechaAlta;
-        this.tipo_cuenta = tipo_cuenta;
         this.isAnulada = false;
     }
 }

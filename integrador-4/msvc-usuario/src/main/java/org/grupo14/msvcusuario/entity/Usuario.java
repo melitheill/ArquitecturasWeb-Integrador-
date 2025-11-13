@@ -16,20 +16,20 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-//    private String rol;
     private String mail;
     @ManyToMany
     private List<Cuenta> cuentas;
     private double latitud;
     private double longitud;
-//    private List<String> monopatines;
+    private String tipoCuenta;
 
 
-    public Usuario(String nombre, String mail, double latitud, double longitud) {
+    public Usuario(String nombre, String mail, double latitud, double longitud, String tipoCuenta) {
         this.nombre = nombre;
         this.mail = mail;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.tipoCuenta = tipoCuenta;
         this.cuentas = new ArrayList<>();
     }
 }

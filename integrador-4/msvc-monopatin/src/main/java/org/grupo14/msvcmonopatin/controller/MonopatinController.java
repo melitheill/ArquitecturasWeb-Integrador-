@@ -55,7 +55,6 @@ public class MonopatinController {
             ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(monopatinService.delete(deleteMonopatin));
-
     }
 
     @GetMapping("/reporte")

@@ -53,18 +53,19 @@ public class CSVReader {
 
     private void insertUsuario() throws IOException {
         for(CSVRecord row : getData("usuarios.csv")){
-            if(row.size() >= 4){
+            if(row.size() >= 5){
                 String nombre = row.get(0);
                 String mail = row.get(1);
                 String latitudS = row.get(2);
                 String longitudS = row.get(3);
+                String tipoCuenta = row.get(4);
 
-                if(!nombre.isEmpty() && !mail.isEmpty() && !latitudS.isEmpty() && !longitudS.isEmpty()){
+                if(!nombre.isEmpty() && !mail.isEmpty() && !latitudS.isEmpty() && !longitudS.isEmpty() && !tipoCuenta.isEmpty()){
                     try{
                         double latitud = Double.parseDouble(latitudS);
                         double longitud = Double.parseDouble(longitudS);
 
-                        Usuario usuario = new Usuario(nombre, mail, latitud, longitud);
+                        Usuario usuario = new Usuario(nombre, mail, latitud, longitud, tipoCuenta);
                         usuarioService.save(usuario);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
@@ -76,16 +77,15 @@ public class CSVReader {
 
     private void insertCuenta() throws IOException {
         for(CSVRecord row : getData("cuentas.csv")){
-            if(row.size() >= 3){
+            if(row.size() >= 2){
                 String saldoS = row.get(0);
                 String fechaAltaS = row.get(1);
-                String tipo_cuenta = row.get(2);
 
-                if(!saldoS.isEmpty() && !fechaAltaS.isEmpty() && !tipo_cuenta.isEmpty()){
+                if(!saldoS.isEmpty() && !fechaAltaS.isEmpty()){
                     try{
                         double saldo = Double.parseDouble(saldoS);
                         Timestamp fechaAlta = Timestamp.valueOf(fechaAltaS);
-                        Cuenta cuenta = new Cuenta(saldo, fechaAlta, tipo_cuenta);
+                        Cuenta cuenta = new Cuenta(saldo, fechaAlta);
                         cuentaService.save(cuenta);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
