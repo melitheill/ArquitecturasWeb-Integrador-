@@ -9,7 +9,7 @@
 ### Integrador 4
 
 #### Link al workspace de postman donde se realizaron los test.
-[Postman](https://www.postman.com/tgom/arquitecturas/overview)
+[Postman](https://www.postman.com/tgom/workspace/integrador-4/collection/19950157-b669c6ee-ff71-4fd0-b01d-ba3c631b620e?action=share&creator=19950157)
 
 #### Link al diagrama.
 [Diagrama](https://excalidraw.com/#room=ee3d3018d1ea5b03d9af,29JZ0sqM_GPW1mZEBCxhcA)

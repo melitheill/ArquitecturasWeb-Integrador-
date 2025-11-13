@@ -84,8 +84,6 @@ public class ViajeController {
             long idMonopatin = (long) o[0];
             Long cant = (Long)o[1];
             res.add(new MonopatinDTOViajes(idMonopatin, cant));
-            System.out.println(o[0]);
-            System.out.println(o[1]);
         }
 
         return ResponseEntity.ok(res);
