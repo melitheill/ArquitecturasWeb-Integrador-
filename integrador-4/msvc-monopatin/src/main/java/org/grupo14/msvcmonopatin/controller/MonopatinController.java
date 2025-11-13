@@ -1,7 +1,6 @@
 package org.grupo14.msvcmonopatin.controller;
 
 import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
-import org.grupo14.msvcmonopatin.dto.MonopatinDTOViajes;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
 import org.grupo14.msvcmonopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,14 +83,6 @@ public class MonopatinController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(monopatinsByParada);
-    }
-    @GetMapping("/mas-de/{cantidad}/anio/{anio}")
-    public ResponseEntity<List<MonopatinDTOViajes>> getMonopatinesConMasDeXViajes(
-            @PathVariable int cantidad,
-            @PathVariable int anio
-    ) {
-        List<MonopatinDTOViajes> dtoList = monopatinService.getMonopatinesConMasDeXViajes(cantidad, anio);
-        return ResponseEntity.ok(dtoList);
     }
 
 }
