@@ -67,7 +67,7 @@ public class ViajeController {
         }
     }
 
-    @GetMapping("/test/{idMonopatin}")
+    @GetMapping("/reporte/{idMonopatin}")
     public ResponseEntity<List<ViajeDTO>> test(@PathVariable Long idMonopatin){
         return ResponseEntity.ok(viajeService.obtenerViajesDelMonopatin(idMonopatin));
     }

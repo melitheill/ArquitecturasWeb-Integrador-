@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "msvc-viaje", url = "localhost:8001/viaje")
+@FeignClient(name = "msvc-viaje", url = "localhost:8001/api/viaje")
 public interface ViajeFeignClient {
 
-    @GetMapping("/test/{idMonopatin}")
+    @GetMapping("/reporte/{idMonopatin}")
     List<Viaje> reporte(@PathVariable Long idMonopatin);
 
 }

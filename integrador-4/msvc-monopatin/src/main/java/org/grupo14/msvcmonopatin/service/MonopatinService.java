@@ -60,8 +60,6 @@ public class MonopatinService {
             int tiempoConPausas = 0;
             int kmRecorridos = 0;
             for (Viaje viaje : viajes) {
-                System.out.println(viaje.getTiempoSinPausas());
-                System.out.println(viaje.getTiempoConPausas());
                 tiempoSinPausas = tiempoSinPausas +  viaje.getTiempoSinPausas();
                 tiempoConPausas = tiempoConPausas +  viaje.getTiempoConPausas();
                 kmRecorridos =  kmRecorridos + viaje.getKmRecorridos();

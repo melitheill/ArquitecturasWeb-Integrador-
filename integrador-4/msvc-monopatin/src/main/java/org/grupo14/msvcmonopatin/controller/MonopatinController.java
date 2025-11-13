@@ -60,7 +60,6 @@ public class MonopatinController {
     @GetMapping("/reporte")
     public ResponseEntity<List<MonopatinDTO>> getMonopatin() {
         List<MonopatinDTO> monopatines = monopatinService.reporte();
-        System.out.println(monopatines);
         return ResponseEntity.ok(monopatines);
     }
 
