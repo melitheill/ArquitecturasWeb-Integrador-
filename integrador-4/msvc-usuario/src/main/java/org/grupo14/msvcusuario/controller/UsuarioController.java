@@ -66,8 +66,8 @@ public class UsuarioController {
         return  ResponseEntity.ok(usuarioService.getUsoMonopatines(id, yearInicio, mesInicio, yearFin, mesFin, otrosUsuarios));
     }
     @GetMapping("/usuariosUsoMonopatines/{yearInicio}/{mesInicio}/{yearFin}/{mesFin}")
-    public ResponseEntity<List<UsuarioUsoDTO>> getUsoMonopatines(@PathVariable int yearInicio, @PathVariable int mesInicio, @PathVariable int yearFin, @PathVariable int mesFin){
-        return  ResponseEntity.ok(usuarioService.usuariosQueMasUsanMonopatines(yearInicio, mesInicio, yearFin, mesFin));
+    public ResponseEntity<List<UsuarioUsoDTO>> getUsoMonopatines(@PathVariable int yearInicio, @PathVariable int mesInicio, @PathVariable int yearFin, @PathVariable int mesFin, @RequestParam(defaultValue = "basica", required = false) String tipoCuenta){
+        return  ResponseEntity.ok(usuarioService.usuariosQueMasUsanMonopatines(yearInicio, mesInicio, yearFin, mesFin, tipoCuenta));
     }
     @GetMapping("/monopatinesCercanos/{id}")
     public ResponseEntity<List<Monopatin>> getByZona(@PathVariable Long id){

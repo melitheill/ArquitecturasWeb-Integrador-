@@ -51,8 +51,8 @@ public class UsuarioService {
           return usuario;
     }
 
-    public List<UsuarioUsoDTO> usuariosQueMasUsanMonopatines(int yearInicio,  int mesInicio, int yearFin, int mesFin) {
-        List<Usuario> usuarios = usuarioRepository.findAll();
+    public List<UsuarioUsoDTO> usuariosQueMasUsanMonopatines(int yearInicio,  int mesInicio, int yearFin, int mesFin, String tipoCuenta) {
+        List<Usuario> usuarios = usuarioRepository.findUsuariosByTipoCuenta(tipoCuenta);
         List<UsuarioUsoDTO> usuariosDto = new ArrayList<>();
         for (Usuario usuario : usuarios) {
             Map<Long, UsoMonopatinesDTO> mapUser = getUsoMonopatines(usuario.getId(), yearInicio,  mesInicio, yearFin, mesFin, false);
