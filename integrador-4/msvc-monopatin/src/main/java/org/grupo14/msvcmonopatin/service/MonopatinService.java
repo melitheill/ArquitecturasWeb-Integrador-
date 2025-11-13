@@ -2,6 +2,7 @@ package org.grupo14.msvcmonopatin.service;
 
 import feign.Client;
 import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
+import org.grupo14.msvcmonopatin.dto.MonopatinDTOViajes;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
 import org.grupo14.msvcmonopatin.feignClients.ParadaFeignClient;
 import org.grupo14.msvcmonopatin.feignClients.ViajeFeignClient;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MonopatinService {
@@ -96,4 +98,12 @@ public class MonopatinService {
         }
         return monopatinRepository.findByZona(parada.getLatitud(),parada.getLongitud());
    }
+
+    public List<MonopatinDTOViajes> getMonopatinesConMasDeXViajes(int cantidad, int anio) {
+        List<MonopatinDTOViajes> viajesPorMonopatin = viajeFeignClient.getCantidadViajesPorMonopatin(anio);
+
+        return viajesPorMonopatin.stream()
+                .filter(dto -> dto.getCantidadViajes() > cantidad)
+                .collect(Collectors.toList());
+    }
 }

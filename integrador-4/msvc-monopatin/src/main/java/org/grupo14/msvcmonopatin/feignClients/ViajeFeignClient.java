@@ -1,5 +1,6 @@
 package org.grupo14.msvcmonopatin.feignClients;
 
+import org.grupo14.msvcmonopatin.dto.MonopatinDTOViajes;
 import org.grupo14.msvcmonopatin.model.Viaje;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,4 +13,7 @@ public interface ViajeFeignClient {
 
     @GetMapping("/test/{idMonopatin}")
     List<Viaje> reporte(@PathVariable Long idMonopatin);
+
+    @GetMapping("/estadisticas/viajes-por-monopatin/{anio}")
+    List<MonopatinDTOViajes> getCantidadViajesPorMonopatin(@PathVariable int anio);
 }

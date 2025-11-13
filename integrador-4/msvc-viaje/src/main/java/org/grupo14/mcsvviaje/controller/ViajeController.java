@@ -1,13 +1,18 @@
 package org.grupo14.mcsvviaje.controller;
 
+import org.apache.logging.log4j.spi.ObjectThreadContextMap;
+
+import org.grupo14.mcsvviaje.DTO.MonopatinDTOViajes;
 import org.grupo14.mcsvviaje.DTO.ViajeDTO;
 import org.grupo14.mcsvviaje.DTO.ViajeUsuarioDTO;
 import org.grupo14.mcsvviaje.entity.Viaje;
+import org.grupo14.mcsvviaje.repository.ViajeRepository;
 import org.grupo14.mcsvviaje.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +21,8 @@ public class ViajeController {
 
     @Autowired
     ViajeService viajeService;
+    @Autowired
+    private ViajeRepository viajeRepository;
 
     @GetMapping("")
     public ResponseEntity<List<Viaje>> getAll(){
@@ -67,5 +74,20 @@ public class ViajeController {
     @GetMapping("/usuario/{idUsuario}/{yearInicio}/{mesInicio}/{yearFin}/{mesFin}")
     public ResponseEntity<List<ViajeUsuarioDTO>> obtenerViajesPorUsuario(@PathVariable Long idUsuario, @PathVariable int yearInicio, @PathVariable int mesInicio,@PathVariable int yearFin,  @PathVariable int mesFin){
         return ResponseEntity.ok(viajeService.obtenerViajesPorUsuario(idUsuario, yearInicio,  mesInicio, yearFin,mesFin));
+    }
+
+    @GetMapping("/estadisticas/viajes-por-monopatin-cantidad/{anio}/{cantidad}")
+    public ResponseEntity<List<MonopatinDTOViajes>> getCantidadViajesPorMonopatinMayor(@PathVariable int anio, @PathVariable int cantidad) {
+        List<Object[]> resultados = viajeRepository.getCantidadViajesPorMonopatinMayor(anio, cantidad);
+        List<MonopatinDTOViajes> res = new ArrayList<MonopatinDTOViajes>();
+        for (Object[] o : resultados) {
+            long idMonopatin = (long) o[0];
+            Long cant = (Long)o[1];
+            res.add(new MonopatinDTOViajes(idMonopatin, cant));
+            System.out.println(o[0]);
+            System.out.println(o[1]);
+        }
+
+        return ResponseEntity.ok(res);
     }
 }
