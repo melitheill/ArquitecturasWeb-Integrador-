@@ -43,7 +43,7 @@ public class CSVReader {
 
     private void insertViaje() throws IOException {
         for(CSVRecord row : getData("viajes.csv")){
-            if(row.size() >= 10){
+            if(row.size() >= 9){
                 String fiS = row.get(0);
                 String ffS = row.get(1);
                 String kmrS = row.get(2);
@@ -51,13 +51,12 @@ public class CSVReader {
                 String pausaS = row.get(4);
                 String piS = row.get(5);
                 String pfS = row.get(6);
-                String tarifaS = row.get(7);
-                String monopatinS = row.get(8);
-                String usuarioS = row.get(9);
+                String monopatinS = row.get(7);
+                String usuarioS = row.get(8);
 
                 if(!fiS.isEmpty() && !ffS.isEmpty() && !kmrS.isEmpty()
                         && !kmpS.isEmpty() && !pausaS.isEmpty() && !piS.isEmpty()
-                        && !pfS.isEmpty() && !tarifaS.isEmpty()
+                        && !pfS.isEmpty()
                         && !monopatinS.isEmpty() && !usuarioS.isEmpty()){
                     try{
                         Timestamp fi = Timestamp.valueOf(fiS);
@@ -67,11 +66,10 @@ public class CSVReader {
                         int pausa = Integer.parseInt(pausaS);
                         long pi = Long.parseLong(piS);
                         long pf = Long.parseLong(pfS);
-                        int tarifa = Integer.parseInt(tarifaS);
                         long monopatin = Long.parseLong(monopatinS);
                         long usuario = Long.parseLong(usuarioS);
 
-                        Viaje viaje = new Viaje(fi, ff, kmr, kmp, pausa, pi, pf, tarifa, monopatin, usuario);
+                        Viaje viaje = new Viaje(fi, ff, kmr, kmp, pausa, pi, pf, monopatin, usuario);
                         viajeService.save(viaje);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());

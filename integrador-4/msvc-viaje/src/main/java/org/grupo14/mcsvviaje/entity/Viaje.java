@@ -23,14 +23,12 @@ public class Viaje {
     @OneToOne
     private Tiempo tiempo;
     private Integer pausa;
-    //TODO cambiar por clases reales
     private Long paradaInicio;
     private Long paradaFin;
-    private Integer tarifa;
     private Long monopatin;
     private Long usuario;
 
-    public Viaje(Timestamp fechaHoraInicio, Timestamp fechaHoraFin, Integer kmRecorridos, Integer kmRecorridosPausaExtensa,  Integer pausa, Long paradaInicio, Long paradaFin, Integer tarifa, Long monopatin, Long usuario) {
+    public Viaje(Timestamp fechaHoraInicio, Timestamp fechaHoraFin, Integer kmRecorridos, Integer kmRecorridosPausaExtensa,  Integer pausa, Long paradaInicio, Long paradaFin, Long monopatin, Long usuario) {
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.kmRecorridos = kmRecorridos;
@@ -39,7 +37,6 @@ public class Viaje {
         this.pausa = pausa;
         this.paradaInicio = paradaInicio;
         this.paradaFin = paradaFin;
-        this.tarifa = tarifa;
         this.monopatin = monopatin;
         this.usuario = usuario;
     }
