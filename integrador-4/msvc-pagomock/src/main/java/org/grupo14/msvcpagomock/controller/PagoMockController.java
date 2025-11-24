@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 public class PagoMockController {
 
 
-    // Simular cargar saldo vía "MercadoPago"
-    @PutMapping("/cargar-saldo")
+
+    // Simular crear una operacion para cargar saldo vía "MercadoPago"
+    @PostMapping("/cargar-saldo")
     public PagoResponseDTO cargarSaldo(@RequestBody PagoRequestDTO request) {
 
         Long nroCuenta = request.getMercadoPagoCuenta();
@@ -34,8 +35,8 @@ public class PagoMockController {
        return new PagoResponseDTO(estado,mensaje);
 
     }
-    // Simular cargar saldo vía "MercadoPago"
-    @PutMapping  ("/abonarViaje")
+    // Simular operacion para abonarcargar saldo vía "MercadoPago"
+    @PostMapping  ("/abonar-viaje")
     public PagoResponseDTO abonarViaje(@RequestBody PagoRequestDTO request) {
 
         Long nroCuenta = request.getMercadoPagoCuenta();

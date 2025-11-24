@@ -80,7 +80,7 @@ public class CuentaController {
         }
     }
 
-    @PutMapping("abonarViaje/{id}/{monto}")
+    @PutMapping("abonar-viaje/{id}/{monto}")
     public ResponseEntity<Cuenta> abonarViaje(@PathVariable Long id,@PathVariable Double monto){
         Cuenta cuenta = cuentaService.findById(id);
         if (cuenta == null) {
@@ -88,6 +88,15 @@ public class CuentaController {
         } else {
             return ResponseEntity.ok(cuentaService.abonarViaje(id, monto));
         }
+    }
+
+    @GetMapping("/saldo/{id}")
+    public ResponseEntity<CuentaDTO> getSaldo(@PathVariable Long id){
+        Cuenta cuenta = cuentaService.findById(id);
+        if (cuenta == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cuentaService.convertirDTO(cuenta));
     }
 
     //melit@MelinaTheill Arquitectura-Integrador/integrador-1 (main)

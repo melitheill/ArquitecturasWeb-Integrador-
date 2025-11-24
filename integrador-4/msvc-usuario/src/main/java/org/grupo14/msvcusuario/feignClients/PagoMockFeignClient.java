@@ -3,6 +3,7 @@ package org.grupo14.msvcusuario.feignClients;
 import org.grupo14.msvcusuario.dto.PagoResponseDTO;
 import org.grupo14.msvcusuario.dto.PagoRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public interface PagoMockFeignClient {
 
-    @PutMapping("/cargar-saldo")
+    @PostMapping("/cargar-saldo")
     public PagoResponseDTO cargarSaldo(@RequestBody PagoRequestDTO request);
 
-    @PutMapping ("/abonarViaje")
+    @PostMapping ("/abonar-viaje")
     public PagoResponseDTO abonarViaje(@RequestBody PagoRequestDTO request);
 
 
