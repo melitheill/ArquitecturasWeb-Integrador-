@@ -2,6 +2,7 @@ package org.grupo14.msvcusuario.service;
 
 import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
+import org.grupo14.msvcusuario.dto.UsuarioDTO;
 import org.grupo14.msvcusuario.dto.UsuarioUsoDTO;
 import org.grupo14.msvcusuario.entity.Cuenta;
 import org.grupo14.msvcusuario.entity.Usuario;
@@ -29,6 +30,17 @@ public class UsuarioService {
 
     private final MonopatinFeignClient monopatinFeignClient;
 
+
+    public List<UsuarioDTO> convertirDTO(List<Usuario> usuarios){
+        List<UsuarioDTO> usuarioDTO = new ArrayList<>();
+        for(Usuario usuario : usuarios){
+            usuarioDTO.add(convertirDTO(usuario));
+        }
+        return usuarioDTO;
+    }
+    public UsuarioDTO convertirDTO(Usuario usuario){
+        return  new UsuarioDTO(usuario.getNombre(), usuario.getMail(), usuario.getLatitud(), usuario.getLongitud(), usuario.getTipoCuenta());
+    }
 
     private final ViajeFeignClient viajeFeignClient;
 

@@ -1,6 +1,7 @@
 package org.grupo14.mcsvviaje.service;
 
 import lombok.RequiredArgsConstructor;
+import org.grupo14.mcsvviaje.DTO.VDTO;
 import org.grupo14.mcsvviaje.DTO.ViajeDTO;
 import org.grupo14.mcsvviaje.DTO.ViajeUsuarioDTO;
 import org.grupo14.mcsvviaje.entity.Tiempo;
@@ -29,6 +30,18 @@ public class ViajeService {
 
 
     private final FacturaFeignClient facturaFeignClient;
+
+    public List<VDTO> convertirDTO(List<Viaje> viajes){
+        List<VDTO> viajeDTO = new ArrayList<>();
+        for(Viaje viaje : viajes){
+            viajeDTO.add(convertirDTO(viaje));
+        }
+        return viajeDTO;
+    }
+    public VDTO convertirDTO(Viaje viaje){
+        return  new VDTO(viaje.getFechaHoraInicio(), viaje.getFechaHoraFin(), viaje.getTiempo(), viaje.getParadaInicio(), viaje.getParadaFin(), viaje.getKmRecorridos() + viaje.getKmRecorridosPausaExtensa(), viaje.getMonopatin(), viaje.getUsuario());
+    }
+
 
     public List<Viaje> getAll(){
         return viajeRepository.findAll();

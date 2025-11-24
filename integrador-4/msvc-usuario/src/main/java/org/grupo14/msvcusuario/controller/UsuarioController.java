@@ -2,6 +2,7 @@ package org.grupo14.msvcusuario.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
+import org.grupo14.msvcusuario.dto.UsuarioDTO;
 import org.grupo14.msvcusuario.dto.UsuarioUsoDTO;
 import org.grupo14.msvcusuario.entity.Usuario;
 import org.grupo14.msvcusuario.model.Monopatin;
@@ -22,21 +23,21 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @GetMapping("")
-    public ResponseEntity<List<Usuario>> getAll(){
+    public ResponseEntity<List<UsuarioDTO>> getAll(){
         List<Usuario> usuarios = usuarioService.getAll();
         if(usuarios.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(usuarios);
+        return ResponseEntity.ok(usuarioService.convertirDTO(usuarios));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getById(@PathVariable Long id){
+    public ResponseEntity<UsuarioDTO> getById(@PathVariable Long id){
         Usuario usuario = usuarioService.findById(id);
         if(usuario == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(usuarioService.convertirDTO(usuario));
 
     }
 

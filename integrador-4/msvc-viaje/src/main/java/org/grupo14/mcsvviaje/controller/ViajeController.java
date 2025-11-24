@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 
 import org.grupo14.mcsvviaje.DTO.MonopatinDTOViajes;
+import org.grupo14.mcsvviaje.DTO.VDTO;
 import org.grupo14.mcsvviaje.DTO.ViajeDTO;
 import org.grupo14.mcsvviaje.DTO.ViajeUsuarioDTO;
 import org.grupo14.mcsvviaje.entity.Viaje;
@@ -27,21 +28,21 @@ public class ViajeController {
     private final ViajeRepository viajeRepository;
 
     @GetMapping("")
-    public ResponseEntity<List<Viaje>> getAll(){
+    public ResponseEntity<List<VDTO>> getAll(){
         List<Viaje> viajes = viajeService.getAll();
         if (viajes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(viajes);
+        return ResponseEntity.ok(viajeService.convertirDTO(viajes));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Viaje> getById(@PathVariable Long id){
+    public ResponseEntity<VDTO> getById(@PathVariable Long id){
         Viaje viaje = viajeService.findById(id);
         if (viaje == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(viaje);
+        return ResponseEntity.ok(viajeService.convertirDTO(viaje));
     }
 
     @PostMapping("")

@@ -2,6 +2,7 @@ package org.grupo14.msvcfactura.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.grupo14.msvcfactura.DTO.FDTO;
 import org.grupo14.msvcfactura.DTO.FacturaDTO;
 import org.grupo14.msvcfactura.Model.Tarifa;
 import org.grupo14.msvcfactura.entity.Factura;
@@ -23,21 +24,22 @@ public class FacturaController {
     private final FacturaService facturaService;
 
     @GetMapping("")
-    public ResponseEntity<List<Factura>> getAll(){
+    public ResponseEntity<List<FDTO>> getAll(){
         List<Factura> facturas = facturaService.findAll();
         if(facturas.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(facturas);
+
+        return ResponseEntity.ok(facturaService.convertirDTO(facturas));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Factura> getById(@PathVariable Long id){
+    public ResponseEntity<FDTO> getById(@PathVariable Long id){
         Factura factura = facturaService.findById(id);
         if(factura == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(factura);
+        return ResponseEntity.ok(facturaService.convertirDTO(factura));
     }
 
     @PostMapping("")

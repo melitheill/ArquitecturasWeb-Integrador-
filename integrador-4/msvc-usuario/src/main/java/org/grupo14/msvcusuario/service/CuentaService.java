@@ -1,6 +1,7 @@
 package org.grupo14.msvcusuario.service;
 
 import lombok.RequiredArgsConstructor;
+import org.grupo14.msvcusuario.dto.CuentaDTO;
 import org.grupo14.msvcusuario.dto.PagoResponseDTO;
 import org.grupo14.msvcusuario.dto.PagoRequestDTO;
 import org.grupo14.msvcusuario.entity.Cuenta;
@@ -9,6 +10,7 @@ import org.grupo14.msvcusuario.feignClients.PagoMockFeignClient;
 import org.grupo14.msvcusuario.repository.CuentaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +19,17 @@ public class CuentaService {
 
     private final CuentaRepository cuentaRepository;
     private final PagoMockFeignClient pagoMockFeignClient;
+
+    public List<CuentaDTO> convertirDTO(List<Cuenta> cuentas){
+        List<CuentaDTO> cuentaDTO = new ArrayList<>();
+        for(Cuenta cuenta : cuentas){
+            cuentaDTO.add(convertirDTO(cuenta));
+        }
+        return cuentaDTO;
+    }
+    public CuentaDTO convertirDTO(Cuenta cuenta){
+        return  new CuentaDTO(cuenta.getNroCuenta(), cuenta.getSaldo(), cuenta.isAnulada());
+    }
 
     public Cuenta save(Cuenta usuario) {
         return cuentaRepository.save(usuario);

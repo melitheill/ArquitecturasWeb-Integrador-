@@ -1,6 +1,7 @@
 package org.example.msvcparada.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.msvcparada.DTO.ParadaDTO;
 import org.example.msvcparada.entity.Parada;
 import org.example.msvcparada.service.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,21 @@ public class ParadaController {
     private final ParadaService paradaService;
 
     @GetMapping("")
-    public ResponseEntity<List<Parada>> getAll(){
-        List<Parada> parada = paradaService.getAll();
-        if (parada.isEmpty()) {
+    public ResponseEntity<List<ParadaDTO>> getAll(){
+        List<Parada> paradas = paradaService.getAll();
+        if (paradas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(parada);
+        return ResponseEntity.ok(paradaService.convertirDTO(paradas));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Parada> getById(@PathVariable Long id){
+    public ResponseEntity<ParadaDTO> getById(@PathVariable Long id){
         Parada parada = paradaService.findById(id);
         if (parada == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(parada);
+        return ResponseEntity.ok(paradaService.convertirDTO(parada));
     }
 
     @PostMapping("")

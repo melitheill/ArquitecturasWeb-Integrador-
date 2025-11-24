@@ -1,6 +1,7 @@
 package org.grupo14.msvcusuario.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.grupo14.msvcusuario.dto.CuentaDTO;
 import org.grupo14.msvcusuario.entity.Cuenta;
 import org.grupo14.msvcusuario.service.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,21 @@ public class CuentaController {
     private final CuentaService cuentaService;
 
     @GetMapping("")
-    public ResponseEntity<List<Cuenta>> getAll(){
+    public ResponseEntity<List<CuentaDTO>> getAll(){
         List<Cuenta> cuentas = cuentaService.getAll();
         if (cuentas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(cuentas);
+        return ResponseEntity.ok(cuentaService.convertirDTO(cuentas));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cuenta> getById(@PathVariable Long id){
+    public ResponseEntity<CuentaDTO> getById(@PathVariable Long id){
         Cuenta cuenta = cuentaService.findById(id);
         if (cuenta == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(cuenta);
+        return ResponseEntity.ok(cuentaService.convertirDTO(cuenta));
     }
 
     @PostMapping("")

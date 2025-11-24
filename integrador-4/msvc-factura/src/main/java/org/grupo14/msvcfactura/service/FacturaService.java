@@ -2,6 +2,7 @@ package org.grupo14.msvcfactura.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.msvcparada.DTO.TarifaDTO;
+import org.grupo14.msvcfactura.DTO.FDTO;
 import org.grupo14.msvcfactura.DTO.FacturaDTO;
 import org.grupo14.msvcfactura.Model.Tarifa;
 import org.grupo14.msvcfactura.entity.Factura;
@@ -12,6 +13,7 @@ import org.grupo14.msvcfactura.repository.FacturaRepository;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,9 +21,18 @@ import java.util.List;
 public class FacturaService {
 
     private final FacturaRepository facturaRepository;
-
-
     private final TarifaFeignClient tarifaFeignClient;
+
+    public List<FDTO> convertirDTO(List<Factura> facturas){
+        List<FDTO> facturaDTO = new ArrayList<>();
+        for(Factura factura : facturas){
+            facturaDTO.add(convertirDTO(factura));
+        }
+        return facturaDTO;
+    }
+    public FDTO convertirDTO(Factura factura){
+        return  new FDTO(factura.getFecha(), factura.getValor());
+    }
 
     public List<Factura> findAll() {
         return facturaRepository.findAll();
