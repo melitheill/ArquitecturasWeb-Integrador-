@@ -68,4 +68,32 @@ public class CuentaController {
             return ResponseEntity.ok(cuentaService.anularCuenta(cuenta));
         }
     }
+
+    @PutMapping("cargar-saldo/{id}/{monto}")
+    public ResponseEntity<Cuenta> cargarSaldo(@PathVariable Long id,@PathVariable Double monto){
+        Cuenta cuenta = cuentaService.findById(id);
+        if (cuenta == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(cuentaService.cargarSaldo(id, monto));
+        }
+    }
+
+    @PutMapping("abonarViaje/{id}/{monto}")
+    public ResponseEntity<Cuenta> abonarViaje(@PathVariable Long id,@PathVariable Double monto){
+        Cuenta cuenta = cuentaService.findById(id);
+        if (cuenta == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(cuentaService.abonarViaje(id, monto));
+        }
+    }
+
+    //melit@MelinaTheill Arquitectura-Integrador/integrador-1 (main)
+    //$ curl -X PUT http://localhost:8003/api/cuenta/cargar-saldo/1/500
+    //{"nroCuenta":1,"saldo":7500.5,"fechaAlta":"2024-11-10T12:30:00.000+00:00","anulada":false}
+    //melit@MelinaTheill /Arquitectura-Integrador/integrador-1 (main)
+    //$  curl -X PUT http://localhost:8003/api/cuenta/abonarViaje/1/500
+    //{"nroCuenta":1,"saldo":7000.5,"fechaAlta":"2024-11-10T12:30:00.000+00:00","anulada":false}
+
 }

@@ -1,8 +1,11 @@
 package org.grupo14.msvcusuario.service;
 
 import lombok.RequiredArgsConstructor;
+import org.grupo14.msvcusuario.dto.PagoResponseDTO;
+import org.grupo14.msvcusuario.dto.PagoRequestDTO;
 import org.grupo14.msvcusuario.entity.Cuenta;
 import org.grupo14.msvcusuario.entity.Usuario;
+import org.grupo14.msvcusuario.feignClients.PagoMockFeignClient;
 import org.grupo14.msvcusuario.repository.CuentaRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ import java.util.List;
 public class CuentaService {
 
     private final CuentaRepository cuentaRepository;
+    private final PagoMockFeignClient pagoMockFeignClient;
 
     public Cuenta save(Cuenta usuario) {
         return cuentaRepository.save(usuario);
@@ -39,5 +43,44 @@ public class CuentaService {
         cuenta.setAnulada(true);
         cuentaRepository.save(cuenta);
         return cuenta;
+    }
+
+    public Cuenta cargarSaldo(Long nroCuenta, Double monto) {
+        Cuenta cuenta = cuentaRepository.findById(nroCuenta).orElseThrow();
+
+        // llamás al mock de MP
+        PagoRequestDTO request = new PagoRequestDTO(nroCuenta, monto);
+        PagoResponseDTO response = pagoMockFeignClient.cargarSaldo(request);
+
+        if ("APROBADO".equalsIgnoreCase(response.getEstado())) {
+            cuenta.setSaldo(cuenta.getSaldo() + monto);
+            cuentaRepository.save(cuenta);
+            return cuenta ;
+        } else {
+            // si querés, manejar caso rechazado
+            throw new IllegalStateException("Pago rechazado por servicio de pago: " + response.getMensaje());
+        }
+    }
+
+    public Cuenta abonarViaje (Long nroCuenta, Double monto) {
+        Cuenta cuenta = cuentaRepository.findById(nroCuenta).orElseThrow();;
+        Double posibleSaldo= cuenta.getSaldo() - monto;
+
+        if (posibleSaldo < 0) {
+            throw new IllegalStateException("Pago rechazado por falta de saldo");
+        }
+
+        // llamás al mock de MP
+        PagoRequestDTO request = new PagoRequestDTO(nroCuenta, monto);
+        PagoResponseDTO response = pagoMockFeignClient.abonarViaje(request);
+
+        if ("APROBADO".equalsIgnoreCase(response.getEstado())) {
+            cuenta.setSaldo(cuenta.getSaldo() - monto);
+            cuentaRepository.save(cuenta);
+            return cuenta ;
+        } else {
+            // si querés, manejar caso rechazado
+            throw new IllegalStateException("Pago rechazado por servicio de pago: " + response.getMensaje());
+        }
     }
 }

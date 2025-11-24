@@ -1,0 +1,15 @@
+package org.grupo14.msvcusuario.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class PagoRequestDTO {
+
+        private Long mercadoPagoCuenta;
+        private Double monto;
+
+}
