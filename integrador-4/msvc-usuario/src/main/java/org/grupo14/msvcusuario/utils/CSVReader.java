@@ -14,10 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CSVReader {
@@ -52,6 +49,8 @@ public class CSVReader {
     }
 
     private void insertUsuario() throws IOException {
+        long idUsuario = 1L;  // contador de ids empezando en 1
+
         for(CSVRecord row : getData("usuarios.csv")){
             if(row.size() >= 5){
                 String nombre = row.get(0);
@@ -66,6 +65,9 @@ public class CSVReader {
                         double longitud = Double.parseDouble(longitudS);
 
                         Usuario usuario = new Usuario(nombre, mail, latitud, longitud, tipoCuenta);
+
+                        usuario.setId(idUsuario++);
+
                         usuarioService.save(usuario);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());
@@ -76,6 +78,8 @@ public class CSVReader {
     }
 
     private void insertCuenta() throws IOException {
+        long idCuentas = 1L;  // contador de ids empezando en 1
+
         for(CSVRecord row : getData("cuentas.csv")){
             if(row.size() >= 2){
                 String saldoS = row.get(0);
@@ -84,8 +88,9 @@ public class CSVReader {
                 if(!saldoS.isEmpty() && !fechaAltaS.isEmpty()){
                     try{
                         double saldo = Double.parseDouble(saldoS);
-                        Timestamp fechaAlta = Timestamp.valueOf(fechaAltaS);
+                        Date fechaAlta = Timestamp.valueOf(fechaAltaS);
                         Cuenta cuenta = new Cuenta(saldo, fechaAlta);
+                        cuenta.setNroCuenta(idCuentas++);
                         cuentaService.save(cuenta);
                     } catch (NumberFormatException e){
                         System.err.println("Error" + e.getMessage());

@@ -1,31 +1,34 @@
 package org.grupo14.msvcusuario.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Timestamp;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(collection = "cuentas")
 public class Cuenta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nroCuenta;
     @JsonIgnore
-    @ManyToMany(mappedBy = "cuentas")
+    @DBRef
     private List<Usuario> usuario;
     private double saldo;
-    private Timestamp fechaAlta;
+    private Date fechaAlta;
     private boolean isAnulada;
 
-    public Cuenta(double saldo, Timestamp fechaAlta) {
+    public Cuenta(double saldo, Date fechaAlta) {
         this.usuario = new ArrayList<>();
         this.saldo = saldo;
         this.fechaAlta = fechaAlta;

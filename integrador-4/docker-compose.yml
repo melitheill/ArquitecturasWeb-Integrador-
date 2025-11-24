@@ -1,0 +1,18 @@
+services:
+  db-mongo:
+    container_name: mongo
+    image: mongo:latest
+    command:
+      - --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: db_mscv_usuario
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+volumes:
+      mongo_data:
