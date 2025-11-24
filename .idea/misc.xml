@@ -20,6 +20,7 @@
         <option value="$PROJECT_DIR$/integrador-4/msvc/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/msvc-monopatin/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/msvc-cuenta/pom.xml" />
+        <option value="$PROJECT_DIR$/integrador-4/msvc-ia/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/msvc-mercadopago/pom.xml" />
         <option value="$PROJECT_DIR$/integrador-4/msvc-pagomock/pom.xml" />
       </list>
