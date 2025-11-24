@@ -1,5 +1,6 @@
 package org.grupo14.msvcmonopatin.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
 import org.grupo14.msvcmonopatin.service.MonopatinService;
@@ -11,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/monopatin")
+@RequiredArgsConstructor
 public class MonopatinController {
 
-    @Autowired
-    MonopatinService monopatinService;
+
+    private final MonopatinService monopatinService;
 
     @RequestMapping("")
     public ResponseEntity<List<Monopatin>> getAll() {

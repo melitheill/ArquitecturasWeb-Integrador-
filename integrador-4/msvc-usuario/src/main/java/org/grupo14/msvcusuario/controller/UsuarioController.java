@@ -1,5 +1,6 @@
 package org.grupo14.msvcusuario.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
 import org.grupo14.msvcusuario.dto.UsuarioUsoDTO;
 import org.grupo14.msvcusuario.entity.Usuario;
@@ -14,10 +15,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/usuario")
+@RequiredArgsConstructor
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService usuarioService;
+
+    private final UsuarioService usuarioService;
 
     @GetMapping("")
     public ResponseEntity<List<Usuario>> getAll(){

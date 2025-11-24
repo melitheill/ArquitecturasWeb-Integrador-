@@ -1,5 +1,6 @@
 package org.example.msvcparada.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.msvcparada.entity.Parada;
 import org.example.msvcparada.repository.ParadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ParadaService {
 
-    @Autowired
-    ParadaRepository paradaRepository;
+
+    private final ParadaRepository paradaRepository;
 
     public List<Parada> getAll() {return paradaRepository.findAll();}
 

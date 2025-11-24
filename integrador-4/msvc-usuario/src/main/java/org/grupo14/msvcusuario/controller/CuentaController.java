@@ -1,5 +1,6 @@
 package org.grupo14.msvcusuario.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcusuario.entity.Cuenta;
 import org.grupo14.msvcusuario.service.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cuenta")
+@RequiredArgsConstructor
 public class CuentaController {
 
-    @Autowired
-    CuentaService cuentaService;
+
+    private final CuentaService cuentaService;
 
     @GetMapping("")
     public ResponseEntity<List<Cuenta>> getAll(){

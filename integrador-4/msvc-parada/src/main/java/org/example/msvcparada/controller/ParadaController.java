@@ -1,5 +1,6 @@
 package org.example.msvcparada.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.msvcparada.entity.Parada;
 import org.example.msvcparada.service.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/parada")
+@RequiredArgsConstructor
 public class ParadaController {
 
-    @Autowired
-    ParadaService paradaService;
+
+    private final ParadaService paradaService;
 
     @GetMapping("")
     public ResponseEntity<List<Parada>> getAll(){

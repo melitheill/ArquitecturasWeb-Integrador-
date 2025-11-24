@@ -1,5 +1,6 @@
 package org.grupo14.mcsvviaje.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 
 import org.grupo14.mcsvviaje.DTO.MonopatinDTOViajes;
@@ -17,12 +18,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/viaje")
+@RequiredArgsConstructor
 public class ViajeController {
 
-    @Autowired
-    ViajeService viajeService;
-    @Autowired
-    private ViajeRepository viajeRepository;
+
+    private final ViajeService viajeService;
+
+    private final ViajeRepository viajeRepository;
 
     @GetMapping("")
     public ResponseEntity<List<Viaje>> getAll(){

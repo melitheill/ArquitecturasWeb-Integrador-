@@ -1,5 +1,6 @@
 package org.example.msvctarifa.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.msvctarifa.DTO.TarifaDTO;
 import org.example.msvctarifa.entity.Tarifa;
 import org.example.msvctarifa.service.TarifaService;
@@ -15,10 +16,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tarifa")
+@RequiredArgsConstructor
 public class TarifaController {
 
-    @Autowired
-    TarifaService tarifaService;
+
+    private final TarifaService tarifaService;
 
     @GetMapping("")
     public ResponseEntity<List<Tarifa>> getAll(){

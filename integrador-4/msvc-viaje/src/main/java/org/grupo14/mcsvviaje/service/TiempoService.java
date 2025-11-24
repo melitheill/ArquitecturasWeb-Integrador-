@@ -1,5 +1,6 @@
 package org.grupo14.mcsvviaje.service;
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.mcsvviaje.entity.Tiempo;
 import org.grupo14.mcsvviaje.entity.Viaje;
 import org.grupo14.mcsvviaje.repository.TiempoRepository;
@@ -9,9 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TiempoService {
-    @Autowired
-    TiempoRepository tiempoRepository;
+
+    private final TiempoRepository tiempoRepository;
 
     public Tiempo save(Tiempo tiempo){
         return tiempoRepository.save(tiempo);

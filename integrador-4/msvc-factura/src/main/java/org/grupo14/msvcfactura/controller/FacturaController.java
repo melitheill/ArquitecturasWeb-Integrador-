@@ -1,6 +1,7 @@
 package org.grupo14.msvcfactura.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcfactura.DTO.FacturaDTO;
 import org.grupo14.msvcfactura.Model.Tarifa;
 import org.grupo14.msvcfactura.entity.Factura;
@@ -15,10 +16,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/factura")
+@RequiredArgsConstructor
 public class FacturaController {
 
-    @Autowired
-    FacturaService facturaService;
+
+    private final FacturaService facturaService;
 
     @GetMapping("")
     public ResponseEntity<List<Factura>> getAll(){

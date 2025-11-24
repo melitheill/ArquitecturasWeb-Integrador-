@@ -1,6 +1,7 @@
 package org.example.msvctarifa.service;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.msvctarifa.DTO.TarifaDTO;
 import org.example.msvctarifa.entity.Tarifa;
 import org.example.msvctarifa.repository.TarifaRepository;
@@ -12,10 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TarifaService {
 
-    @Autowired
-    TarifaRepository tarifaRepository;
+
+    private final TarifaRepository tarifaRepository;
 
     public List<Tarifa> getAll() {return tarifaRepository.findAll();}
     @Transactional

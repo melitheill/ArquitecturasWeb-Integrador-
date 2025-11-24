@@ -1,6 +1,7 @@
 package org.grupo14.msvcmonopatin;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcmonopatin.utils.LoadDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,10 +12,11 @@ import java.io.IOException;
 
 @SpringBootApplication
 @EnableFeignClients
+@RequiredArgsConstructor
 public class MsvcMonopatinApplication {
 
-    @Autowired
-    private LoadDatabase loadDatabase;
+
+    private final LoadDatabase loadDatabase;
 
     public static void main(String[] args) {
         SpringApplication.run(MsvcMonopatinApplication.class, args);

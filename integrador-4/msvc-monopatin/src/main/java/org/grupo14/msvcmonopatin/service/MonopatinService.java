@@ -1,6 +1,7 @@
 package org.grupo14.msvcmonopatin.service;
 
 import feign.Client;
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcmonopatin.dto.MonopatinDTO;
 import org.grupo14.msvcmonopatin.entity.Monopatin;
 import org.grupo14.msvcmonopatin.feignClients.ParadaFeignClient;
@@ -15,19 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MonopatinService {
 
-    @Autowired
-    private MonopatinRepository monopatinRepository;
+
+    private final MonopatinRepository monopatinRepository;
 
     private ViajeFeignClient viajeFeignClient;
     private ParadaFeignClient paradaFeignClient;
     private Client feignClient;
 
-    public MonopatinService(ViajeFeignClient viajeFeignClient, ParadaFeignClient paradaFeignClient) {
-        this.viajeFeignClient = viajeFeignClient;
-        this.paradaFeignClient = paradaFeignClient;
-    }
+
 
     public List<Monopatin> findAll() {
         return monopatinRepository.findAll();

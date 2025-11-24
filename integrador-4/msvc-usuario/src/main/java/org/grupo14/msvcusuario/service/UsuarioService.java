@@ -1,5 +1,6 @@
 package org.grupo14.msvcusuario.service;
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
 import org.grupo14.msvcusuario.dto.UsuarioUsoDTO;
 import org.grupo14.msvcusuario.entity.Cuenta;
@@ -20,15 +21,16 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
-    private MonopatinFeignClient monopatinFeignClient;
 
-    @Autowired
-    private ViajeFeignClient viajeFeignClient;
+    private final UsuarioRepository usuarioRepository;
+
+    private final MonopatinFeignClient monopatinFeignClient;
+
+
+    private final ViajeFeignClient viajeFeignClient;
 
     public Usuario save(Usuario usuario) {
        return usuarioRepository.save(usuario);

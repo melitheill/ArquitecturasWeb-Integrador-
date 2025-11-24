@@ -1,5 +1,6 @@
 package org.grupo14.mcsvviaje.service;
 
+import lombok.RequiredArgsConstructor;
 import org.grupo14.mcsvviaje.DTO.ViajeDTO;
 import org.grupo14.mcsvviaje.DTO.ViajeUsuarioDTO;
 import org.grupo14.mcsvviaje.entity.Tiempo;
@@ -17,16 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ViajeService {
 
-    @Autowired
-    ViajeRepository viajeRepository;
 
-    @Autowired
-    TiempoService tiempoService;
+    private final ViajeRepository viajeRepository;
 
-    @Autowired
-    FacturaFeignClient facturaFeignClient;
+
+    private final TiempoService tiempoService;
+
+
+    private final FacturaFeignClient facturaFeignClient;
 
     public List<Viaje> getAll(){
         return viajeRepository.findAll();

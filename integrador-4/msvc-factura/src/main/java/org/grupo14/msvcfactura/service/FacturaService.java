@@ -17,8 +17,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FacturaService {
-    @Autowired
-    private FacturaRepository facturaRepository;
+
+    private final FacturaRepository facturaRepository;
+
 
     private final TarifaFeignClient tarifaFeignClient;
 
