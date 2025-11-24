@@ -1,0 +1,9 @@
+GET "/api/usuario" getAll
+GET "/api/usuario/{id}" getById
+POST "/api/usuario" create
+PUT "/api/usuario/{id}" update
+DELETE "/api/usuario/{id}" delete
+GET "/api/usuario/usoMonopatines/{id}/{yearInicio}/{mesInicio}/{yearFin}/{mesFin}?otrosUsuarios=(true or false) getUsoMonopatines
+GET "/api/usuario/usoMonopatines/{id}/{yearInicio}/{mesInicio}/{yearFin}/{mesFin} usuariosQueMasUsanMonopatines
+GET "/api/usuario/monopatinesCercanos/{id}" getByZona
+
