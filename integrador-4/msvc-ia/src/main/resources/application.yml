@@ -1,20 +1,9 @@
 server:
-  port: 8082
+  port: 8009
 
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/ia_crud_persona?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+  application:
+    name: msvc-ia
 
 groq:
   api-key: ${GROQ_API_KEY}

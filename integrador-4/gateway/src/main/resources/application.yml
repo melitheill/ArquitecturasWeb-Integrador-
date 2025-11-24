@@ -62,6 +62,18 @@ spring:
               predicates:
                 - Path=api/tarifa/**
 
+            # microservicio tarifa
+            - id: msvc-ia
+              uri: http://localhost:8009
+              predicates:
+                - Path=api/ia/**
+
+            # microservicio tarifa
+            - id: msvc-pagomock
+              uri: http://localhost:8006
+              predicates:
+                - Path=api/mp/**
+
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
