@@ -22,9 +22,9 @@ public class MonopatinService {
 
     private final MonopatinRepository monopatinRepository;
 
-    private ViajeFeignClient viajeFeignClient;
-    private ParadaFeignClient paradaFeignClient;
-    private Client feignClient;
+    private final ViajeFeignClient viajeFeignClient;
+    private final ParadaFeignClient paradaFeignClient;
+//    private final Client feignClient;
 
 
 
