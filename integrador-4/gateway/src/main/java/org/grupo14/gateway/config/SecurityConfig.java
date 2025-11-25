@@ -1,5 +1,6 @@
 package org.grupo14.gateway.config;
 
+import org.grupo14.gateway.security.AuthorityConstant;
 import org.grupo14.gateway.security.jwt.JwtFilter;
 import org.grupo14.gateway.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
@@ -45,8 +46,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/usuario/monopatinesCercanos/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/usuario/usoMonopatines/**").permitAll()
-//                        .anyRequest().hasAuthority(AuthorityConstant._ADMIN)
-                        .anyRequest().permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/ia/**").hasAuthority(AuthorityConstant._PREMIUM)
+                        .anyRequest().hasAuthority(AuthorityConstant._ADMIN)
+//                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(new JwtFilter(this.tokenProvider), UsernamePasswordAuthenticationFilter.class);

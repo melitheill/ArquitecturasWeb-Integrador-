@@ -6,4 +6,5 @@ public class AuthorityConstant {
 
     public static final String _ADMIN = "ADMIN";
     public static final String _USER = "USER";
+    public static final String _PREMIUM = "PREMIUM_USER";
 }

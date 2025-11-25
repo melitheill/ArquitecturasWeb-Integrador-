@@ -19,9 +19,9 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-//    @PostConstruct
-//    public void init() throws IOException {
-//        loadDatabase.cargarDatos();
-//    }
+    @PostConstruct
+    public void init() throws IOException {
+        loadDatabase.cargarDatos();
+    }
 
 }
