@@ -3,6 +3,7 @@ package org.grupo14.msvcusuario.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Cuenta {
     @JsonIgnore
     @DBRef
     private List<Usuario> usuario;
+
     private double saldo;
     private Date fechaAlta;
     private boolean isAnulada;

@@ -1,5 +1,7 @@
 package org.grupo14.mcsvviaje.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 
@@ -52,7 +54,7 @@ public class ViajeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Viaje> update(@PathVariable Long id, @RequestBody Viaje viaje){
+    public ResponseEntity<Viaje> update(@PathVariable Long id,@RequestBody Viaje viaje){
         Viaje v = viajeService.findById(id);
         if (v == null) {
             return ResponseEntity.notFound().build();

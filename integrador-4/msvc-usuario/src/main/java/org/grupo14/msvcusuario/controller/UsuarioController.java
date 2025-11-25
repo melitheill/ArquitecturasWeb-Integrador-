@@ -1,5 +1,6 @@
 package org.grupo14.msvcusuario.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.grupo14.msvcusuario.dto.UsoMonopatinesDTO;
 import org.grupo14.msvcusuario.dto.UsuarioDTO;
@@ -47,7 +48,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> update(@PathVariable Long id,@Valid @RequestBody Usuario usuario){
          Usuario usuarioUpdate = usuarioService.findById(id);
          if(usuarioUpdate == null){
              return ResponseEntity.notFound().build();
