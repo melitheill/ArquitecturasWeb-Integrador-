@@ -40,6 +40,8 @@ public class CSVReader {
 
     public void cargarDatos() throws IOException {
         try {
+            usuarioService.deleteAll();
+            cuentaService.deleteAll();
             insertCuenta();
             insertUsuario();
             agregarCuentaAUsuario();
@@ -109,16 +111,19 @@ public class CSVReader {
 
                 if(!idUsuarioS.isEmpty() && !idCuentaS.isEmpty()){
                     try{
-
                         long idUsuario = Long.parseLong(idUsuarioS);
                         long idCuenta = Long.parseLong(idCuentaS);
                         Cuenta cuenta =  cuentaService.findById(idCuenta);
                         if(!map.containsKey(idUsuario)){
                             List<Cuenta> cuentas = new ArrayList<>();
                             cuentas.add(cuenta);
+                            cuenta.getUsuario().add(usuarioService.findById(idUsuario));
+                            cuentaService.save(cuenta);
                             map.put(idUsuario, cuentas);
                         } else {
+                            cuenta.getUsuario().add(usuarioService.findById(idUsuario));
                             map.get(idUsuario).add(cuenta);
+                            cuentaService.save(cuenta);
                         }
 
                     } catch (NumberFormatException e){

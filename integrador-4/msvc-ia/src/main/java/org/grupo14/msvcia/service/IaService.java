@@ -1,6 +1,5 @@
 package org.grupo14.msvcia.service;
 
-import jakarta.transaction.Transactional;
 import org.grupo14.msvcia.client.GroqClient;
 import org.grupo14.msvcia.dto.RespuestaApi;
 import org.slf4j.Logger;
@@ -42,7 +41,6 @@ public class IaService {
         }
     }
 
-    @Transactional
     public ResponseEntity<?> procesarPrompt(String promptUsuario){
         try{
             String promptFinal = """

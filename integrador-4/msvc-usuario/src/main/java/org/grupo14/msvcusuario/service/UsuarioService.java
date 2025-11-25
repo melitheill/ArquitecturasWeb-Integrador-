@@ -48,6 +48,10 @@ public class UsuarioService {
        return usuarioRepository.save(usuario);
     }
 
+    public void deleteAll(){
+        usuarioRepository.deleteAll();
+    }
+
     public List<Usuario> getAll() {
         return usuarioRepository.findAll();
     }
@@ -85,14 +89,14 @@ public class UsuarioService {
         if (otrosUsuarios) {
             Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
             if (usuario != null) {
-                //devuelve el uso de los usuarios de todas las cuentas asociadas
-                List<Cuenta> cuentas = usuario.getCuentas();
-                for (Cuenta cuenta : cuentas) {
-                    List<Usuario> usuarios = cuenta.getUsuario();
-                    for (Usuario u : usuarios) {
-                        result.put(u.getId(), getUsoMonopatinesDTO(u.getId(), yearInicio, mesInicio, yearFin,  mesFin));
+                usuario.getCuentas().forEach((cuenta) -> {
+                    for (int i=0 ; i < cuenta.getUsuario().size(); i++){
+                        Long id = cuenta.getUsuario().get(i).getId();
+                        if (!id.equals(idUsuario)){
+                            result.put(id, getUsoMonopatinesDTO(id, yearInicio, mesInicio, yearFin,  mesFin));
+                        }
                     }
-                }
+                });
             }
         }
         return result;

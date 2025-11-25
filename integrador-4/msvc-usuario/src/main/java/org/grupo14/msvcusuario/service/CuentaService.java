@@ -52,6 +52,10 @@ public class CuentaService {
         return cuenta;
     }
 
+    public void deleteAll() {
+        cuentaRepository.deleteAll();
+    }
+
     public Cuenta anularCuenta(Cuenta cuenta) {
         cuenta.setAnulada(true);
         cuentaRepository.save(cuenta);
