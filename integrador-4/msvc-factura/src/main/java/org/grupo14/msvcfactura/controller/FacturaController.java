@@ -7,7 +7,6 @@ import org.grupo14.msvcfactura.DTO.FacturaDTO;
 import org.grupo14.msvcfactura.Model.Tarifa;
 import org.grupo14.msvcfactura.entity.Factura;
 import org.grupo14.msvcfactura.service.FacturaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,10 +64,6 @@ public class FacturaController {
         return ResponseEntity.ok(facturaService.delete(factura));
     }
 
-    @GetMapping("/helloWorld")
-    public Tarifa helloWorld(){
-        return facturaService.getTarifa();
-    }
     @PostMapping("/facturar")
     public ResponseEntity<FacturaDTO> facturar(@RequestBody FacturaDTO facturaDTO){
         facturaService.facturar(facturaDTO);

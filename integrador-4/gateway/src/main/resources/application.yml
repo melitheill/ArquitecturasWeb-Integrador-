@@ -4,8 +4,6 @@ server:
 spring:
   application:
     name: gateway
-#  config:
-#    import: optional:configserver:http://localhost:8081
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/auth?createDatabaseIfNotExist=true
@@ -62,13 +60,13 @@ spring:
               predicates:
                 - Path=api/tarifa/**
 
-            # microservicio tarifa
+            # microservicio ia
             - id: msvc-ia
               uri: http://localhost:8009
               predicates:
                 - Path=api/ia/**
 
-            # microservicio tarifa
+            # microservicio mp
             - id: msvc-pagomock
               uri: http://localhost:8006
               predicates:

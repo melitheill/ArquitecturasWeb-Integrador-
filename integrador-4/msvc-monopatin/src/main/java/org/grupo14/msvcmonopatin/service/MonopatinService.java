@@ -24,9 +24,6 @@ public class MonopatinService {
 
     private final ViajeFeignClient viajeFeignClient;
     private final ParadaFeignClient paradaFeignClient;
-//    private final Client feignClient;
-
-
 
     public List<Monopatin> findAll() {
         return monopatinRepository.findAll();

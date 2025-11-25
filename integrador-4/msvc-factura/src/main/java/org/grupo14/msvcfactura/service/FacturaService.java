@@ -67,9 +67,6 @@ public class FacturaService {
                  + km_recorridosConPausa * monto_km_recorridosConPausa;
         return facturaRepository.save(new Factura(montoTotal,facturaDTO.getFecha()));
     }
-    public Tarifa getTarifa(){
-        return tarifaFeignClient.getTarifaActiva();
-    }
     public int getTotalFacturadoEntre(int anio, int mesInicio, int mesFin) {
 
         int total=0;

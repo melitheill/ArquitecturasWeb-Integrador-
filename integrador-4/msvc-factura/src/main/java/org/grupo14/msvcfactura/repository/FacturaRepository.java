@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Long> {
@@ -18,5 +17,4 @@ public interface FacturaRepository extends JpaRepository<Factura, Long> {
                                @Param("mesInicio") int mesInicio,
                                @Param("mesFin") int mesFin);
 
-    LocalDate fecha(LocalDate fecha);
 }

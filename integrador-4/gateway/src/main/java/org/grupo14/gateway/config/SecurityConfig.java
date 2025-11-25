@@ -1,6 +1,5 @@
 package org.grupo14.gateway.config;
 
-import org.grupo14.gateway.security.AuthorityConstant;
 import org.grupo14.gateway.security.jwt.JwtFilter;
 import org.grupo14.gateway.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
